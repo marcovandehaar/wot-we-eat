@@ -1,0 +1,90 @@
+@startuml MealPlanningClassDiagram
+
+enum MealBase {
+    Potato
+    Pasta
+    Dough
+    Rice
+}
+
+enum MeatFishType {
+    Meat
+    Fish
+}
+
+enum MealRating {
+    Excellent
+    Good
+    Average
+    Poor
+}
+
+enum ReasonNotChosen {
+    NotToday
+    TooMuchWork
+    TooUnhealthy
+    Other
+}
+
+enum AmountOfWork {
+    PieceOfCake
+    Average
+    LotOfWork
+}
+
+enum Healthy {
+    Healthy
+    Average
+    Unhealthy
+}
+
+class MealOption {
+  + ReferenceId: Guid
+  + Description: String
+  + MealBase: MealBase
+  + SuitableForChildren: Boolean
+  + AmountOfWork: AmountOfWork
+  + Healthy: Healthy
+}
+
+class Vegetable {
+  + ReferenceId: Guid
+  + Name: String
+}
+
+class MeatFish {
+  + ReferenceId: Guid
+  + Name: String
+  + Type: MeatFishType
+}
+
+class MealVariation {
+  + ReferenceId: Guid
+  + Description: String
+}
+
+class Meal {
+  + ReferenceId: Guid
+  + Date: Date
+  + Rating: MealRating
+  + WithChildren: Boolean
+}
+
+class MealSuggestion {
+  + ReferenceId: Guid
+  + Option: MealOption
+  + ResultedInMeal: Meal
+  + DateSuggested: Date
+  + Choice: Boolean
+  + ReasonNotChosen: ReasonNotChosen
+}
+
+Meal --> "1" MealOption : Option
+Meal --> "0..1" MealVariation : Variation
+Meal --> "0..1" MeatFish : MeatFish
+Meal --> "0..*" MealVariation : PossibleVariations
+Meal --> "0..*" Vegetable : Vegetables
+MealSuggestion --> "1" MealOption : Option
+MealSuggestion --> "0..1" Meal : ResultedInMeal
+
+@enduml

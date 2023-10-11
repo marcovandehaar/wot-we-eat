@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotWeEat.Api", "wot-we-eat-api\WotWeEat.Api.csproj", "{73E914DA-5C91-495A-AEC5-05F3743BFD0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotWeEat.Domain", "Domain\WotWeEat.Domain.csproj", "{35570B3C-D58C-4E39-B2FA-6D5AFE716752}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73E914DA-5C91-495A-AEC5-05F3743BFD0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73E914DA-5C91-495A-AEC5-05F3743BFD0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73E914DA-5C91-495A-AEC5-05F3743BFD0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E914DA-5C91-495A-AEC5-05F3743BFD0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35570B3C-D58C-4E39-B2FA-6D5AFE716752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35570B3C-D58C-4E39-B2FA-6D5AFE716752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35570B3C-D58C-4E39-B2FA-6D5AFE716752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35570B3C-D58C-4E39-B2FA-6D5AFE716752}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFBF4C20-4702-420A-80D5-6AD03B029E71}
+	EndGlobalSection
+EndGlobal
