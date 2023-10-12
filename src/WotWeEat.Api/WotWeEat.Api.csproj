@@ -12,4 +12,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WotWeEat.DataAccess.EFCore\WotWeEat.DataAccess.EFCore.csproj" />
+    <ProjectReference Include="..\WotWeEat.DataAccess.Interfaces\WotWeEat.DataAccess.Interfaces.csproj" />
+    <ProjectReference Include="..\WotWeEat.Domain\WotWeEat.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
