@@ -12,6 +12,7 @@ public class MealOption
     public Healthy Healthy { get; set; }
 
     public List<Vegetable> Vegetables { get; set; }
-    public MeatFish MeatFish { get; set; }
+    public MeatFish? MeatFish { get; set; }
     public List<MealVariation> PossibleVariations { get; set; }
+    public Guid MeatFishId { get; set; }
 }

@@ -15,13 +15,14 @@ namespace WotWeEat.DataAccess.EFCore.Configuration
             builder.Property(mo => mo.AmountOfWork).IsRequired();
             builder.Property(mo => mo.Healthy).IsRequired();
 
+            builder.Property(mo => mo.MeatFishId).IsRequired();
             builder.HasOne(mo => mo.MeatFish)
                 .WithOne()
-                .HasForeignKey<MealOption>(mo => mo.MeatFish);
+                .HasForeignKey<MealOption>(mo => mo.MeatFishId);
 
             builder.HasMany(mo => mo.PossibleVariations)
                 .WithOne()
-                .HasForeignKey(mv => mv.MealOption);
+                .HasForeignKey(mv => mv.MealOptionId);
 
             builder.HasMany(e => e.Vegetables)
                 .WithMany(e => e.MealOptions)
@@ -29,7 +30,7 @@ namespace WotWeEat.DataAccess.EFCore.Configuration
                     "MealOptionVegetable",
                     l => l.HasOne(typeof(Vegetable)).WithMany().HasForeignKey("VegetableReferenceId").HasPrincipalKey(nameof(Vegetable.ReferenceId)),
                     r => r.HasOne(typeof(MealOption)).WithMany().HasForeignKey("MealOptionReferenceIdId").HasPrincipalKey(nameof(MealOption.ReferenceId)),
-                    j => j.HasKey("PostsId", "TagsId"));
+                    j => j.HasKey("VegetableReferenceId", "MealOptionReferenceIdId"));
         }
     }
 }
