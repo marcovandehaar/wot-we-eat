@@ -1,4 +1,4 @@
-﻿namespace WotWeEat.Domain;
+﻿namespace WotWeEat.DataAccess.EFCore.Model;
 
 public class Vegetable
 {

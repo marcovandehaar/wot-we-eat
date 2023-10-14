@@ -81,9 +81,9 @@ class MealSuggestion {
 
 Meal --> "1" MealOption : Option
 Meal --> "0..1" MealVariation : Variation
-Meal --> "0..1" MeatFish : MeatFish
-Meal --> "0..*" MealVariation : PossibleVariations
-Meal --> "0..*" Vegetable : Vegetables
+MealOption --> "0..8" MeatFish : MeatFish
+MealOption --> "0..*" MealVariation : PossibleVariations
+MealOption --> "0..*" Vegetable : Vegetables
 MealSuggestion --> "1" MealOption : Option
 MealSuggestion --> "0..1" Meal : ResultedInMeal
 

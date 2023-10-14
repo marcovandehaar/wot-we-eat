@@ -1,6 +1,7 @@
-﻿using WotWeEat.Domain.Enum;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using WotWeEat.Domain.Enum;
 
-namespace WotWeEat.Domain;
+namespace WotWeEat.DataAccess.EFCore.Model;
 
 public class MealOption
 {
@@ -13,5 +14,7 @@ public class MealOption
 
     public List<Vegetable> Vegetables { get; set; }
     public List<MeatFish> MeatFish { get; set; }
+    [ForeignKey(nameof(MealVariation.MealOptionId))]
     public List<MealVariation> PossibleVariations { get; set; }
+    public Guid MeatFishId { get; set; }
 }

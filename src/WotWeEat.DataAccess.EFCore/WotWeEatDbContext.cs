@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WotWeEat.Domain;
+using MealOption = WotWeEat.DataAccess.EFCore.Model.MealOption;
+using Vegetable = WotWeEat.DataAccess.EFCore.Model.Vegetable;
 
 namespace WotWeEat.DataAccess.EFCore;
 
