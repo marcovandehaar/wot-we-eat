@@ -11,10 +11,9 @@ public class MealOption
     public bool SuitableForChildren { get; set; }
     public AmountOfWork AmountOfWork { get; set; }
     public Healthy Healthy { get; set; }
-
-    public List<Vegetable> Vegetables { get; set; }
-    public List<MeatFish> MeatFish { get; set; }
     [ForeignKey(nameof(MealVariation.MealOptionId))]
     public List<MealVariation> PossibleVariations { get; set; }
-    public Guid MeatFishId { get; set; }
+    public List<Vegetable> Vegetables { get; set; }
+    public ICollection<MeatFish> MeatFishes { get; set; }
+
 }

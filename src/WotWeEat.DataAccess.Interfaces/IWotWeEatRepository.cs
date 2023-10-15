@@ -9,5 +9,8 @@ public interface IWotWeEatRepository
     public Task<MealOption?> GetMealOption(Guid id);
 
 
-
+    Task<List<Domain.Vegetable>> GetAllVegetables();
+    Task<List<Domain.MeatFish>> GetAllMeatFish();
+    Task SaveMeatFish(Domain.MeatFish meatFish);
+    Task SaveVegetable(Domain.Vegetable vegetable);
 }

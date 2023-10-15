@@ -12,7 +12,7 @@ using WotWeEat.DataAccess.EFCore;
 namespace WotWeEat.DataAccess.EFCore.Migrations
 {
     [DbContext(typeof(WotWeEatDbContext))]
-    [Migration("20231014190641_InitialCreate")]
+    [Migration("20231015065840_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,21 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MealOptionMeatFish", b =>
+                {
+                    b.Property<Guid>("MealOptionsMealOptionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MeatFishesMeatFishId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("MealOptionsMealOptionId", "MeatFishesMeatFishId");
+
+                    b.HasIndex("MeatFishesMeatFishId");
+
+                    b.ToTable("MealOptionMeatFish");
+                });
 
             modelBuilder.Entity("MealOptionVegetable", b =>
                 {
@@ -59,9 +74,6 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<int>("MealBase")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("MeatFishId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("SuitableForChildren")
                         .HasColumnType("bit");
 
@@ -96,9 +108,6 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("MealOptionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -107,8 +116,6 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("MeatFishId");
-
-                    b.HasIndex("MealOptionId");
 
                     b.ToTable("MeatFish");
                 });
@@ -126,6 +133,39 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.HasKey("VegetableId");
 
                     b.ToTable("Vegetables");
+                });
+
+            modelBuilder.Entity("WotWeEat.Domain.MeatFish", b =>
+                {
+                    b.Property<Guid>("MeatFishId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("MeatFishId");
+
+                    b.ToTable("MeatFishes");
+                });
+
+            modelBuilder.Entity("MealOptionMeatFish", b =>
+                {
+                    b.HasOne("WotWeEat.DataAccess.EFCore.Model.MealOption", null)
+                        .WithMany()
+                        .HasForeignKey("MealOptionsMealOptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WotWeEat.DataAccess.EFCore.Model.MeatFish", null)
+                        .WithMany()
+                        .HasForeignKey("MeatFishesMeatFishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MealOptionVegetable", b =>
@@ -152,17 +192,8 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Navigation("MealOption");
                 });
 
-            modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.MeatFish", b =>
-                {
-                    b.HasOne("WotWeEat.DataAccess.EFCore.Model.MealOption", null)
-                        .WithMany("MeatFish")
-                        .HasForeignKey("MealOptionId");
-                });
-
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.MealOption", b =>
                 {
-                    b.Navigation("MeatFish");
-
                     b.Navigation("PossibleVariations");
                 });
 #pragma warning restore 612, 618
