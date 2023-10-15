@@ -11,7 +11,7 @@ using DomainModel = WotWeEat.Domain;
 
 namespace WotWeEat.DataAccess.EFCore
 {
-    internal class WotWeEatRepository : IWotWeEatRepository
+    public class WotWeEatRepository : IWotWeEatRepository
     {
         private readonly WotWeEatDbContext _context;
         private readonly IMapper _mapper;

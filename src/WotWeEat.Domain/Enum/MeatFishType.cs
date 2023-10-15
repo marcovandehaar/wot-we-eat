@@ -2,6 +2,6 @@
 
 public enum MeatFishType
 {
-    Meat,
-    Fish
+    Meat = 0,
+    Fish = 1
 }

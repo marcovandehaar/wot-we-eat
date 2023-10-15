@@ -2,8 +2,8 @@
 
 public enum MealRating
 {
-    Excellent,
-    Good,
-    Average,
-    Poor
+    Excellent = 0,
+    Good = 1,
+    Average = 2,
+    Poor = 3
 }

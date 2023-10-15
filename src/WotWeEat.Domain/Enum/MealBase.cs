@@ -2,8 +2,8 @@
 
 public enum MealBase
 {
-    Potato,
-    Pasta,
-    Dough,
-    Rice
+    Potato = 0,
+    Pasta = 1,
+    Dough = 2,
+    Rice = 3
 }

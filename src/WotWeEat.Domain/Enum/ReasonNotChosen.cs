@@ -2,8 +2,8 @@
 
 public enum ReasonNotChosen
 {
-    NotToday,
-    TooMuchWork,
-    TooUnhealthy,
-    Other
+    NotToday = 0,
+    TooMuchWork = 1,
+    TooUnhealthy = 2,
+    Other = 3
 }

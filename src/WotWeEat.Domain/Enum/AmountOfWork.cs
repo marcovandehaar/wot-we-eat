@@ -2,7 +2,7 @@
 
 public enum AmountOfWork
 {
-    PieceOfCake,
-    Average,
-    LotOfWork
+    PieceOfCake = 0,
+    Average = 1,
+    LotOfWork = 2
 }

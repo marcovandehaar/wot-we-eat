@@ -4,6 +4,7 @@ using WotWeEat.Domain;
 using MealOption = WotWeEat.DataAccess.EFCore.Model.MealOption;
 using MeatFish = WotWeEat.DataAccess.EFCore.Model.MeatFish;
 using Vegetable = WotWeEat.DataAccess.EFCore.Model.Vegetable;
+using Meal = WotWeEat.DataAccess.EFCore.Model.Meal;
 
 namespace WotWeEat.DataAccess.EFCore;
 
@@ -17,6 +18,7 @@ public class WotWeEatDbContext: DbContext
     public DbSet<MealOption> MealOptions { get; set; }
     public DbSet<Vegetable> Vegetables { get; set; }
     public DbSet<MeatFish> MeatFishes { get; set; }
+    public DbSet<Meal> Meals{ get; set; }
     // Define DbSet for other domain objects
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

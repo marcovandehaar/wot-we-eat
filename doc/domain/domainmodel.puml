@@ -61,6 +61,7 @@ class MeatFish {
 class MealVariation {
   + ReferenceId: Guid
   + Description: String
+  + MakeSuitableForKids: bool
 }
 
 class Meal {
