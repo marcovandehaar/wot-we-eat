@@ -115,7 +115,17 @@ namespace WotWeEat.DataAccess.EFCore
             await _context.SaveChangesAsync();
         }
 
+        public async Task<DomainModel.Vegetable?> GetVegetableByName(string name)
+        {
+            var efVegetable =  await _context.Vegetables.SingleOrDefaultAsync(v => v.Name == name);
+            return efVegetable != null ? _mapper.Map<DomainModel.Vegetable>(efVegetable) : null;
+        }
 
+        public async Task<DomainModel.MeatFish?> GetMeatFishByName(string name)
+        {
+            var efMEatFish =  await _context.MeatFishes.SingleOrDefaultAsync(mf => mf.Name == name);
+            return efMEatFish!=null ? _mapper.Map<DomainModel.MeatFish>(efMEatFish) : null;
+        }
 
 
 
