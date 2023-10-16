@@ -8,6 +8,10 @@ using AutoMapper;
 using WotWeEat.DataAccess.EFCore.Model;
 using WotWeEat.DataAccess.Interfaces;
 using DomainModel = WotWeEat.Domain;
+using WotWeEat.Domain;
+using MealOption = WotWeEat.DataAccess.EFCore.Model.MealOption;
+using MeatFish = WotWeEat.DataAccess.EFCore.Model.MeatFish;
+using Vegetable = WotWeEat.DataAccess.EFCore.Model.Vegetable;
 
 namespace WotWeEat.DataAccess.EFCore
 {
@@ -27,10 +31,24 @@ namespace WotWeEat.DataAccess.EFCore
             // Use Entity Framework to retrieve the MealOption by MealOptionId
             var efMealOption =  await _context.MealOptions
                 .Include(mo => mo.PossibleVariations) // Include related PossibleVariations
+                .Include(mo => mo.MeatFishes) // Include related PossibleVariations
+                .Include(mo => mo.Vegetables) // Include related PossibleVariations
                 .FirstOrDefaultAsync(mo => mo.MealOptionId == mealOptionId);
 
             return _mapper.Map<Domain.MealOption>(efMealOption);
         }
+
+        public async Task<List<DomainModel.MealOption>> GetAllMealOptions()
+        {
+            var efMealOptions = await _context.MealOptions
+                .Include(mo => mo.PossibleVariations)
+                .Include(mo => mo.MeatFishes)
+                .Include(mo => mo.Vegetables)
+                .ToListAsync();
+
+            return _mapper.Map<List<DomainModel.MealOption>>(efMealOptions);
+        }
+
 
         public async Task SaveMealOption(DomainModel.MealOption mealOption)
         {
@@ -71,6 +89,7 @@ namespace WotWeEat.DataAccess.EFCore
         {
             if (meatFish.MeatFishId == Guid.Empty)
             {
+                meatFish.MeatFishId = Guid.NewGuid();
                 // It's a new MeatFish, so add it
                 var meatFishEF = _mapper.Map<MeatFish>(meatFish);
                 _context.MeatFishes.Add(meatFishEF);
@@ -96,6 +115,7 @@ namespace WotWeEat.DataAccess.EFCore
             if (vegetable.VegetableId == Guid.Empty)
             {
                 // It's a new Vegetable, so add it
+                vegetable.VegetableId = Guid.NewGuid();
                 var vegetableEF = _mapper.Map<Vegetable>(vegetable);
                 _context.Vegetables.Add(vegetableEF);
             }
@@ -115,6 +135,7 @@ namespace WotWeEat.DataAccess.EFCore
             await _context.SaveChangesAsync();
         }
 
+
         public async Task<DomainModel.Vegetable?> GetVegetableByName(string name)
         {
             var efVegetable =  await _context.Vegetables.SingleOrDefaultAsync(v => v.Name == name);
@@ -126,6 +147,8 @@ namespace WotWeEat.DataAccess.EFCore
             var efMEatFish =  await _context.MeatFishes.SingleOrDefaultAsync(mf => mf.Name == name);
             return efMEatFish!=null ? _mapper.Map<DomainModel.MeatFish>(efMEatFish) : null;
         }
+
+
 
 
 

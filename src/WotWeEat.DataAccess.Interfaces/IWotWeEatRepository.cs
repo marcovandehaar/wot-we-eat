@@ -14,5 +14,6 @@ public interface IWotWeEatRepository
     Task SaveMeatFish(Domain.MeatFish meatFish);
     Task SaveVegetable(Domain.Vegetable vegetable);
     Task<Vegetable?> GetVegetableByName(string name);
-    Task<MeatFish?>? GetMeatFishByName(string name);
+    Task<MeatFish?> GetMeatFishByName(string name);
+    Task<List<Domain.MealOption>> GetAllMealOptions();
 }

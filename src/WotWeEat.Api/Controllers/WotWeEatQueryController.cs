@@ -41,4 +41,47 @@ public class WotWeEatQueryController : ControllerBase
         }
         return meatFish;
     }
+
+    [HttpGet]
+    [Route("vegetables/{name}")]
+    public async Task<ActionResult<Vegetable>> GetVegetableByName(string name)
+    {
+        var vegetable = await _repository.GetVegetableByName(name);
+
+        if (vegetable == null)
+        {
+            return NotFound("Vegetable not found.");
+        }
+
+        return vegetable;
+    }
+
+    [HttpGet]
+    [Route("meatfish/{name}")]
+    public async Task<ActionResult<MeatFish>> GetMeatFishByName(string name)
+    {
+        var meatFish = await _repository.GetMeatFishByName(name);
+
+        if (meatFish == null)
+        {
+            return NotFound("MeatFish not found.");
+        }
+
+        return meatFish;
+    }
+
+    [HttpGet]
+    [Route("mealOption/{id}")]
+    [ActionName(nameof(GetMealOption))]
+    public async Task<ActionResult<MealOption>> GetMealOption(Guid id)
+    {
+        var mealOption = await _repository.GetMealOption(id);
+
+        if (mealOption == null)
+        {
+            return NotFound("MealOption not found.");
+        }
+
+        return mealOption;
+    }
 }
