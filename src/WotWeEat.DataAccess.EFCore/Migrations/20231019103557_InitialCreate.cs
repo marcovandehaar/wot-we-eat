@@ -12,7 +12,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "MealOptions",
+                name: "MealOption",
                 columns: table => new
                 {
                     MealOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -24,11 +24,11 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MealOptions", x => x.MealOptionId);
+                    table.PrimaryKey("PK_MealOption", x => x.MealOptionId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MeatFishes",
+                name: "MeatFish",
                 columns: table => new
                 {
                     MeatFishId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -37,11 +37,11 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MeatFishes", x => x.MeatFishId);
+                    table.PrimaryKey("PK_MeatFish", x => x.MeatFishId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Vegetables",
+                name: "Vegetable",
                 columns: table => new
                 {
                     VegetableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -49,7 +49,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vegetables", x => x.VegetableId);
+                    table.PrimaryKey("PK_Vegetable", x => x.VegetableId);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,9 +65,9 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 {
                     table.PrimaryKey("PK_MealVariation", x => x.MealVariationId);
                     table.ForeignKey(
-                        name: "FK_MealVariation_MealOptions_MealOptionId",
+                        name: "FK_MealVariation_MealOption_MealOptionId",
                         column: x => x.MealOptionId,
-                        principalTable: "MealOptions",
+                        principalTable: "MealOption",
                         principalColumn: "MealOptionId");
                 });
 
@@ -82,15 +82,15 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 {
                     table.PrimaryKey("PK_MealOptionMeatFish", x => new { x.MealOptionsMealOptionId, x.MeatFishesMeatFishId });
                     table.ForeignKey(
-                        name: "FK_MealOptionMeatFish_MealOptions_MealOptionsMealOptionId",
+                        name: "FK_MealOptionMeatFish_MealOption_MealOptionsMealOptionId",
                         column: x => x.MealOptionsMealOptionId,
-                        principalTable: "MealOptions",
+                        principalTable: "MealOption",
                         principalColumn: "MealOptionId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MealOptionMeatFish_MeatFishes_MeatFishesMeatFishId",
+                        name: "FK_MealOptionMeatFish_MeatFish_MeatFishesMeatFishId",
                         column: x => x.MeatFishesMeatFishId,
-                        principalTable: "MeatFishes",
+                        principalTable: "MeatFish",
                         principalColumn: "MeatFishId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -106,15 +106,15 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 {
                     table.PrimaryKey("PK_MealOptionVegetable", x => new { x.MealOptionsMealOptionId, x.VegetablesVegetableId });
                     table.ForeignKey(
-                        name: "FK_MealOptionVegetable_MealOptions_MealOptionsMealOptionId",
+                        name: "FK_MealOptionVegetable_MealOption_MealOptionsMealOptionId",
                         column: x => x.MealOptionsMealOptionId,
-                        principalTable: "MealOptions",
+                        principalTable: "MealOption",
                         principalColumn: "MealOptionId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MealOptionVegetable_Vegetables_VegetablesVegetableId",
+                        name: "FK_MealOptionVegetable_Vegetable_VegetablesVegetableId",
                         column: x => x.VegetablesVegetableId,
-                        principalTable: "Vegetables",
+                        principalTable: "Vegetable",
                         principalColumn: "VegetableId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -134,9 +134,9 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 {
                     table.PrimaryKey("PK_Meal", x => x.MealId);
                     table.ForeignKey(
-                        name: "FK_Meal_MealOptions_MealOptionId",
+                        name: "FK_Meal_MealOption_MealOptionId",
                         column: x => x.MealOptionId,
-                        principalTable: "MealOptions",
+                        principalTable: "MealOption",
                         principalColumn: "MealOptionId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -189,13 +189,13 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 name: "MealVariation");
 
             migrationBuilder.DropTable(
-                name: "MeatFishes");
+                name: "MeatFish");
 
             migrationBuilder.DropTable(
-                name: "Vegetables");
+                name: "Vegetable");
 
             migrationBuilder.DropTable(
-                name: "MealOptions");
+                name: "MealOption");
         }
     }
 }

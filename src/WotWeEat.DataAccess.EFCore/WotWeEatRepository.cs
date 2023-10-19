@@ -1,17 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using WotWeEat.DataAccess.EFCore.Model;
-using WotWeEat.DataAccess.Interfaces;
-using DomainModel = WotWeEat.Domain;
-using WotWeEat.Domain;
-using MealOption = WotWeEat.DataAccess.EFCore.Model.MealOption;
-using MeatFish = WotWeEat.DataAccess.EFCore.Model.MeatFish;
-using Vegetable = WotWeEat.DataAccess.EFCore.Model.Vegetable;
+
 
 namespace WotWeEat.DataAccess.EFCore
 {
@@ -20,43 +10,74 @@ namespace WotWeEat.DataAccess.EFCore
         private readonly WotWeEatDbContext _context;
         private readonly IMapper _mapper;
 
+
         public WotWeEatRepository(WotWeEatDbContext context, IMapper mapper)
         {
-            _mapper = mapper;
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<DomainModel.MealOption?> GetMealOption(Guid mealOptionId)
+        public async Task<MealOption?> GetMealOption(Guid mealOptionId)
         {
             // Use Entity Framework to retrieve the MealOption by MealOptionId
-            var efMealOption =  await _context.MealOptions
+            var efMealOption = await _context.MealOption
                 .Include(mo => mo.PossibleVariations) // Include related PossibleVariations
                 .Include(mo => mo.MeatFishes) // Include related PossibleVariations
                 .Include(mo => mo.Vegetables) // Include related PossibleVariations
                 .FirstOrDefaultAsync(mo => mo.MealOptionId == mealOptionId);
-
-            return _mapper.Map<Domain.MealOption>(efMealOption);
+            return efMealOption;
         }
 
-        public async Task<List<DomainModel.MealOption>> GetAllMealOptions()
+        public async Task<Meal?> GetMeal(Guid meal)
         {
-            var efMealOptions = await _context.MealOptions
+            // Use Entity Framework to retrieve the MealOption by MealOptionId
+            var efMeal = await _context.Meal
+                .Include(mo => mo.MealOption) // Include related PossibleVariations
+                .Include(mo => mo.Variation) // Include related PossibleVariations
+                .FirstOrDefaultAsync(mo => mo.MealOptionId == meal);
+            return efMeal;
+        }
+
+        public async Task<List<MealOption>> GetAllMealOptions()
+        {
+            return await _context.MealOption
                 .Include(mo => mo.PossibleVariations)
                 .Include(mo => mo.MeatFishes)
                 .Include(mo => mo.Vegetables)
                 .ToListAsync();
-
-            return _mapper.Map<List<DomainModel.MealOption>>(efMealOptions);
         }
 
 
-        public async Task SaveMealOption(DomainModel.MealOption mealOption)
+        public async Task SaveMealOption(MealOption mealOption)
         {
+            foreach (var vegetable in mealOption.Vegetables)
+            {
+                if (vegetable.VegetableId == Guid.Empty)
+                {
+                    await SaveVegetableWithoutSave(vegetable);
+                }
+                else
+                {
+                    _context.SetEntityState(vegetable, EntityState.Unchanged);
+                }
+            }
+
+            foreach (var meatFish in mealOption.MeatFishes)
+            {
+                if (meatFish.MeatFishId == Guid.Empty)
+                {
+                    await SaveMeatFishWithoutSave(meatFish);
+                }
+                else
+                {
+                    _context.SetEntityState(meatFish, EntityState.Unchanged);
+                }
+            }
+
             if (mealOption.MealOptionId == Guid.Empty)
             {
-                // It's a new MealOption, so add it
-                var mealOptionEF = _mapper.Map<MealOption>(mealOption);
-                _context.MealOptions.Add(mealOptionEF);
+                //hier gaat het mis.... ik moet die properties nullen, maar ik moet ze ook nog netjes opslaan. dus dat onderste stuk moet naar boven...
+                _context.MealOption.Add(mealOption);
             }
             else
             {
@@ -67,37 +88,108 @@ namespace WotWeEat.DataAccess.EFCore
                 {
                     // Update properties of the existing MealOptionEF based on the input mealOption
                     _mapper.Map(mealOption, existingMealOption);
+
+                    foreach (var existingVariation in existingMealOption.PossibleVariations.ToList())
+                    {
+                        if (!mealOption.PossibleVariations.Any(mv => mv.MealVariationId == existingVariation.MealVariationId))
+                        {
+                            // Remove the MealVariation from existingMealOption
+                            _context.Remove(existingVariation);
+                        }
+                    }
+
+                }
+
+            }
+            foreach (var possibleVariation in mealOption.PossibleVariations)
+            {
+                if (possibleVariation.MealVariationId == Guid.Empty)
+                {
+                    possibleVariation.MealOptionId = mealOption.MealOptionId;
+                    possibleVariation.MealOption = mealOption;
+                    await SaveMealVariationWithoutSave(possibleVariation);
+                }
+                else
+                {
+                    _context.SetEntityState(possibleVariation, EntityState.Unchanged);
                 }
             }
+
+
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<DomainModel.Vegetable>> GetAllVegetables()
+        public async Task SaveMeal(Meal meal)
         {
-            var efVegetables = await _context.Vegetables.ToListAsync();
-            return _mapper.Map<List<DomainModel.Vegetable>>(efVegetables);
+            if (meal.MealId == Guid.Empty)
+            {
+                // It's a new MealOption, so add it
+                _context.Meal.Add(meal);
+            }
+            else
+            {
+                // It's an existing MealOption, so update it
+                var existingMeal = await GetMeal(meal.MealId);
+
+                if (existingMeal != null)
+                {
+                    // Update properties of the existing MealOptionEF based on the input mealOption
+                    _mapper.Map(meal, existingMeal);
+                }
+                else
+                {
+                    throw new ArgumentException($"Meal with id {meal.MealId} not found!");
+                }
+            }
+            //check children, if new children present, save them.
+            var mealOption = meal.MealOption;
+            if (mealOption != null && mealOption.MealOptionId == Guid.Empty)
+            {
+                await SaveMealOption(mealOption);
+            }
+            var mealVariant = meal.Variation;
+            if (mealVariant != null && mealVariant.MealVariationId == Guid.Empty)
+            {
+                
+                await SaveMealVariation(mealVariant);
+            }
+
+            //prevent EF from trying to persist the children. This has been done, and foreign key is set.
+            meal.MealOption = null;
+            meal.Variation = null;
+
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<List<DomainModel.MeatFish>> GetAllMeatFish()
+        public async Task<List<Vegetable>> GetAllVegetables()
         {
-            var efMeatFish = await _context.MeatFishes.ToListAsync();
-            return _mapper.Map<List<DomainModel.MeatFish>>(efMeatFish);
+            return await _context.Vegetable.ToListAsync();
         }
 
-        public async Task SaveMeatFish(DomainModel.MeatFish meatFish)
+        public async Task<List<MeatFish>> GetAllMeatFish()
+        {
+            return await _context.MeatFish.ToListAsync();
+        }
+
+        public async Task SaveMeatFish(MeatFish meatFish)
+        {
+            await SaveMeatFishWithoutSave(meatFish);
+
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task SaveMeatFishWithoutSave(MeatFish meatFish)
         {
             if (meatFish.MeatFishId == Guid.Empty)
             {
-                meatFish.MeatFishId = Guid.NewGuid();
                 // It's a new MeatFish, so add it
-                var meatFishEF = _mapper.Map<MeatFish>(meatFish);
-                _context.MeatFishes.Add(meatFishEF);
+                _context.MeatFish.Add(meatFish);
             }
             else
             {
                 // It's an existing MeatFish, so update it
-                var existingMeatFish = await _context.MeatFishes
+                var existingMeatFish = await _context.MeatFish
                     .FirstOrDefaultAsync(mf => mf.MeatFishId == meatFish.MeatFishId);
 
                 if (existingMeatFish != null)
@@ -106,23 +198,61 @@ namespace WotWeEat.DataAccess.EFCore
                     _mapper.Map(meatFish, existingMeatFish);
                 }
             }
+        }
+
+        public async Task SaveMealVariation(MealVariation mealVariation)
+        {
+            await SaveMealVariationWithoutSave(mealVariation);
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task SaveVegetable(DomainModel.Vegetable vegetable)
+        private async Task SaveMealVariationWithoutSave(MealVariation mealVariation)
+        {
+            if (mealVariation?.MealOption == null)
+            {
+                throw new ArgumentException("MealVariation should always have a linked option!");
+            }
+
+            if (mealVariation.MealVariationId == Guid.Empty)
+            {
+                // It's a new MealVariation, so link it and add it
+                mealVariation.MealOptionId = mealVariation.MealOption.MealOptionId;
+                _context.MealVariation.Add(mealVariation);
+            }
+            else
+            {
+                // It's an existing MealVariation, so update it
+                var existingMealVariation = await _context.MealVariation
+                    .FirstOrDefaultAsync(mf => mf.MealVariationId == mealVariation.MealVariationId);
+
+                if (existingMealVariation != null)
+                {
+                    // Update properties of the existing MealVariation based on the input meatFish
+                    _mapper.Map(mealVariation, existingMealVariation);
+                }
+            }
+        }
+
+        public async Task SaveVegetable(Vegetable vegetable)
+        {
+            await SaveVegetableWithoutSave(vegetable);
+
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task SaveVegetableWithoutSave(Vegetable vegetable)
         {
             if (vegetable.VegetableId == Guid.Empty)
             {
                 // It's a new Vegetable, so add it
                 vegetable.VegetableId = Guid.NewGuid();
-                var vegetableEF = _mapper.Map<Vegetable>(vegetable);
-                _context.Vegetables.Add(vegetableEF);
+                _context.Vegetable.Add(vegetable);
             }
             else
             {
                 // It's an existing Vegetable, so update it
-                var existingVegetable = await _context.Vegetables
+                var existingVegetable = await _context.Vegetable
                     .FirstOrDefaultAsync(v => v.VegetableId == vegetable.VegetableId);
 
                 if (existingVegetable != null)
@@ -131,25 +261,18 @@ namespace WotWeEat.DataAccess.EFCore
                     _mapper.Map(vegetable, existingVegetable);
                 }
             }
-
-            await _context.SaveChangesAsync();
         }
 
 
-        public async Task<DomainModel.Vegetable?> GetVegetableByName(string name)
+        public async Task<Vegetable?> GetVegetableByName(string name)
         {
-            var efVegetable =  await _context.Vegetables.SingleOrDefaultAsync(v => v.Name == name);
-            return efVegetable != null ? _mapper.Map<DomainModel.Vegetable>(efVegetable) : null;
+            return  await _context.Vegetable.SingleOrDefaultAsync(v => v.Name == name);
         }
 
-        public async Task<DomainModel.MeatFish?> GetMeatFishByName(string name)
+        public async Task<MeatFish?> GetMeatFishByName(string name)
         {
-            var efMEatFish =  await _context.MeatFishes.SingleOrDefaultAsync(mf => mf.Name == name);
-            return efMEatFish!=null ? _mapper.Map<DomainModel.MeatFish>(efMEatFish) : null;
+            return  await _context.MeatFish.SingleOrDefaultAsync(mf => mf.Name == name);
         }
-
-
-
 
 
     }

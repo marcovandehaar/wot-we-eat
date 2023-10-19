@@ -12,7 +12,7 @@ using WotWeEat.DataAccess.EFCore;
 namespace WotWeEat.DataAccess.EFCore.Migrations
 {
     [DbContext(typeof(WotWeEatDbContext))]
-    [Migration("20231015113635_InitialCreate")]
+    [Migration("20231019103557_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -108,7 +108,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
                     b.HasKey("MealOptionId");
 
-                    b.ToTable("MealOptions");
+                    b.ToTable("MealOption");
                 });
 
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.MealVariation", b =>
@@ -147,7 +147,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
                     b.HasKey("MeatFishId");
 
-                    b.ToTable("MeatFishes");
+                    b.ToTable("MeatFish");
                 });
 
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.Vegetable", b =>
@@ -161,7 +161,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
                     b.HasKey("VegetableId");
 
-                    b.ToTable("Vegetables");
+                    b.ToTable("Vegetable");
                 });
 
             modelBuilder.Entity("MealOptionMeatFish", b =>

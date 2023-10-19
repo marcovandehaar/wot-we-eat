@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +13,12 @@ var configuration = builder.Configuration;
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    // serialize enums as strings in api responses (e.g. Role)
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+});
 builder.Services.AddAutoMapper(typeof(Meal)); // Register AutoMapper
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -25,6 +31,7 @@ builder.Services.AddDbContext<WotWeEatDbContext>(options =>
 });
 // Register your repository with a scoped lifetime
 builder.Services.AddScoped<IWotWeEatRepository, WotWeEatRepository>();
+builder.Services.AddScoped<IWotWeEatDataService, WotWeEatDataService>();
 
 var app = builder.Build();
 

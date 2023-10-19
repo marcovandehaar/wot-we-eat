@@ -1,4 +1,6 @@
+using System.Formats.Asn1;
 using Microsoft.AspNetCore.Mvc;
+using WotWeEat.DataAccess.EFCore;
 using WotWeEat.DataAccess.Interfaces;
 using WotWeEat.Domain;
 
@@ -10,19 +12,19 @@ public class WotWeEatQueryController : ControllerBase
 {
 
     private readonly ILogger<WotWeEatQueryController> _logger;
-    private readonly IWotWeEatRepository _repository;
+    private readonly IWotWeEatDataService _dataService;
 
-    public WotWeEatQueryController(ILogger<WotWeEatQueryController> logger, IWotWeEatRepository repository)
+    public WotWeEatQueryController(ILogger<WotWeEatQueryController> logger, IWotWeEatDataService dataService)
     {
         _logger = logger;
-        _repository = repository;
+        _dataService = dataService;
     }
 
     [HttpGet]
     [Route("vegetables/all")]
     public async Task<ActionResult<List<Vegetable>>> GetAllVegetables()
     {
-        var vegetables = await _repository.GetAllVegetables();
+        var vegetables = await _dataService.GetVegetables();
         if (vegetables.Count == 0)
         {
             return NotFound("No vegetables found.");
@@ -34,7 +36,7 @@ public class WotWeEatQueryController : ControllerBase
     [Route("meatfish/all")]
     public async Task<ActionResult<List<MeatFish>>> GetAllMeatFish()
     {
-        var meatFish = await _repository.GetAllMeatFish();
+        var meatFish = await _dataService.GetMeatFish();
         if (meatFish.Count == 0)
         {
             return NotFound("No meatfish found.");
@@ -46,7 +48,7 @@ public class WotWeEatQueryController : ControllerBase
     [Route("vegetables/{name}")]
     public async Task<ActionResult<Vegetable>> GetVegetableByName(string name)
     {
-        var vegetable = await _repository.GetVegetableByName(name);
+        var vegetable = await _dataService.GetVegetableByName(name);
 
         if (vegetable == null)
         {
@@ -60,7 +62,7 @@ public class WotWeEatQueryController : ControllerBase
     [Route("meatfish/{name}")]
     public async Task<ActionResult<MeatFish>> GetMeatFishByName(string name)
     {
-        var meatFish = await _repository.GetMeatFishByName(name);
+        var meatFish = await _dataService.GetMeatFishByName(name);
 
         if (meatFish == null)
         {
@@ -75,7 +77,7 @@ public class WotWeEatQueryController : ControllerBase
     [ActionName(nameof(GetMealOption))]
     public async Task<ActionResult<MealOption>> GetMealOption(Guid id)
     {
-        var mealOption = await _repository.GetMealOption(id);
+        var mealOption = await _dataService.GetMealOption(id);
 
         if (mealOption == null)
         {
@@ -83,5 +85,19 @@ public class WotWeEatQueryController : ControllerBase
         }
 
         return mealOption;
+    }
+
+    [HttpGet]
+    [Route("meal/{id}")]
+    public async Task<ActionResult<Meal>> GetMeal(Guid id)
+    {
+        var meal = await _dataService.GetMeal(id);
+
+        if (meal == null)
+        {
+            return NotFound("Mealnot found.");
+        }
+
+        return meal;
     }
 }

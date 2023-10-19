@@ -8,7 +8,8 @@ Generate new Migration:
 Update Databse:
  dotnet ef database update -s ..\WotWeEat.Api\WotWeEat.Api.csproj
 
-Clear database
+# queries 
+## Clear database
 DECLARE @Sql NVARCHAR(500) DECLARE @Cursor CURSOR
 
 SET @Cursor = CURSOR FAST_FORWARD FOR
@@ -29,4 +30,17 @@ GO
 
 EXEC sp_MSforeachtable 'DROP TABLE ?'
 GO
+
+## query Database
+--query database
+
+select * from MeatFishes
+select * from Vegetables
+select * from Meal
+select * from MealOptions
+
+select * from MealOptionMeatFish
+select * from MealOptionVegetable
+
+## select mealoption
 

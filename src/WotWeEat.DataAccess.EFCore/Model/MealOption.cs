@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using WotWeEat.Domain.Enum;
 
 namespace WotWeEat.DataAccess.EFCore.Model;
@@ -12,6 +13,8 @@ public class MealOption
         MeatFishes = new List<MeatFish>();
     }
 
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid MealOptionId { get; set; }
     public string? Description { get; set; }
     public MealBase MealBase { get; set; }

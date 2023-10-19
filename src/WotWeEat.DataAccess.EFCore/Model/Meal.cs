@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using WotWeEat.Domain.Enum;
 
 namespace WotWeEat.DataAccess.EFCore.Model;
@@ -6,6 +7,8 @@ namespace WotWeEat.DataAccess.EFCore.Model;
 [Table("Meal")]
 public class Meal
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid MealId { get; set; }
     public DateTime Date { get; set; }
     public MealRating? Rating { get; set; }

@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WotWeEat.DataAccess.EFCore.Model;
+
 using WotWeEat.DataAccess.Interfaces;
 using WotWeEat.Domain;
-using WotWeEat.Domain.Enum;
-using MealOption = WotWeEat.Domain.MealOption;
-using MeatFish = WotWeEat.Domain.MeatFish;
-using Vegetable = WotWeEat.Domain.Vegetable;
+
 
 namespace WotWeEat.Api.Controllers
 {
@@ -14,12 +11,12 @@ namespace WotWeEat.Api.Controllers
     public class WotWeEatCommandController : ControllerBase
     {
         private readonly ILogger<WotWeEatQueryController> _logger;
-        private readonly IWotWeEatRepository _repository;
+        private readonly IWotWeEatDataService _dataService;
 
-        public WotWeEatCommandController(ILogger<WotWeEatQueryController> logger, IWotWeEatRepository repository)
+        public WotWeEatCommandController(ILogger<WotWeEatQueryController> logger, IWotWeEatDataService dataService)
         {
             _logger = logger;
-            _repository = repository;
+            _dataService = dataService;
         }
 
         [HttpPost("vegetables")]
@@ -27,19 +24,17 @@ namespace WotWeEat.Api.Controllers
         {
             try
             {
-                // Validate the vegetableDto and perform any necessary input validation
-
                 if (ModelState.IsValid)
                 {
                     // Check if a vegetable with the same name already exists
-                    var existingVegetable = await _repository.GetVegetableByName(vegetable.Name);
+                    var existingVegetable = await _dataService.GetVegetableByName(vegetable.Name);
                     if (existingVegetable != null)
                     {
                         return Conflict("A vegetable with this name already exists.");
                     }
 
                     // Save the new vegetable
-                    await _repository.SaveVegetable(vegetable);
+                    await _dataService.SaveVegetable(vegetable);
 
                     // Return a success response or the newly created vegetable
                     return CreatedAtAction("GetVegetableByName", "WotWeEatQuery", new { name = vegetable.Name }, vegetable);
@@ -63,25 +58,18 @@ namespace WotWeEat.Api.Controllers
         {
             try
             {
-                // Validate the meatFishDto and perform any necessary input validation
-
-                if (!Enum.IsDefined(typeof(MeatFishType), meatFish.Type))
-                {
-                    ModelState.AddModelError(nameof(meatFish.Type), "Invalid MeatFishType.");
-                    return BadRequest(ModelState);
-                }
                 if (ModelState.IsValid)
                 {
 
                     // Check if a meatfish with the same name already exists
-                    var existingMeatFish = await _repository.GetMeatFishByName(meatFish.Name);
+                    var existingMeatFish = await _dataService.GetMeatFishByName(meatFish.Name);
                     if (existingMeatFish != null)
                     {
                         return Conflict("A meatfish with this name already exists.");
                     }
 
                     // Save the new meatfish
-                    await _repository.SaveMeatFish(meatFish);
+                    await _dataService.SaveMeatFish(meatFish);
 
                     // Return a success response or the newly created meatfish
                     return CreatedAtAction("GetMeatFishByName", "WotWeEatQuery", new { name = meatFish.Name }, meatFish);
@@ -101,28 +89,11 @@ namespace WotWeEat.Api.Controllers
         {
             try
             {
-                // Validate the meatFishDto and perform any necessary input validation
-
-                if (!Enum.IsDefined(typeof(MealBase), mealOption.MealBase.GetValueOrDefault()))
-                {
-                    ModelState.AddModelError(nameof(mealOption.MealBase), "Invalid MeatFishType.");
-                    return BadRequest(ModelState);
-                }
-                if (!Enum.IsDefined(typeof(Healthy), mealOption.Healthy.GetValueOrDefault()))
-                {
-                    ModelState.AddModelError(nameof(mealOption.Healthy), "Invalid Healthy.");
-                    return BadRequest(ModelState);
-                }
-                if (!Enum.IsDefined(typeof(AmountOfWork), mealOption.AmountOfWork.GetValueOrDefault()))
-                {
-                    ModelState.AddModelError(nameof(mealOption.AmountOfWork), "Invalid AmountOfWork.");
-                    return BadRequest(ModelState);
-                }
                 if (ModelState.IsValid)
                 {
 
                     // Save the new meatfish
-                    await _repository.SaveMealOption(mealOption);
+                    await _dataService.SaveMealOption(mealOption);
 
                     // Return a success response or the newly created meatfish
                     return CreatedAtAction(nameof(WotWeEatQueryController.GetMealOption), "WotWeEatQuery", new { id = mealOption.MealOptionId }, mealOption);
@@ -134,6 +105,30 @@ namespace WotWeEat.Api.Controllers
             {
                 // Handle and log exceptions
                 return StatusCode(500, "An error occurred while creating the meatfish.");
+            }
+        }
+
+        [HttpPost("meal")]
+        public async Task<IActionResult> CreateMeal([FromBody] Meal meal)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    // Save the new meatfish
+                    await _dataService.SaveMeal(meal);
+
+                    // Return a success response or the newly created meatfish
+                    return CreatedAtAction(nameof(WotWeEatQueryController.GetMeal), "WotWeEatQuery", new { id = meal.MealId }, meal);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                // Handle and log exceptions
+                return StatusCode(500, "An error occurred while creating the meal.");
             }
         }
 
