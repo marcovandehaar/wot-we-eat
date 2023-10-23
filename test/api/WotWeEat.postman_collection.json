@@ -28,7 +28,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"description\": \"Pizza\",\r\n  \"mealBase\": \"Dough\",\r\n  \"suitableForChildren\": true,\r\n  \"amountOfWork\": \"Average\",\r\n  \"healthy\": \"Unhealthy\",\r\n  \"vegetables\": [\r\n    {\r\n      \"name\": \"Tomato\"\r\n    }\r\n  ],\r\n  \"meatFishes\": [\r\n    {\r\n      \"name\": \"Salami\",\r\n      \"type\": \"Meat\"\r\n    }\r\n  ],\r\n  \"possibleVariations\": [\r\n    {\r\n      \"description\": \"From the BBQ\",\r\n      \"makeSuitableForKids\": true\r\n    }\r\n  ]\r\n}",
+							"raw": "{\r\n  \"description\": \"Pizza\",\r\n  \"mealBase\": \"Dough\",\r\n  \"suitableForChildren\": true,\r\n  \"amountOfWork\": \"Average\",\r\n  \"healthy\": \"Unhealthy\",\r\n  \"vegetables\": [\r\n    {\r\n      \"name\": \"Tomato\"\r\n    }\r\n  ],\r\n  \"meatFishes\": [\r\n    {\r\n      \"name\": \"Salami\",\r\n      \"type\": \"Meat\"\r\n    }\r\n  ],\r\n  \"possibleVariations\": [\r\n    {\r\n      \"description\": \"From the BBQ\",\r\n      \"makeSuitableForKids\": true\r\n    }\r\n  ],\r\n  \"inSeasons\": [\"Winter\", \"Summer\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,7 +68,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"date\": \"2023-10-23T15:02:43.380Z\",\r\n  \"rating\": \"Excellent\",\r\n  \"withChildren\": true,\r\n  \"mealOption\": {\r\n    \"description\": \"Aardappelen met brocoli en worst\",\r\n    \"mealBase\": \"Potato\",\r\n    \"suitableForChildren\": true,\r\n    \"amountOfWork\": \"PieceOfCake\",\r\n    \"healthy\": \"Healthy\",\r\n    \"vegetables\": [\r\n      {\r\n        \"name\": \"Brocoli\"\r\n      }\r\n    ],\r\n    \"meatFishes\": [\r\n      {\r\n        \"name\": \"Worst\",\r\n        \"type\": \"Meat\"\r\n      }\r\n    ],\r\n    \"possibleVariations\": [\r\n      {\r\n        \"description\": \"met rauwe groentes\",\r\n        \"makeSuitableForKids\": true\r\n      }\r\n    ]\r\n  }\r\n}",
+							"raw": "{\r\n  \"date\": \"2023-10-23T15:02:43.380Z\",\r\n  \"rating\": \"Excellent\",\r\n  \"withChildren\": true,\r\n  \"mealOption\": {\r\n    \"description\": \"Aardappelen met brocoli en worst\",\r\n    \"mealBase\": \"Potato\",\r\n    \"suitableForChildren\": true,\r\n    \"amountOfWork\": \"PieceOfCake\",\r\n    \"healthy\": \"Healthy\",\r\n    \"vegetables\": [\r\n      {\r\n        \"name\": \"Brocoli\"\r\n      }\r\n    ],\r\n    \"meatFishes\": [\r\n      {\r\n        \"name\": \"Worst\",\r\n        \"type\": \"Meat\"\r\n      }\r\n    ],\r\n    \"possibleVariations\": [\r\n      {\r\n        \"description\": \"met rauwe groentes\",\r\n        \"makeSuitableForKids\": true\r\n      }\r\n    ],\r\n    \"inSeasons\": [\"Autumn\", \"Summer\", \"Spring\"]\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -84,6 +84,86 @@
 								"api",
 								"command",
 								"meal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vegetable",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"vegetableName\", jsonData.name);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Spruitjes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/command/vegetables",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"command",
+								"vegetables"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create MeatFish",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"meatFishName\", jsonData.name);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Braadworst\",\r\n  \"type\": \"Meat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/command/meatfish",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"command",
+								"meatfish"
 							]
 						}
 					},
@@ -118,7 +198,59 @@
 					"name": "Get Meal",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/query/meal/{{mealId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"query",
+								"meal",
+								"{{mealId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vegetable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/query/vegetables/{{vegetableName}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"query",
+								"vegetables",
+								"{{vegetableName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get MeatFish",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/query/meatfish/{{meatFishName}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"query",
+								"meatfish",
+								"{{meatFishName}}"
+							]
+						}
 					},
 					"response": []
 				}
@@ -158,6 +290,11 @@
 		{
 			"key": "mealId",
 			"value": "251FD80C-745C-40FF-8836-787BA13F81C7",
+			"type": "string"
+		},
+		{
+			"key": "vegetableId",
+			"value": "",
 			"type": "string"
 		}
 	]

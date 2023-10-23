@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WotWeEat.Domain.Enum;
 using DomainModel = WotWeEat.Domain ; // Adjust to your actual namespace
 using EFModel = WotWeEat.DataAccess.EFCore.Model;
 
@@ -17,7 +18,17 @@ public class MappingProfile : Profile
         // creating manual mapping code which takes entity state into account,
         // or by changing the storage to  a document store database, removing the
         // need for an ORM all together, but creating it's own (mostly smaller) challenges.
-        CreateMap<DomainModel.MealOption, EFModel.MealOption>().ReverseMap();
+        CreateMap<DomainModel.MealOption, EFModel.MealOption>()
+            .ForMember(dest => dest.InSeasons, opt =>
+            {
+                opt.MapFrom(src => src.InSeasons);
+                opt.ConvertUsing<SeasonResolver, List<Season>>();
+            })
+            .ReverseMap().ForMember(dest => dest.InSeasons, opt =>
+            {
+                opt.MapFrom(src => src.InSeasons);
+                opt.ConvertUsing(new SeasonResolver(), src => src.InSeasons);
+            }); ;
         CreateMap<DomainModel.Vegetable, EFModel.Vegetable>().ReverseMap();
         CreateMap<DomainModel.MeatFish, EFModel.MeatFish>().ReverseMap();
         CreateMap<DomainModel.MealVariation, EFModel.MealVariation>().ReverseMap();

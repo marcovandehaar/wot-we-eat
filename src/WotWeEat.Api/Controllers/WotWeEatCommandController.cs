@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 
 using WotWeEat.DataAccess.Interfaces;
 using WotWeEat.Domain;
@@ -34,10 +35,10 @@ namespace WotWeEat.Api.Controllers
                     }
 
                     // Save the new vegetable
-                    await _dataService.SaveVegetable(vegetable);
+                    var response = await _dataService.SaveVegetable(vegetable);
 
                     // Return a success response or the newly created vegetable
-                    return CreatedAtAction("GetVegetableByName", "WotWeEatQuery", new { name = vegetable.Name }, vegetable);
+                    return Created($"/api/query/vegetables/{response.Name}", response);
 
                 }
 
@@ -48,9 +49,6 @@ namespace WotWeEat.Api.Controllers
                 // Handle and log exceptions
                 return StatusCode(500, "An error occurred while creating the vegetable.");
             }
-
-            
-
         }
 
         [HttpPost("meatfish")]
@@ -69,10 +67,10 @@ namespace WotWeEat.Api.Controllers
                     }
 
                     // Save the new meatfish
-                    await _dataService.SaveMeatFish(meatFish);
+                    var response = await _dataService.SaveMeatFish(meatFish);
 
                     // Return a success response or the newly created meatfish
-                    return CreatedAtAction("GetMeatFishByName", "WotWeEatQuery", new { name = meatFish.Name }, meatFish);
+                    return Created($"/api/query/meatfish/{response.Name}", response);
                 }
 
                 return BadRequest(ModelState);
@@ -93,10 +91,11 @@ namespace WotWeEat.Api.Controllers
                 {
 
                     // Save the new meatfish
-                    await _dataService.SaveMealOption(mealOption);
+                    var response = await _dataService.SaveMealOption(mealOption);
 
                     // Return a success response or the newly created meatfish
-                    return CreatedAtAction(nameof(WotWeEatQueryController.GetMealOption), "WotWeEatQuery", new { id = mealOption.MealOptionId }, mealOption);
+                    
+                    return Created($"/api/query/mealoption/{response.MealOptionId}", response);
                 }
 
                 return BadRequest(ModelState);
@@ -117,10 +116,10 @@ namespace WotWeEat.Api.Controllers
                 {
 
                     // Save the new meatfish
-                    await _dataService.SaveMeal(meal);
+                    var response = await _dataService.SaveMeal(meal);
 
                     // Return a success response or the newly created meatfish
-                    return CreatedAtAction(nameof(WotWeEatQueryController.GetMeal), "WotWeEatQuery", new { id = meal.MealId }, meal);
+                    return Created($"/api/query/meal/{response.MealId}", response);
                 }
 
                 return BadRequest(ModelState);
