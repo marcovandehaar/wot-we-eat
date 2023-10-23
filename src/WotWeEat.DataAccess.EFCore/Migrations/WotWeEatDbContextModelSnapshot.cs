@@ -64,7 +64,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<Guid>("MealOptionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MealVariationId")
+                    b.Property<Guid?>("MealVariationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Rating")
@@ -95,6 +95,9 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Healthy")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InSeasons")
                         .HasColumnType("int");
 
                     b.Property<int>("MealBase")
@@ -137,12 +140,15 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("MeatFishId");
+
+                    b.HasAlternateKey("Name");
 
                     b.ToTable("MeatFish");
                 });
@@ -154,9 +160,12 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("VegetableId");
+
+                    b.HasAlternateKey("Name");
 
                     b.ToTable("Vegetable");
                 });
@@ -201,9 +210,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
                     b.HasOne("WotWeEat.DataAccess.EFCore.Model.MealVariation", "Variation")
                         .WithMany()
-                        .HasForeignKey("MealVariationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MealVariationId");
 
                     b.Navigation("MealOption");
 

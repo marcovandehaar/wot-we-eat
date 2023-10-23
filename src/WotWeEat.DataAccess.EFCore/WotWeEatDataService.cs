@@ -2,6 +2,7 @@
 using WotWeEat.DataAccess.Interfaces;
 using WotWeEat.Domain;
 
+
 namespace WotWeEat.DataAccess.EFCore
 {
     public class WotWeEatDataService : IWotWeEatDataService
@@ -30,13 +31,13 @@ namespace WotWeEat.DataAccess.EFCore
         public async Task<MeatFish?> GetMeatFishByName(string name)
         {
             var meatFish = await _repository.GetMeatFishByName(name);
-            return meatFish!=null ? _mapper.Map<MeatFish>(meatFish) : null;
+            return meatFish != null ? _mapper.Map<MeatFish>(meatFish) : null;
         }
 
         public async Task<Vegetable?> GetVegetableByName(string name)
         {
             var vegetable = await _repository.GetVegetableByName(name);
-            return vegetable!=null ? _mapper.Map<Vegetable>(vegetable) : null;
+            return vegetable != null ? _mapper.Map<Vegetable>(vegetable) : null;
         }
 
         public async Task<List<MealOption>> GetMealOptions()
@@ -48,66 +49,47 @@ namespace WotWeEat.DataAccess.EFCore
         public async Task<Meal?> GetMeal(Guid id)
         {
             var meal = await _repository.GetMeal(id);
-            return meal !=null ? _mapper.Map<Meal>(meal): null;
+            return meal != null ? _mapper.Map<Meal>(meal) : null;
         }
 
         public async Task<MealOption?> GetMealOption(Guid id)
         {
             var mealOption = await _repository.GetMealOption(id);
-            return mealOption !=null ? _mapper.Map<MealOption>(mealOption): null;
+            return mealOption != null ? _mapper.Map<MealOption>(mealOption) : null;
         }
 
-        public async Task SaveVegetable(Vegetable vegetable)
+        public async Task<Vegetable> SaveVegetable(Vegetable vegetable)
         {
             var mapped = _mapper.Map<Model.Vegetable>(vegetable);
-            await _repository.SaveVegetable(mapped);
-            vegetable.VegetableId = mapped.VegetableId;
+            var created = await _repository.SaveVegetable(mapped);
+            return _mapper.Map<Vegetable>(created);
         }
 
-        public async Task SaveMeatFish(MeatFish meatFish)
+        public async Task<MeatFish> SaveMeatFish(MeatFish meatFish)
         {
             var mapped = _mapper.Map<Model.MeatFish>(meatFish);
-            await _repository.SaveMeatFish(mapped);
-            meatFish.MeatFishId = mapped.MeatFishId;
+            var created = await _repository.SaveMeatFish(mapped);
+            return _mapper.Map<MeatFish>(created);
         }
 
-        public async Task SaveMealVariation(MealVariation mealVariation)
+        public async Task<MealVariation> SaveMealVariation(MealVariation mealVariation)
         {
             var mapped = _mapper.Map<Model.MealVariation>(mealVariation);
-            await _repository.SaveMealVariation(mapped);
-            mealVariation.MealVariationId = mapped.MealVariationId;
+            var created = await _repository.SaveMealVariation(mapped);
+            return _mapper.Map<MealVariation>(created); ;
         }
 
-        public async Task SaveMealOption(MealOption mealOption)
+        public async Task<MealOption> SaveMealOption(MealOption mealOption)
         {
-            if (mealOption.MealOptionId != Guid.Empty)
-            {
-                var existing = _repository.GetMealOption(mealOption.MealOptionId);
-                if (existing == null)
-                {
-                    throw new ArgumentException($"MealOption with Id {mealOption.MealOptionId} not found!");
-                    
-                }
-                await _mapper.Map(mealOption, existing);
-                await _repository.SaveMealOption(_mapper.Map<Model.MealOption>(existing));
-
-            }
-            else
-            {
-                var mapped = _mapper.Map<Model.MealOption>(mealOption);
-
-                mealOption.MealOptionId = mapped.MealOptionId;
-                await _repository.SaveMealOption(_mapper.Map<Model.MealOption>(mealOption));
-
-            }
-
+            var created = await _repository.SaveMealOption(_mapper.Map<Model.MealOption>(mealOption));
+            return _mapper.Map<MealOption>(created);
         }
 
-        public async Task SaveMeal(Meal meal)
+        public async Task<Meal> SaveMeal(Meal meal)
         {
             var mapped = _mapper.Map<Model.Meal>(meal);
-            await _repository.SaveMeal(mapped);
-            meal.MealId = mapped.MealId;
+            var created = await _repository.SaveMeal(mapped);
+            return _mapper.Map<Meal>(created);
         }
 
     }

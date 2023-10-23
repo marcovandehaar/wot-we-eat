@@ -31,16 +31,87 @@ GO
 EXEC sp_MSforeachtable 'DROP TABLE ?'
 GO
 
+## Remove all data from database
+-- disable referential integrity
+EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL' 
+GO 
+
+EXEC sp_MSForEachTable 'DELETE FROM ?' 
+GO 
+
+-- enable referential integrity again 
+EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL' 
+GO
+
 ## query Database
 --query database
 
-select * from MeatFishes
-select * from Vegetables
+select * from MeatFish
+select * from Vegetable
 select * from Meal
-select * from MealOptions
+select * from MealOption
 
 select * from MealOptionMeatFish
 select * from MealOptionVegetable
 
 ## select mealoption
+
+# Example requests
+## Clean MealOption
+{
+  "mealOptionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "description": "string",
+  "mealBase": "Potato",
+  "suitableForChildren": true,
+  "amountOfWork": "PieceOfCake",
+  "healthy": "Healthy",
+  "vegetables": [
+    {
+      "vegetableId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "name": "string"
+    }
+  ],
+  "meatFishes": [
+    {
+      "meatFishId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "name": "string",
+      "type": "Meat"
+    }
+  ],
+  "possibleVariations": [
+    {
+      "mealVariationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "description": "string",
+      "makeSuitableForKids": true
+    }
+  ]
+}
+
+## totaal nieuwe meal option
+{
+  "description": "Witte bonen met gekookte aardappelen en worst",
+  "mealBase": "Potato",
+  "suitableForChildren": true,
+  "amountOfWork": "PieceOfCake",
+  "healthy": "Healthy",
+  "vegetables": [
+    {
+      "name": "Witte bonen"
+    }
+  ],
+  "meatFishes": [
+    {
+      "name": "Worst",
+      "type": "Meat"
+    }
+  ],
+  "possibleVariations": [
+    {
+      "description": "Met rode bieten",
+      "makeSuitableForKids": true
+    }
+  ]
+}
+
+
 

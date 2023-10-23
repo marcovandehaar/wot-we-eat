@@ -31,10 +31,15 @@ namespace WotWeEat.DataAccess.EFCore
         public async Task<Meal?> GetMeal(Guid meal)
         {
             // Use Entity Framework to retrieve the MealOption by MealOptionId
-            var efMeal = await _context.Meal
-                .Include(mo => mo.MealOption) // Include related PossibleVariations
-                .Include(mo => mo.Variation) // Include related PossibleVariations
-                .FirstOrDefaultAsync(mo => mo.MealOptionId == meal);
+            var efMeal = _context.Meal
+                .Include(m => m.MealOption)         // Load the MealOption
+                    .ThenInclude(mo => mo.MeatFishes)  // Load the Vegetables of the MealOption
+                .Include(m => m.MealOption)         // Load the MealOption    
+                    .ThenInclude(mo => mo.Vegetables)  // Load the MeatFishes of the MealOption
+                .Include(m => m.MealOption)         // Load the MealOption    
+                    .ThenInclude(mo => mo.PossibleVariations)  // Load the MeatFishes of the MealOption
+                .Include(m => m.Variation)            // Load the Variation of the Meal
+                .FirstOrDefault(m => m.MealId == meal);
             return efMeal;
         }
 
@@ -48,7 +53,14 @@ namespace WotWeEat.DataAccess.EFCore
         }
 
 
-        public async Task SaveMealOption(MealOption mealOption)
+        public async Task<MealOption> SaveMealOption(MealOption mealOption)
+        {
+            await SaveMealOptionWithoutSave(mealOption);
+            await _context.SaveChangesAsync();
+            return mealOption;
+        }
+
+        private async Task SaveMealOptionWithoutSave(MealOption mealOption)
         {
             foreach (var vegetable in mealOption.Vegetables)
             {
@@ -76,13 +88,12 @@ namespace WotWeEat.DataAccess.EFCore
 
             if (mealOption.MealOptionId == Guid.Empty)
             {
-                //hier gaat het mis.... ik moet die properties nullen, maar ik moet ze ook nog netjes opslaan. dus dat onderste stuk moet naar boven...
                 _context.MealOption.Add(mealOption);
             }
             else
             {
                 // It's an existing MealOption, so update it
-                var existingMealOption =  await GetMealOption(mealOption.MealOptionId);
+                var existingMealOption = await GetMealOption(mealOption.MealOptionId);
 
                 if (existingMealOption != null)
                 {
@@ -98,43 +109,44 @@ namespace WotWeEat.DataAccess.EFCore
                         }
                     }
 
-                }
-
-            }
-            foreach (var possibleVariation in mealOption.PossibleVariations)
-            {
-                if (possibleVariation.MealVariationId == Guid.Empty)
-                {
-                    possibleVariation.MealOptionId = mealOption.MealOptionId;
-                    possibleVariation.MealOption = mealOption;
-                    await SaveMealVariationWithoutSave(possibleVariation);
-                }
-                else
-                {
-                    _context.SetEntityState(possibleVariation, EntityState.Unchanged);
+                    foreach (var newVariation in mealOption.PossibleVariations)
+                    {
+                        if (!existingMealOption.PossibleVariations.Any(v =>
+                                v.MealVariationId == newVariation.MealVariationId))
+                        {
+                            existingMealOption.PossibleVariations.Add(newVariation);
+                        }
+                    }
                 }
             }
-
-
-
-            await _context.SaveChangesAsync();
         }
 
-        public async Task SaveMeal(Meal meal)
+        public async Task<Meal> SaveMeal(Meal meal)
         {
+            
+            
+            await SaveMealOptionWithoutSave(meal.MealOption);
+            
+            if (meal.Variation != null && meal.Variation.MealVariationId == Guid.Empty)
+            {
+                await SaveMealVariation(meal.Variation);
+            }
             if (meal.MealId == Guid.Empty)
             {
-                // It's a new MealOption, so add it
-                _context.Meal.Add(meal);
+                
+                // It's a new Meal, so add it
+                meal.MealOptionId = meal.MealOption.MealOptionId;
+                meal.MealOption = null;
+                _context.Add(meal);
+                Console.WriteLine($"state: {_context.Entry(meal).State} ");
             }
             else
             {
-                // It's an existing MealOption, so update it
+                // It's an existing Meal, so update it
                 var existingMeal = await GetMeal(meal.MealId);
 
                 if (existingMeal != null)
                 {
-                    // Update properties of the existing MealOptionEF based on the input mealOption
                     _mapper.Map(meal, existingMeal);
                 }
                 else
@@ -142,24 +154,24 @@ namespace WotWeEat.DataAccess.EFCore
                     throw new ArgumentException($"Meal with id {meal.MealId} not found!");
                 }
             }
-            //check children, if new children present, save them.
-            var mealOption = meal.MealOption;
-            if (mealOption != null && mealOption.MealOptionId == Guid.Empty)
-            {
-                await SaveMealOption(mealOption);
-            }
+            Console.WriteLine($"state: {_context.Entry(meal).State} ");
+
             var mealVariant = meal.Variation;
             if (mealVariant != null && mealVariant.MealVariationId == Guid.Empty)
             {
                 
                 await SaveMealVariation(mealVariant);
             }
+            Console.WriteLine($"state: {_context.Entry(meal).State} ");
 
-            //prevent EF from trying to persist the children. This has been done, and foreign key is set.
-            meal.MealOption = null;
-            meal.Variation = null;
+            if (meal.Variation != null && meal.Variation.MealVariationId != Guid.Empty)
+            {
+                _context.SetEntityState(meal.Variation, EntityState.Unchanged);
+            }
+            Console.WriteLine($"state: {_context.Entry(meal).State} ");
 
             await _context.SaveChangesAsync();
+            return meal;
         }
 
         public async Task<List<Vegetable>> GetAllVegetables()
@@ -172,11 +184,12 @@ namespace WotWeEat.DataAccess.EFCore
             return await _context.MeatFish.ToListAsync();
         }
 
-        public async Task SaveMeatFish(MeatFish meatFish)
+        public async Task<MeatFish> SaveMeatFish(MeatFish meatFish)
         {
             await SaveMeatFishWithoutSave(meatFish);
 
             await _context.SaveChangesAsync();
+            return meatFish;
         }
 
         private async Task SaveMeatFishWithoutSave(MeatFish meatFish)
@@ -200,11 +213,12 @@ namespace WotWeEat.DataAccess.EFCore
             }
         }
 
-        public async Task SaveMealVariation(MealVariation mealVariation)
+        public async Task<MealVariation> SaveMealVariation(MealVariation mealVariation)
         {
             await SaveMealVariationWithoutSave(mealVariation);
 
             await _context.SaveChangesAsync();
+            return mealVariation;
         }
 
         private async Task SaveMealVariationWithoutSave(MealVariation mealVariation)
@@ -217,7 +231,12 @@ namespace WotWeEat.DataAccess.EFCore
             if (mealVariation.MealVariationId == Guid.Empty)
             {
                 // It's a new MealVariation, so link it and add it
-                mealVariation.MealOptionId = mealVariation.MealOption.MealOptionId;
+                if (mealVariation.MealOption.MealOptionId != Guid.Empty)
+                {
+                    mealVariation.MealOptionId = mealVariation.MealOption.MealOptionId;
+                    mealVariation.MealOption = null;
+                }
+                
                 _context.MealVariation.Add(mealVariation);
             }
             else
@@ -234,11 +253,12 @@ namespace WotWeEat.DataAccess.EFCore
             }
         }
 
-        public async Task SaveVegetable(Vegetable vegetable)
+        public async Task<Vegetable> SaveVegetable(Vegetable vegetable)
         {
             await SaveVegetableWithoutSave(vegetable);
 
             await _context.SaveChangesAsync();
+            return vegetable;
         }
 
         private async Task SaveVegetableWithoutSave(Vegetable vegetable)

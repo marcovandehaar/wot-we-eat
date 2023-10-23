@@ -16,10 +16,10 @@ namespace WotWeEat.DataAccess.Interfaces
         Task<List<MealOption>> GetMealOptions();
         Task<Meal?> GetMeal(Guid id);
         Task<MealOption?> GetMealOption(Guid id);
-        Task SaveVegetable(Vegetable vegetable);
-        Task SaveMeatFish(MeatFish meatFish);
-        Task SaveMealVariation(MealVariation mealVariation);
-        Task SaveMealOption(MealOption mealOption);
-        Task SaveMeal(Meal meal);
+        Task<Vegetable> SaveVegetable(Vegetable vegetable);
+        Task<MeatFish> SaveMeatFish(MeatFish meatFish);
+        Task<MealVariation> SaveMealVariation(MealVariation mealVariation);
+        Task<MealOption> SaveMealOption(MealOption mealOption);
+        Task<Meal> SaveMeal(Meal meal);
     }
 }

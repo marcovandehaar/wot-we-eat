@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "4e600546-3840-4431-b3f8-9b89bf7c4ddb",
+		"name": "WotWeEat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20535919"
+	},
+	"item": [
+		{
+			"name": "Command",
+			"item": [
+				{
+					"name": "Create Mealoption - Simple",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mealOptionId\", jsonData.mealOptionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Pizza\",\r\n  \"mealBase\": \"Dough\",\r\n  \"suitableForChildren\": true,\r\n  \"amountOfWork\": \"Average\",\r\n  \"healthy\": \"Unhealthy\",\r\n  \"vegetables\": [\r\n    {\r\n      \"name\": \"Tomato\"\r\n    }\r\n  ],\r\n  \"meatFishes\": [\r\n    {\r\n      \"name\": \"Salami\",\r\n      \"type\": \"Meat\"\r\n    }\r\n  ],\r\n  \"possibleVariations\": [\r\n    {\r\n      \"description\": \"From the BBQ\",\r\n      \"makeSuitableForKids\": true\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/command/mealoption",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"command",
+								"mealoption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Meal - Simple",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mealId\", jsonData.mealId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"2023-10-23T15:02:43.380Z\",\r\n  \"rating\": \"Excellent\",\r\n  \"withChildren\": true,\r\n  \"mealOption\": {\r\n    \"description\": \"Aardappelen met brocoli en worst\",\r\n    \"mealBase\": \"Potato\",\r\n    \"suitableForChildren\": true,\r\n    \"amountOfWork\": \"PieceOfCake\",\r\n    \"healthy\": \"Healthy\",\r\n    \"vegetables\": [\r\n      {\r\n        \"name\": \"Brocoli\"\r\n      }\r\n    ],\r\n    \"meatFishes\": [\r\n      {\r\n        \"name\": \"Worst\",\r\n        \"type\": \"Meat\"\r\n      }\r\n    ],\r\n    \"possibleVariations\": [\r\n      {\r\n        \"description\": \"met rauwe groentes\",\r\n        \"makeSuitableForKids\": true\r\n      }\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/command/meal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"command",
+								"meal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Query",
+			"item": [
+				{
+					"name": "Get MealOption",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/query/mealoption/{{mealOptionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"query",
+								"mealoption",
+								"{{mealOptionId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Meal",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:7171",
+			"type": "string"
+		},
+		{
+			"key": "mealOptionId",
+			"value": "A340BCD8-17AE-4CAA-3673-08DBD3D8D5B4"
+		},
+		{
+			"key": "mealId",
+			"value": "251FD80C-745C-40FF-8836-787BA13F81C7",
+			"type": "string"
+		}
+	]
+}

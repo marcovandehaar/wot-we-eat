@@ -15,7 +15,6 @@ public class WotWeEatDbContext: DbContext
     public DbSet<Vegetable> Vegetable { get; set; }
     public DbSet<MeatFish> MeatFish { get; set; }
     public DbSet<MealVariation> MealVariation { get; set; }
-   
     public DbSet<Meal> Meal{ get; set; }
     // Define DbSet for other domain objects
 
@@ -23,6 +22,10 @@ public class WotWeEatDbContext: DbContext
     {
         // Configure Fluent API mappings here
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder.Entity<MeatFish>()
+            .HasAlternateKey(a => new { a.Name });
+        modelBuilder.Entity<Vegetable>()
+            .HasAlternateKey(a => new { a.Name });
     }
 
     public void SetEntityState<TEntity>(TEntity entity, EntityState state) where TEntity : class

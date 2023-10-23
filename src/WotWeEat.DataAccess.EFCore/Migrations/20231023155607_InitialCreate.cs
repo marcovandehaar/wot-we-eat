@@ -20,7 +20,8 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     MealBase = table.Column<int>(type: "int", nullable: false),
                     SuitableForChildren = table.Column<bool>(type: "bit", nullable: false),
                     AmountOfWork = table.Column<int>(type: "int", nullable: false),
-                    Healthy = table.Column<int>(type: "int", nullable: false)
+                    Healthy = table.Column<int>(type: "int", nullable: false),
+                    InSeasons = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -32,12 +33,13 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 columns: table => new
                 {
                     MeatFishId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MeatFish", x => x.MeatFishId);
+                    table.UniqueConstraint("AK_MeatFish_Name", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,11 +47,12 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 columns: table => new
                 {
                     VegetableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vegetable", x => x.VegetableId);
+                    table.UniqueConstraint("AK_Vegetable_Name", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,7 +131,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     Rating = table.Column<int>(type: "int", nullable: true),
                     WithChildren = table.Column<bool>(type: "bit", nullable: false),
                     MealOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MealVariationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    MealVariationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -143,8 +146,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         name: "FK_Meal_MealVariation_MealVariationId",
                         column: x => x.MealVariationId,
                         principalTable: "MealVariation",
-                        principalColumn: "MealVariationId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "MealVariationId");
                 });
 
             migrationBuilder.CreateIndex(

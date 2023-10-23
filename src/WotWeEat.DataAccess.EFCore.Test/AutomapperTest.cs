@@ -29,6 +29,7 @@ public class AutomapperTest
                 Assert.NotNull(efModel);
                 Assert.Equal(efModel.AmountOfWork, domainModel.AmountOfWork); 
                 Assert.Equal(efModel.Description, domainModel.Description); 
+                Assert.Equal(efModel.InSeasons, domainModel.InSeasons); 
                 Assert.Equal(efModel.Healthy, domainModel.Healthy); 
                 Assert.Equal(efModel.MealBase, domainModel.MealBase); 
                 Assert.Equal(efModel.MealOptionId, domainModel.MealOptionId); 
@@ -61,6 +62,7 @@ public class AutomapperTest
             Healthy = Healthy.Unhealthy,
             MealBase = MealBase.Dough,
             MealOptionId = Guid.NewGuid(),
+            InSeasons = Season.Autumn | Season.Spring | Season.Summer | Season.Winter,
             MeatFishes = new List<Domain.MeatFish>()
             {
                 new Domain.MeatFish()

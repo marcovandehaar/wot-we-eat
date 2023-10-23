@@ -21,4 +21,5 @@ public class MealOption
     public List<Vegetable> Vegetables { get; set; }
     public List<MeatFish> MeatFishes { get; set; }
     public List<MealVariation> PossibleVariations { get; set; }
+    public Season? InSeasons { get; set; }
 }

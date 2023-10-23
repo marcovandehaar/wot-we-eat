@@ -12,13 +12,13 @@ public interface IWotWeEatRepository
     Task<MealOption?> GetMealOption(Guid mealOptionId);
     Task<Meal?> GetMeal(Guid meal);
     Task<List<MealOption>> GetAllMealOptions();
-    Task SaveMealOption(MealOption mealOption);
-    Task SaveMeal(Meal meal);
+    Task<MealOption> SaveMealOption(MealOption mealOption);
+    Task<Meal> SaveMeal(Meal meal);
     Task<List<Vegetable>> GetAllVegetables();
     Task<List<MeatFish>> GetAllMeatFish();
-    Task SaveMeatFish(MeatFish meatFish);
-    Task SaveMealVariation(MealVariation mealVariation);
-    Task SaveVegetable(Vegetable vegetable);
+    Task<MeatFish> SaveMeatFish(MeatFish meatFish);
+    Task<MealVariation> SaveMealVariation(MealVariation mealVariation);
+    Task<Vegetable> SaveVegetable(Vegetable vegetable);
     Task<Vegetable?> GetVegetableByName(string name);
     Task<MeatFish?> GetMeatFishByName(string name);
 }

@@ -38,6 +38,13 @@ enum Healthy {
     Unhealthy
 }
 
+enum Season {
+    Winter
+    Spring
+    Summer
+    Autumn
+}
+
 class MealOption {
   + ReferenceId: Guid
   + Description: String
@@ -82,9 +89,10 @@ class MealSuggestion {
 
 Meal --> "1" MealOption : Option
 Meal --> "0..1" MealVariation : Variation
-MealOption --> "0..8" MeatFishes : MeatFish
+MealOption --> "0..8" MeatFish : MeatFishes
 MealOption --> "0..*" MealVariation : PossibleVariations
 MealOption --> "0..*" Vegetable : Vegetables
+MealOption --> "0..*" Season : InSeasons
 MealSuggestion --> "1" MealOption : Option
 MealSuggestion --> "0..1" Meal : ResultedInMeal
 
