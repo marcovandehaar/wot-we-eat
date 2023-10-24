@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+    <span>
+      <img src="path_to_your_logo" alt="App Logo" height="40">
+      App Title
+    </span>
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon> <!-- This is a vertical dots icon for context menu -->
+    </button>
+  </mat-toolbar>
+  
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Menu Item 1</button>
+    <button mat-menu-item>Menu Item 2</button>
+    <!-- Add more menu items as needed -->
+  </mat-menu>
+  
+  <div class="main-buttons">
+    <button mat-raised-button (click)="suggestMeal()">Wot We Eat!?</button>
+    <button mat-raised-button (click)="enterMeal()">Enter meal</button>
+  </div>
+  
