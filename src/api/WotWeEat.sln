@@ -3,23 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotWeEat.Domain", "WotWeEat.Domain\WotWeEat.Domain.csproj", "{5CC56F4F-B275-47BC-9F7F-853A4055F533}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotWeEat.Domain", "WotWeEat.Domain\WotWeEat.Domain.csproj", "{5CC56F4F-B275-47BC-9F7F-853A4055F533}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotWeEat.DataAccess.Interfaces", "WotWeEat.DataAccess.Interfaces\WotWeEat.DataAccess.Interfaces.csproj", "{4DDFAB4C-45DF-4EB7-A393-F0E5B6192781}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotWeEat.DataAccess.Interfaces", "WotWeEat.DataAccess.Interfaces\WotWeEat.DataAccess.Interfaces.csproj", "{4DDFAB4C-45DF-4EB7-A393-F0E5B6192781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotWeEat.Api", "WotWeEat.Api\WotWeEat.Api.csproj", "{D3116282-F38C-4F72-8EC5-F2D0339F2669}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotWeEat.Api", "WotWeEat.Api\WotWeEat.Api.csproj", "{D3116282-F38C-4F72-8EC5-F2D0339F2669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotWeEat.DataAccess.EFCore", "WotWeEat.DataAccess.EFCore\WotWeEat.DataAccess.EFCore.csproj", "{0C38965E-848D-49DD-BB58-1786BB8ABE2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotWeEat.DataAccess.EFCore", "WotWeEat.DataAccess.EFCore\WotWeEat.DataAccess.EFCore.csproj", "{0C38965E-848D-49DD-BB58-1786BB8ABE2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WotWeEat.DataAccess.EFCore.Test", "WotWeEat.DataAccess.EFCore.Test\WotWeEat.DataAccess.EFCore.Test.csproj", "{388EDF84-FCCB-429F-B5E7-CE254A6741E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WotWeEat.DataAccess.EFCore.Test", "WotWeEat.DataAccess.EFCore.Test\WotWeEat.DataAccess.EFCore.Test.csproj", "{388EDF84-FCCB-429F-B5E7-CE254A6741E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5CC56F4F-B275-47BC-9F7F-853A4055F533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -42,5 +39,8 @@ Global
 		{388EDF84-FCCB-429F-B5E7-CE254A6741E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{388EDF84-FCCB-429F-B5E7-CE254A6741E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{388EDF84-FCCB-429F-B5E7-CE254A6741E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
