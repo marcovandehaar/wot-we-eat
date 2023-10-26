@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-screen.component.scss']
 })
 export class MainScreenComponent {
+  menuOpen: boolean = false;  
+
   
   suggestMeal() {
     console.log('Suggest Meal clicked');
@@ -16,5 +18,14 @@ export class MainScreenComponent {
     console.log('Enter Meal clicked');
     // Implement your logic here
   }
+
+  openContextMenu() {
+    this.menuOpen = !this.menuOpen;
+}
+
+isMenuOpen() {
+  return this.menuOpen ? 'open' : '';
+}
+
 
 }
