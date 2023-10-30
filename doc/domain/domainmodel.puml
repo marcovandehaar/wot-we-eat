@@ -5,6 +5,7 @@ enum MealBase {
     Pasta
     Dough
     Rice
+    Other
 }
 
 enum MeatFishType {

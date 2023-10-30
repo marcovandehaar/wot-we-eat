@@ -19,13 +19,5 @@ export class MainScreenComponent {
     // Implement your logic here
   }
 
-  openContextMenu() {
-    this.menuOpen = !this.menuOpen;
-}
-
-isMenuOpen() {
-  return this.menuOpen ? 'open' : '';
-}
-
 
 }

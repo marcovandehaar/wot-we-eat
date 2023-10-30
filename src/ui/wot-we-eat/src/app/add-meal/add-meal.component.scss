@@ -1,0 +1,70 @@
+.add-meal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; // This ensures the container takes up the full viewport height
+    position: relative; // To make sure the absolute positioning of child elements is relative to this container
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.meal-base-icons {
+    display: flex;
+    gap: 10px; /* spacing between icons */
+    justify-content: space-around;
+}
+
+/* Placeholder for the icons */
+.meal-base-icons img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    filter: grayscale(1); /* make it gray */
+}
+
+.meal-base-icons img.selected {
+    filter: grayscale(0); /* make it colorful */
+}
+
+.work-slider input[type="range"] {
+    width: 100%;
+}
+
+.healthy-rating img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    filter: grayscale(1);
+}
+
+.healthy-rating img.selected {
+    filter: grayscale(0);
+}
+
+.children-toggle {
+    /* ...styles for the toggle button... */
+}
+
+.seasons-selection img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    filter: grayscale(1);
+}
+
+.seasons-selection img.selected {
+    filter: grayscale(0);
+}
+
