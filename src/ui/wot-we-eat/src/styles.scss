@@ -1,9 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 html, body { height: 100%; }
 body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    //font-family: 'Roboto', sans-serif;
     background: radial-gradient(circle at bottom left, rgba(0, 255, 255, 0.5), rgba(240, 255, 255, 0.8), white);
     height: 100vh;
     overflow: hidden;
@@ -111,56 +110,35 @@ body {
   opacity: .24;
 }
 
-.context-menu {
-  position: absolute;
-  top: 2%;
-  right: 2%;
-  z-index: 10;
+.icon-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
 
-  button {
-      cursor: pointer;
-      background: none;
-      border: none;
-      &:focus {
-          outline: none;
-      }
+  &.material-symbols-outlined {
+      font-size: 24px; // Adjust size if necessary
   }
 
-  .dropdown-menu {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background-color: #ffffff;
-      border: 1px solid #e1e1e1;
-      border-radius: 8px;
-      padding: 5px 0;
-      position: absolute;
-      right: 0;
-      top: 100%;  // To position it right below the button
-      z-index: 11;  // To ensure it's on top
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: transform 0.5s ease-in-out;
-      width: 200px; 
-      &.open {
-          transform: scaleY(1);
-      }
+  &:hover .material-symbols-outlined {
+      color: hsl(10, 95%, 53%); // Bright orange
   }
 
-  a {
-      text-decoration: none;
-      color: #555;
-      padding: 10px 20px;
-      display: block;
-      transition: background-color 0.2s, color 0.2s;
+  &:active {
+      transform: scale(0.85); // Slight scale down when button is clicked
+  }
 
-      &:hover {
-          background-color: #f5f5f5;
-          color: #333;
-      }
+  &:focus {
+      outline: none;
   }
 }
+
+.icon-button.large-icon .material-symbols-outlined {
+    font-size: 36px;
+}
+
+
+
 
 
 

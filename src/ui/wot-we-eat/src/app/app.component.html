@@ -1,7 +1,8 @@
 <div class="context-menu">
-    <button mat-icon-button (click)="openContextMenu()">
-        <mat-icon>menu</mat-icon>
+    <button class="icon-button" (click)="openContextMenu()">
+        <span class="material-symbols-outlined">menu</span>
     </button>
+    
     <div class="dropdown-menu" [ngClass]="isMenuOpen()" *ngIf="menuOpen">
         <a href="#">Menu Item 1</a>
         <a href="#">Menu Item 2</a>
