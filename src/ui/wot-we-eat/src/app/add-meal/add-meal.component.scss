@@ -93,4 +93,39 @@
     );
 }
 
+.meal-description-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+    margin-left: 2rem;
+    margin-top: 0.7rem;
+    display: block;
+    transition: all 0.3s;
+    transform: translateY(0rem);
+  }
+  
+  .meal-description-input {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 1.2rem;
+      margin: 0 auto;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    display: block;
+    border-bottom: 0.3rem solid transparent;
+    transition: all 0.3s;
+    width: 80%;
+  }
+  
+  .meal-description-input:placeholder-shown + .meal-description-label {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translateY(-3rem);
+    transform: translateY(-3rem);
+  }
+  
+
+
 
