@@ -4,18 +4,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainScreenComponent } from './main-screen/main-screen.component';
-import { AddMealComponent } from './add-meal/add-meal.component';
+import { MealOptionFormComponent } from './meal-option-form/meal-option-form.component';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
+import { HttpClientModule } from '@angular/common/http';
+import { InMemoryMealApi } from './services/in-memory-meal-service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainScreenComponent,
-    AddMealComponent
+    MealOptionFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryMealApi, { delay: 200 }),   
   ],
   providers: [],
   bootstrap: [AppComponent]

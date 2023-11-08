@@ -82,7 +82,7 @@ namespace WotWeEat.Api.Controllers
             }
         }
 
-        [HttpPost("mealoption")]
+        [HttpPost("meal-option")]
         public async Task<IActionResult> CreateMealOption([FromBody] MealOption mealOption)
         {
             try
