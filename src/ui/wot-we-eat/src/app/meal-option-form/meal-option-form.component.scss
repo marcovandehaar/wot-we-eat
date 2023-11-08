@@ -10,8 +10,10 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 0px 0px 30px 0px;
+    justify-content: center; /* Center the items horizontally */
+    position: relative; /* The positioning context for absolute positioning */
+    width: 100%; /* Ensure the header spans the full width */
+    margin-bottom: 30px; /* Add some space below the header */
 }
 
 .back-button {
@@ -25,71 +27,22 @@
 
 .back-button:active {
     transform: scale(0.9); /* Button will slightly shrink when clicked */
+    position: absolute; /* Position the back button absolutely to control its position */
+    left: 20px; /* Move the button 20px from the left edge of the header */
+    top: 50%; /* Align it vertically in the center */
+    transform: translateY(-50%); /* Offset by half its height for perfect vertical centering */
 }
-
-.meal-base-icons {
-    display: flex;
-    gap: 10px; /* spacing between icons */
-    justify-content: space-around;
-}
-
-/* Placeholder for the icons */
-.meal-base-icons img {
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    filter: grayscale(1); /* make it gray */
-}
-
-.meal-base-icons img.selected {
-    filter: grayscale(0); /* make it colorful */
-}
-
-.work-slider input[type="range"] {
-    width: 100%;
-}
-
-.healthy-rating img {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    filter: grayscale(1);
-}
-
-.healthy-rating img.selected {
-    filter: grayscale(0);
-}
-
-.children-toggle {
-    /* ...styles for the toggle button... */
-}
-
-.seasons-selection img {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    filter: grayscale(1);
-}
-
-.seasons-selection img.selected {
-    filter: grayscale(0);
-}
-
-
 
 .playful-title {
     font-family: 'Pacifico', cursive;
     font-size: 2rem;
     margin: 0;
-    margin-left: 0;
-    font-size: 2rem;
-    -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     background-image: linear-gradient(
-      35deg,
-      hsl(21, 100%, 57%),
-      hsl(10, 95%, 53%)
+        35deg,
+        hsl(21, 100%, 57%),
+        hsl(10, 95%, 53%)
     );
 }
 
@@ -108,15 +61,13 @@
     font-family: 'Roboto', sans-serif;
     color: #333;
     font-size: 1.2rem;
-      margin: 0 auto;
-    padding: 0.5rem 1rem;
+
     border-radius: 0.5rem;
     background-color: rgb(255, 255, 255);
     border: none;
     display: block;
     border-bottom: 0.3rem solid transparent;
     transition: all 0.3s;
-    width: 80%;
   }
   
   .meal-description-input:placeholder-shown + .meal-description-label {
@@ -125,6 +76,40 @@
     -webkit-transform: translateY(-3rem);
     transform: translateY(-3rem);
   }
+
+  .form-group {
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    width: 80%; /* Make sure the form groups take full width */
+    box-sizing: border-box; /* This ensures padding is included in width */
+  }
+  
+  .form-group label,
+  .form-group input,
+  .form-group textarea {
+    margin: 0 auto;
+    display: block; /* Make these elements block level so they stack */
+    width: 100%; /* Full width for stacking */
+    margin-bottom: 10px; /* Add some margin at the bottom */
+  }
+  
+  .form-group input[type="text"],
+  .form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc; /* Basic border styling */
+    border-radius: 4px; /* Rounded corners */
+  }
+
+  .form-group .button-primary {
+    display: block; /* Make the button a block-level element */
+    margin: 0 auto; /* Center the button within the form-group */
+    /* Add other styling as necessary, but it seems you want to keep the button's original styles */
+}
+
+  .work-slider input[type="range"] {
+    width: 80%;
+}
+
   
 
 

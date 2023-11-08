@@ -1,4 +1,4 @@
-<div class="meal-option-form-container">
+<div class="add-meal-container">
     <!-- Back Button & Title -->
     <div class="header">
         <button (click)="goBack()" class="icon-button large-icon">
@@ -12,51 +12,49 @@
     <form [formGroup]="mealOptionForm" (ngSubmit)="saveMealOption()">
 
         <!-- Description Textbox -->
-        <div>
+        <div class="form-group">
             <textarea name="Text1" formControlName="description" cols="40" rows="2"
                 class="meal-description-input" id="maaltijd" placeholder="Maaltijd beschrijving" required=""></textarea>
-            <label for="maaltijd" class="meal-description-label">Maaltijd beschrijving</label>
-        </div>
-        <!-- Meal Base Icons Selection -->
-        <div class="meal-base-icons">
-            <!-- ... placeholder icons here ... -->
         </div>
 
         <!-- Meat or Fish Autocomplete -->
-        <input type="text" placeholder="auto complete multi select">
-
+        <div class="form-group">
+            <input type="text" class="meal-description-input" placeholder="auto complete multi select">
+        </div>
         <!-- Vegetables Autocomplete -->
-        <input type="text" placeholder="auto complete multi select">
-
+        <div class="form-group">
+            <input type="text" class="meal-description-input"  placeholder="auto complete multi select">
+        </div>
         <!-- Amount of Work Slider -->
-        <div class="work-slider">
+        <div class="form-group work-slider">
             <!-- ... placeholder slider here ... -->
-            <span>Amount of work: [Value]</span>
+            <span>Amount of work: </span>
+            <input type="range" class="meal-description-input"  min="1" max="3" placeholder="Amount of work"/>
         </div>
 
         <!-- Healthy Rating Selector -->
-        <div class="healthy-rating">
+        <div class="form-group">
             <!-- ... placeholder apples here ... -->
             <span>Healthy: [Value]</span>
         </div>
 
         <!-- Suitable for Children Toggle -->
-        <div class="children-toggle">
+        <div class="form-group">
             <!-- ... placeholder toggle here ... -->
         </div>
 
         <!-- Seasons Selection -->
-        <div class="seasons-selection">
+        <div class="form-group">
             <!-- ... placeholder seasons here ... -->
         </div>
 
         <!-- Variations Button -->
-        <div class="">
+        <div class="form-group">
             <button>Button: variations</button>
         </div>
 
         <!-- Primary Save Button -->
-        <div class="">
+        <div class="form-group">
             <button class="button-primary" type="submit">Opslaan!</button>
         </div>
 
