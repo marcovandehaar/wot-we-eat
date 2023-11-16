@@ -6,17 +6,26 @@ export class InMemoryMealApi implements InMemoryDbService {
     let mealOptions: MealOption[] = [
       {
         id: '5CehW',
-        description: 'Dit is een fijne maaltijd'
+        description: 'Dit is een fijne maaltijd',
+        mealBase:'Potato',
+        amountOfWork: 'Average',
+        healthy:'Uhealthy',
        
       },
       {
         id: '5CehW',
-        description: 'Dit is een fijne maaltijd'
+        description: 'Dit is een fijne maaltijd',
+        mealBase:'Potato',
+        amountOfWork: 'Average',
+        healthy:'Healthy',
        
       },
       {
         id: '5CehW',
-        description: 'Dit is een fijne maaltijd'
+        description: 'Dit is een fijne maaltijd',
+        mealBase:'Potato',
+        amountOfWork: 'Average',
+        healthy:'Sverage',
        
       },
     ]

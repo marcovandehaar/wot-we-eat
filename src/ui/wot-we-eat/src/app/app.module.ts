@@ -10,12 +10,15 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { HttpClientModule } from '@angular/common/http';
 import { InMemoryMealApi } from './services/in-memory-meal-service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HealthySelectorComponent } from './components/healthy-selector/healthy-selector.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MainScreenComponent,
-    MealOptionFormComponent
+    MealOptionFormComponent,
+    HealthySelectorComponent,
   ],
   imports: [
     BrowserModule,

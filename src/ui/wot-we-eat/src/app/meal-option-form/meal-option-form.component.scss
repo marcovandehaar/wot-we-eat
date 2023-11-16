@@ -1,116 +1,132 @@
 .add-meal-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; // This ensures the container takes up the full viewport height
-    position: relative; // To make sure the absolute positioning of child elements is relative to this container
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; // This ensures the container takes up the full viewport height
+  position: relative; // To make sure the absolute positioning of child elements is relative to this container
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the items horizontally */
-    position: relative; /* The positioning context for absolute positioning */
-    width: 100%; /* Ensure the header spans the full width */
-    margin-bottom: 30px; /* Add some space below the header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Center the items horizontally */
+  position: relative;
+  /* The positioning context for absolute positioning */
+  width: 100%;
+  /* Ensure the header spans the full width */
+  margin-bottom: 30px;
+  /* Add some space below the header */
 }
 
 .back-button {
-    background-color: transparent;
-    border: none;
-    font-size: 3rem; /* Adjust size as needed */
-    color: #FFA500; /* Bright orange color */
-    cursor: pointer;
-    transition: transform 0.2s; /* Smooth effect on click */
+  background-color: transparent;
+  border: none;
+  font-size: 3rem;
+  /* Adjust size as needed */
+  color: #FFA500;
+  /* Bright orange color */
+  cursor: pointer;
+  transition: transform 0.2s;
+  /* Smooth effect on click */
 }
 
 .back-button:active {
-    transform: scale(0.9); /* Button will slightly shrink when clicked */
-    position: absolute; /* Position the back button absolutely to control its position */
-    left: 20px; /* Move the button 20px from the left edge of the header */
-    top: 50%; /* Align it vertically in the center */
-    transform: translateY(-50%); /* Offset by half its height for perfect vertical centering */
+  transform: scale(0.9);
+  /* Button will slightly shrink when clicked */
+  position: absolute;
+  /* Position the back button absolutely to control its position */
+  left: 20px;
+  /* Move the button 20px from the left edge of the header */
+  top: 50%;
+  /* Align it vertically in the center */
+  transform: translateY(-50%);
+  /* Offset by half its height for perfect vertical centering */
 }
 
 .playful-title {
-    font-family: 'Pacifico', cursive;
-    font-size: 2rem;
-    margin: 0;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-image: linear-gradient(
-        35deg,
-        hsl(21, 100%, 57%),
-        hsl(10, 95%, 53%)
-    );
+  font-family: 'Pacifico', cursive;
+  font-size: 2rem;
+  margin: 0;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(35deg,
+      hsl(21, 100%, 57%),
+      hsl(10, 95%, 53%));
 }
 
 .meal-description-label {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.2rem;
-    color: #333;
-    margin-left: 3rem;
-    margin-top: 0.7rem;
-    display: block;
-    transition: all 0.3s;
-    transform: translateY(0rem);
-  }
-  
-  .meal-description-input {
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-    font-size: 1.2rem;
-
-    border-radius: 0.5rem;
-    background-color: rgb(255, 255, 255);
-    border: none;
-    display: block;
-    border-bottom: 0.3rem solid transparent;
-    transition: all 0.3s;
-  }
-  
-  .meal-description-input:placeholder-shown + .meal-description-label {
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transform: translateY(-3rem);
-    transform: translateY(-3rem);
-  }
-
-  .form-group {
-    margin: 0 auto;
-    padding: 0.5rem 1rem;
-    width: 80%; /* Make sure the form groups take full width */
-    box-sizing: border-box; /* This ensures padding is included in width */
-  }
-  
-  .form-group label,
-  .form-group input,
-  .form-group textarea {
-    margin: 0 auto;
-    display: block; /* Make these elements block level so they stack */
-    width: 100%; /* Full width for stacking */
-    margin-bottom: 10px; /* Add some margin at the bottom */
-  }
-  
-  .form-group input[type="text"],
-  .form-group textarea {
-    padding: 10px;
-    border: 1px solid #ccc; /* Basic border styling */
-    border-radius: 4px; /* Rounded corners */
-  }
-
-  .form-group .button-primary {
-    display: block; /* Make the button a block-level element */
-    margin: 0 auto; /* Center the button within the form-group */
-    /* Add other styling as necessary, but it seems you want to keep the button's original styles */
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  color: #333;
+  margin-left: 3rem;
+  margin-top: 0.7rem;
+  display: block;
+  transition: all 0.3s;
+  transform: translateY(0rem);
 }
 
-  .work-slider input[type="range"] {
-    width: 80%;
+.meal-description-input {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+
+  border-radius: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
 }
 
-  
+.meal-description-input:placeholder-shown+.meal-description-label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(-3rem);
+  transform: translateY(-3rem);
+}
 
+.form-group {
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  width: 80%;
+  /* Make sure the form groups take full width */
+  box-sizing: border-box;
+  /* This ensures padding is included in width */
+}
 
+.form-group label,
+.form-group input,
+.form-group select,
+.form-group textarea {
+  margin: 0 auto;
+  display: block;
+  /* Make these elements block level so they stack */
+  width: 100%;
+  /* Full width for stacking */
+  margin-bottom: 10px;
+  /* Add some margin at the bottom */
+}
 
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  /* Basic border styling */
+  border-radius: 4px;
+  /* Rounded corners */
+}
+
+.form-group .button-primary {
+  display: block;
+  /* Make the button a block-level element */
+  margin: 0 auto;
+  /* Center the button within the form-group */
+  /* Add other styling as necessary, but it seems you want to keep the button's original styles */
+}
+
+.work-slider input[type="range"] {
+  width: 80%;
+}

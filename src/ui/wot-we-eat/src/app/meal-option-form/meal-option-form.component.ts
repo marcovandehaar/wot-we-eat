@@ -13,6 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { MealService } from '../services/meal.service'; 
 import { MealOption } from '../models/meal-option.model';
+import { mealBaseValues } from '../models/meal-base';
+import { amountOfWorkValues } from '../models/amount-of-work';
+
+
 
 
 @Component({
@@ -22,9 +26,14 @@ import { MealOption } from '../models/meal-option.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MealOptionFormComponent implements OnInit {
+  mealBases = mealBaseValues;
+  amountOfWorkValues = amountOfWorkValues;
   mealOptionForm =  this.fb.nonNullable.group({
     id: '',
     description: '', 
+    mealBase: '',
+    amountOfWork: '',
+    healthy:'',
   });
 
   constructor(

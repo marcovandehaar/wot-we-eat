@@ -19,7 +19,12 @@
 
         <!-- Meat or Fish Autocomplete -->
         <div class="form-group">
-            <input type="text" class="meal-description-input" placeholder="auto complete multi select">
+            <select placeholder="Maaltijdbasis" formControlName="mealBase" class="meal-description-input">
+                <option value="" disabled selected>Maaltijdbasis</option>
+                <option *ngFor="let mealBaseType of mealBases" [value]="mealBaseType.value">
+                    {{mealBaseType.title}}
+                </option>
+            </select>
         </div>
         <!-- Vegetables Autocomplete -->
         <div class="form-group">
@@ -29,13 +34,13 @@
         <div class="form-group work-slider">
             <!-- ... placeholder slider here ... -->
             <span>Amount of work: </span>
-            <input type="range" class="meal-description-input"  min="1" max="3" placeholder="Amount of work"/>
+            <input type="range" class="meal-description-input" formControlName="amountOfWork" min="1" max="3" placeholder="Amount of work"/><!--NEED TO TRANSFORM VALUE TO AMOUNT OF WORK< OR DO clickable images-->
         </div>
 
         <!-- Healthy Rating Selector -->
         <div class="form-group">
             <!-- ... placeholder apples here ... -->
-            <span>Healthy: [Value]</span>
+            <app-healthy-selector/>
         </div>
 
         <!-- Suitable for Children Toggle -->

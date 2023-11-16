@@ -2,7 +2,7 @@
 
 public enum Healthy
 {
-    Healthy = 0,
+    Unhealthy = 0,
     Average = 1,
-    Unhealthy = 2
+    Healthy = 2,
 }
