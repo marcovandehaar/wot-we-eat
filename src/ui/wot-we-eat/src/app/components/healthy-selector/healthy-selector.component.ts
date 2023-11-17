@@ -1,23 +1,51 @@
-import { Component } from '@angular/core';
-import { HealtyOption, healtyOptions } from '../healthy-options';
+import { Component, Provider, forwardRef } from '@angular/core';
+import { HealthyOption, healtyOptions } from '../healthy-options';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+const PROFILE_ICON_VALUE_ACCESSOR: Provider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(()=>HealthySelectorComponent),
+  multi:true,
+}
 
 @Component({
   selector: 'app-healthy-selector',
   templateUrl: './healthy-selector.component.html',
-  styleUrls: ['./healthy-selector.component.scss']
+  styleUrls: ['./healthy-selector.component.scss'],
+  providers: [PROFILE_ICON_VALUE_ACCESSOR],
 })
-export class HealthySelectorComponent {
-  healthyOptions = healtyOptions;
-  selectedOption!: HealtyOption|null;
+export class HealthySelectorComponent implements ControlValueAccessor{
 
-  getImageName(option: HealtyOption)
+  healthyOptions = healtyOptions;
+  selectedOption!: HealthyOption|null;
+
+  private onChange!: Function;
+  private onTouched!: Function;
+
+  getImageName(option: HealthyOption)
   {
-    if(this.selectedOption!=null && this.selectedOption.value==option.value)
+    if(this.selectedOption!=null && this.selectedOption.id>=option.id)
     {
       return 'apple-green.png';
     } else {
       return 'apple-grey.png';
     }
+  }
+
+  optionSelected(option: HealthyOption) {
+    this.selectedOption = option;
+    this.onChange(option);
+  }
+
+  writeValue(optionValue: string | null): void {
+    this.selectedOption = healtyOptions.find(option => option.value === optionValue) || null;
+  }
+
+  registerOnChange(fn: Function): void {
+    this.onChange = (icon:string) => {fn(icon);};
+  }
+  registerOnTouched(fn: Function): void {
+    this.onTouched = fn;
   }
 }
 

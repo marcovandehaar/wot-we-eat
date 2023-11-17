@@ -1,4 +1,4 @@
-export class HealtyOption{
+export class HealthyOption{
     id: number;
     value: string;
     title: string;
@@ -12,8 +12,8 @@ export class HealtyOption{
 }
 
 
-export const healtyOptions: HealtyOption[] = [
-    new HealtyOption(0,'Unhealthy','Ongezond!'),
-    new HealtyOption(1,'Average','Gemiddled'),
-    new HealtyOption(2,'Healthy','Gezond!'),   
+export const healtyOptions: HealthyOption[] = [
+    new HealthyOption(0,'Unhealthy','Ongezond!'),
+    new HealthyOption(1,'Average','Gemiddled'),
+    new HealthyOption(2,'Healthy','Gezond!'),   
 ]
