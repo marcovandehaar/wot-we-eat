@@ -34,6 +34,7 @@ export class MealOptionFormComponent implements OnInit {
     mealBase: '',
     amountOfWork: '',
     healthy:'',
+    suitableForChildren:false,
   });
 
   constructor(

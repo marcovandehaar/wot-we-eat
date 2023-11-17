@@ -2,7 +2,7 @@ import { Component, Provider, forwardRef } from '@angular/core';
 import { HealthyOption, healtyOptions } from '../healthy-options';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-const PROFILE_ICON_VALUE_ACCESSOR: Provider = {
+const HEALTHY_SELECTOR_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(()=>HealthySelectorComponent),
   multi:true,
@@ -12,7 +12,7 @@ const PROFILE_ICON_VALUE_ACCESSOR: Provider = {
   selector: 'app-healthy-selector',
   templateUrl: './healthy-selector.component.html',
   styleUrls: ['./healthy-selector.component.scss'],
-  providers: [PROFILE_ICON_VALUE_ACCESSOR],
+  providers: [HEALTHY_SELECTOR_VALUE_ACCESSOR],
 })
 export class HealthySelectorComponent implements ControlValueAccessor{
 

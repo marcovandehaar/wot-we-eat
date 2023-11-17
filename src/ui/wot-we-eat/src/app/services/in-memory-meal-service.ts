@@ -10,6 +10,7 @@ export class InMemoryMealApi implements InMemoryDbService {
         mealBase:'Potato',
         amountOfWork: 'Average',
         healthy:'Uhealthy',
+        suitableForChildren:false,
        
       },
       {
@@ -18,6 +19,7 @@ export class InMemoryMealApi implements InMemoryDbService {
         mealBase:'Potato',
         amountOfWork: 'Average',
         healthy:'Healthy',
+        suitableForChildren:false,
        
       },
       {
@@ -26,6 +28,7 @@ export class InMemoryMealApi implements InMemoryDbService {
         mealBase:'Potato',
         amountOfWork: 'Average',
         healthy:'Sverage',
+        suitableForChildren:true,
        
       },
     ]

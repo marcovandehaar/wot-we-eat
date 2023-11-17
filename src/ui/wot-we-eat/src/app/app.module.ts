@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InMemoryMealApi } from './services/in-memory-meal-service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HealthySelectorComponent } from './components/healthy-selector/healthy-selector.component';
+import { ChildrenToggleComponent } from './components/children-toggle/children-toggle.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { HealthySelectorComponent } from './components/healthy-selector/healthy-
     MainScreenComponent,
     MealOptionFormComponent,
     HealthySelectorComponent,
+    ChildrenToggleComponent,
   ],
   imports: [
     BrowserModule,

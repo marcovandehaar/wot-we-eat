@@ -4,5 +4,6 @@ export interface MealOption {
         mealBase: string,  
         amountOfWork: string,  
         healthy:string,
+        suitableForChildren:boolean,
   }
   

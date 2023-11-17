@@ -14,6 +14,6 @@ export class HealthyOption{
 
 export const healtyOptions: HealthyOption[] = [
     new HealthyOption(0,'Unhealthy','Ongezond!'),
-    new HealthyOption(1,'Average','Gemiddled'),
+    new HealthyOption(1,'Average','Beetje gezond'),
     new HealthyOption(2,'Healthy','Gezond!'),   
 ]
