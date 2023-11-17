@@ -29,6 +29,15 @@ export class ChildrenToggleComponent implements ControlValueAccessor{
       return 'family-grey.png';
     }
   }
+  GetTitle()
+  {
+    if(this.suitebleForChildren)
+    {
+      return 'Voor het hele gezin!';
+    } else {
+      return 'Alleen voor de ouders.';
+    }
+  }
 
   click() {
     this.suitebleForChildren = !this.suitebleForChildren;
