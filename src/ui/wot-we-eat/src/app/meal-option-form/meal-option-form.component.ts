@@ -32,9 +32,9 @@ export class MealOptionFormComponent implements OnInit {
     id: '',
     description: '', 
     mealBase: '',
-    amountOfWork: '',
+    amountOfWork: '1',
     healthy:'',
-    suitableForChildren:false,
+    suitableForChildren:true,
   });
 
   constructor(
@@ -79,6 +79,25 @@ export class MealOptionFormComponent implements OnInit {
       }
     });
   }
+
+  get selectedWorkAmount(): string {
+    const control = this.mealOptionForm.get('amountOfWork');
+
+    // Check if control exists and has a value
+    if (control && control.value !== null && control.value !== undefined) {
+        // Ensure that control.value is treated as a number
+        const valueAsNumber = Number(control.value);
+
+        // Check if the conversion to a number was successful
+        if (!isNaN(valueAsNumber)) {
+            const selectedOption = this.amountOfWorkValues.find(opt => opt.index === valueAsNumber);
+            return selectedOption ? selectedOption.title : '';
+        }
+    }
+
+    return ''; 
+}
+
 
   
 
