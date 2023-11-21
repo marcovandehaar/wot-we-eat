@@ -44,12 +44,18 @@
             <!-- ... placeholder toggle here ... -->
         </div>
 
-        <!-- Seasons Selection -->
         <div class="form-group">
             <!-- ... placeholder seasons here ... -->
         </div>
 
-        <!-- Variations Button -->
+        <!-- Vegetables -->
+        <div class="form-group">
+            
+                <img src="./assets/images/brocoli.png" class="vegetables-img"/>
+                <p-multiSelect [options]="vegetables" formControlName="vegetables" optionLabel="name" placeholder="Kies groentes"></p-multiSelect>
+            
+        </div>
+
         <div class="form-group">
             <button>Button: variations</button>
         </div>

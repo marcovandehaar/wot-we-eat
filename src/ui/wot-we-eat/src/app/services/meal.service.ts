@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MealOption } from '../models/meal-option.model';
+import { MealOption, Vegetable } from '../models/meal-option.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +19,15 @@ export class MealService {
   }
 
   getMealOption(id: string): Observable<MealOption | undefined> {
-    return this.http.get<MealOption>(`api/meal-option/${id}`);
+    return this.http.get<MealOption>(`${this.apiUrl}/meal-option/${id}`);
   }
 
-  getAllContacts(): Observable<MealOption[]> {
-    return this.http.get<MealOption[]>('api/meal-option/all');
+  getAllMealOptions(): Observable<MealOption[]> {
+    return this.http.get<MealOption[]>(`${this.apiUrl}/meal-option`);
+  }
+
+  getAllVegetables(): Observable<Vegetable[]> {
+    return this.http.get<Vegetable[]>(`${this.apiUrl}/vegetables`);
   }
 }
 

@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MealService } from '../services/meal.service'; 
-import { MealOption } from '../models/meal-option.model';
+import { MealOption, Vegetable } from '../models/meal-option.model';
 import { mealBaseValues } from '../models/meal-base';
 import { amountOfWorkValues } from '../models/amount-of-work';
 
@@ -35,7 +35,9 @@ export class MealOptionFormComponent implements OnInit {
     amountOfWork: '1',
     healthy:'',
     suitableForChildren:true,
+    vegetables:<Vegetable[]|null>null
   });
+  vegetables: Vegetable[] = [];
 
   constructor(
     private route: ActivatedRoute, 
@@ -45,20 +47,24 @@ export class MealOptionFormComponent implements OnInit {
     
 
     ngOnInit() {
+      this.mealService.getAllVegetables().subscribe(vegetables => {
+        this.vegetables = vegetables;
+        console.log('Vegetables:', vegetables); // Log the entire array
+      });
+      
       const mealOptionId = this.route.snapshot.params['id'];
-      if (!mealOptionId) return
-  
+      if (!mealOptionId) return          
       this.mealService.getMealOption(mealOptionId).subscribe((mealOption)=>
-      {
-        if(!mealOption)
-        return;
-        
-        //when you want to start the form only partially filled with values, patch!
-        //const names = {firstName: contact.firstName, lastName: contact.lastName}
-        //this.contactForm.patchValue(names);
-        
-        this.mealOptionForm.setValue(mealOption);
-      }
+        {
+          if(!mealOption)
+          return;
+          
+          //when you want to start the form only partially filled with values, patch!
+          //const names = {firstName: contact.firstName, lastName: contact.lastName}
+          //this.contactForm.patchValue(names);
+          
+          this.mealOptionForm.setValue(mealOption);
+        }
       );
     }
   

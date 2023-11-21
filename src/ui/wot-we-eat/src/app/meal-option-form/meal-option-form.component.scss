@@ -130,3 +130,15 @@
 .work-slider input[type="range"] {
   width: 80%;
 }
+
+.vegetables-img {  
+  width: 2.5rem;
+  display: inline-flex;
+  position: relative;
+  vertical-align: bottom;
+}
+
+:host ::ng-deep .p-multiselect {
+  min-width: 15rem;
+  width: 20rem;
+}

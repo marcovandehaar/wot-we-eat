@@ -5,5 +5,11 @@ export interface MealOption {
         amountOfWork: string,  
         healthy:string,
         suitableForChildren:boolean,
+        vegetables: Vegetable[] | null,
   }
+
+export interface Vegetable {
+      id: string ,
+      name: string ,
+}
   
