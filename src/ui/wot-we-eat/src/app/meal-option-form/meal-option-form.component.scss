@@ -142,3 +142,11 @@
   min-width: 15rem;
   width: 20rem;
 }
+
+.group {
+  display: flex;
+  align-items: center; /* This aligns children vertically in the middle */
+}
+.group-title {
+  margin-left: 1rem;;
+}

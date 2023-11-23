@@ -12,9 +12,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MealService } from '../services/meal.service'; 
-import { MealOption, Vegetable } from '../models/meal-option.model';
-import { mealBaseValues } from '../models/meal-base';
-import { amountOfWorkValues } from '../models/amount-of-work';
+import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
+import { mealBaseValues } from '../models/enums';
+import { amountOfWorkValues } from '../models/enums';
 
 
 
@@ -35,9 +35,11 @@ export class MealOptionFormComponent implements OnInit {
     amountOfWork: '1',
     healthy:'',
     suitableForChildren:true,
-    vegetables:<Vegetable[]|null>null
+    vegetables:<Vegetable[]|null>null,
+    meatFishes:<MeatFish[]|null>null,
   });
   vegetables: Vegetable[] = [];
+  groupedMeatFishes: GroupedMeatFish[] = [];
 
   constructor(
     private route: ActivatedRoute, 
@@ -49,7 +51,10 @@ export class MealOptionFormComponent implements OnInit {
     ngOnInit() {
       this.mealService.getAllVegetables().subscribe(vegetables => {
         this.vegetables = vegetables;
-        console.log('Vegetables:', vegetables); // Log the entire array
+      });
+      this.mealService.getGroupedMeatFishes().subscribe(groupedMeatFishes => {
+        console.log('Meatfishes:', groupedMeatFishes);
+        this.groupedMeatFishes = groupedMeatFishes;
       });
       
       const mealOptionId = this.route.snapshot.params['id'];

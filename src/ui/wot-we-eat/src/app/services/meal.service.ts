@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { MealOption, Vegetable } from '../models/meal-option.model';
+import { Observable,map } from 'rxjs';
+import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,36 @@ export class MealService {
   }
 
   getAllVegetables(): Observable<Vegetable[]> {
-    return this.http.get<Vegetable[]>(`${this.apiUrl}/vegetables`);
+    return this.http.get<Vegetable[]>(`${this.apiUrl}/vegetable`);
   }
+
+  getAllMeatFishes(): Observable<MeatFish[]> {
+    return this.http.get<MeatFish[]>(`${this.apiUrl}/meat-fish`);
+  }
+
+  getGroupedMeatFishes(): Observable<GroupedMeatFish[]> {
+    return this.getAllMeatFishes().pipe(
+      map(meatFishes => this.groupMeatFishesByType(meatFishes))
+    );
+  }
+
+  private groupMeatFishesByType(meatFishes: MeatFish[]): GroupedMeatFish[] {
+    const grouped = meatFishes.reduce((acc, meatFish) => {
+      if (!acc[meatFish.meatFishType]) {
+        acc[meatFish.meatFishType] = [];
+      }
+      acc[meatFish.meatFishType].push(meatFish);
+      return acc;
+    }, {} as Record<string, MeatFish[]>);
+  
+    return Object.keys(grouped).map(key => ({
+      label: key === 'Meat' ? 'Vlees' : 'Vis',
+      value: key,
+      items: grouped[key],
+      image: key === 'Meat' ? 'meat.png' : 'fish.png' // Assign the image based on the meatFishType
+    }));
+  }
+  
 }
 
 

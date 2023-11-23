@@ -1,5 +1,5 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { MealOption, Vegetable } from '../models/meal-option.model';
+import { MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
 
 export class InMemoryMealApi implements InMemoryDbService {
   createDb() {
@@ -15,6 +15,11 @@ export class InMemoryMealApi implements InMemoryDbService {
           id: 'jmfgu',
           name: 'Witte bonen',       
         }],
+        meatFishes: [{
+          id: 'trg',
+          name: 'Braadworst',
+          meatFishType: 'Meat',       
+        }],
        
       },
       {
@@ -27,6 +32,11 @@ export class InMemoryMealApi implements InMemoryDbService {
         vegetables: [{
           id: 'jmfgu',
           name: 'Witte bonen',       
+        }],
+        meatFishes: [{
+          id: 'rth',
+          name: 'SPeklap',
+          meatFishType: 'Meat',       
         }],
        
       },
@@ -44,6 +54,11 @@ export class InMemoryMealApi implements InMemoryDbService {
           id: 'gujmy',
           name: 'Snijbonen',       
         }],
+        meatFishes: [{
+          id: 'bgf',
+          name: 'Zalmfilet',
+          meatFishType: 'Fish',       
+        }],
        
       },
     ];
@@ -60,8 +75,53 @@ export class InMemoryMealApi implements InMemoryDbService {
         id: 'ased',
         name: 'Brocoli',       
       }
-    ]
+    ];
+    let meatFishes: MeatFish[] = [
+      {
+        id: 'trg',
+        name: 'Braadworst',
+        meatFishType: 'Meat',       
+      },
+      {
+        id: 'rth',
+        name: 'Slavink',
+        meatFishType: 'Meat',       
+      },
+      {
+        id: 'tjjjg',
+        name: 'Kip Cordon Bleu',
+        meatFishType: 'Meat',       
+      },
+      {
+        id: 'bbb',
+        name: 'Speklap',
+        meatFishType: 'Meat',       
+      },
+      {
+        id: 'bgf',
+        name: 'Zalmfilet',
+        meatFishType: 'Fish',       
+      },
+      
+      {
+        id: 'ere',
+        name: 'Pangafilet',
+        meatFishType: 'Fish',       
+      },
+      {
+        id: 'www',
+        name: 'Fish sticks',
+        meatFishType: 'Fish',       
+      },
+      
+      {
+        id: 'uuu',
+        name: 'Fish cuisine - mediteraan',
+        meatFishType: 'Fish',       
+      }
+    ];
+    
 
-    return { 'meal-option': mealOptions, 'vegetables': vegetables }; // The key here should match the endpoint
+    return { 'meal-option': mealOptions, 'vegetable': vegetables, 'meat-fish':meatFishes }; // The key here should match the endpoint
   }
 }

@@ -6,10 +6,24 @@ export interface MealOption {
         healthy:string,
         suitableForChildren:boolean,
         vegetables: Vegetable[] | null,
+        meatFishes: MeatFish[] |null,
   }
 
 export interface Vegetable {
       id: string ,
       name: string ,
 }
+
+export interface MeatFish {
+      id: string ,
+      name: string ,
+      meatFishType: string,
+}
+
+export interface GroupedMeatFish {
+      label: string;
+      value: string;
+      image: string;
+      items: MeatFish[];
+    }
   
