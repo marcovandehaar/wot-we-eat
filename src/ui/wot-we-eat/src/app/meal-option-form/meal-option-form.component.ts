@@ -8,12 +8,12 @@ import {
   SimpleChanges,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MealService } from '../services/meal.service'; 
 import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
-import { mealBaseValues } from '../models/enums';
+import { mealBaseValues, seasons } from '../models/enums';
 import { amountOfWorkValues } from '../models/enums';
 
 
@@ -37,6 +37,7 @@ export class MealOptionFormComponent implements OnInit {
     suitableForChildren:true,
     vegetables:<Vegetable[]|null>null,
     meatFishes:<MeatFish[]|null>null,
+    seasons:  new FormControl(seasons.map(season => season.value)),
   });
   vegetables: Vegetable[] = [];
   groupedMeatFishes: GroupedMeatFish[] = [];
@@ -56,7 +57,7 @@ export class MealOptionFormComponent implements OnInit {
         console.log('Meatfishes:', groupedMeatFishes);
         this.groupedMeatFishes = groupedMeatFishes;
       });
-      
+
       const mealOptionId = this.route.snapshot.params['id'];
       if (!mealOptionId) return          
       this.mealService.getMealOption(mealOptionId).subscribe((mealOption)=>
@@ -72,9 +73,10 @@ export class MealOptionFormComponent implements OnInit {
         }
       );
     }
+
   
   saveMealOption(): void {
-    console.log(this.mealOptionForm.value);
+    console.log('saveMealOption called');
     
     this.mealService.saveMealOption(this.mealOptionForm.getRawValue()).subscribe({
       next: (response) => {

@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HealthySelectorComponent } from './components/healthy-selector/healthy-selector.component';
 import { ChildrenToggleComponent } from './components/children-toggle/children-toggle.component';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { SeasonSelectorComponent } from './components/season-selector/season-selector.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     MainScreenComponent,
     MealOptionFormComponent,
     HealthySelectorComponent,
-    ChildrenToggleComponent,    
+    ChildrenToggleComponent,
+    SeasonSelectorComponent,    
 
   ],
   imports: [

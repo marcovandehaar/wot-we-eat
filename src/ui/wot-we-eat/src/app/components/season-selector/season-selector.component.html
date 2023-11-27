@@ -1,0 +1,16 @@
+<div class="seasons-toggle">
+    <button class="season-btn" id="btn-winter" type="button" (click)="selectSeason('winter')">
+      <img [src]="'/assets/images/seasons/' + getImageName('winter')" alt="Winter">
+    </button>
+    <button class="season-btn" id="btn-spring" type="button" (click)="selectSeason('spring')">
+      <img [src]="'/assets/images/seasons/' + getImageName('spring')" alt="Spring">
+    </button>
+    <button class="season-btn" id="btn-summer" type="button" (click)="selectSeason('summer')">
+      <img [src]="'/assets/images/seasons/' + getImageName('summer')" alt="Summer">
+    </button>
+    <button class="season-btn" id="btn-autumn" type="button" (click)="selectSeason('autumn')">
+      <img [src]="'/assets/images/seasons/' + getImageName('autumn')" alt="Autumn">
+    </button>
+  </div>
+  <p class="season-text">Een maaltijd voor in de  <span id="season-name">{{ getSelectedSeasonTitles() }}</span></p>
+  

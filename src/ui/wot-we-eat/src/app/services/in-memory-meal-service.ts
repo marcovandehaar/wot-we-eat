@@ -20,7 +20,7 @@ export class InMemoryMealApi implements InMemoryDbService {
           name: 'Braadworst',
           meatFishType: 'Meat',       
         }],
-       
+       seasons: ['Winter','Spring','Summer','Autumn'],
       },
       {
         id: 'sfdg',
@@ -38,6 +38,7 @@ export class InMemoryMealApi implements InMemoryDbService {
           name: 'SPeklap',
           meatFishType: 'Meat',       
         }],
+        seasons: ['Winter','Spring','Summer','Autumn'],
        
       },
       {
@@ -59,6 +60,7 @@ export class InMemoryMealApi implements InMemoryDbService {
           name: 'Zalmfilet',
           meatFishType: 'Fish',       
         }],
+        seasons: ['Spring','Summer'],
        
       },
     ];

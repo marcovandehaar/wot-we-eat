@@ -15,3 +15,10 @@ export const mealBaseValues = [
   { title: 'Pasta', value: 'Pasta' },
   { title: 'Rijst', value: 'Rice' },
 ]
+
+export const seasons = [
+  { title: 'Winter', value: 'winter' },
+  { title: 'Lente', value: 'spring' },
+  { title: 'Zomer', value: 'summer' },
+  { title: 'Herfst', value: 'autumn' },
+]

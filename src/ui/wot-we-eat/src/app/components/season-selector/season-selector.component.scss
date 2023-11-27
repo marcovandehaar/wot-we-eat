@@ -1,0 +1,40 @@
+.seasons-toggle {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Increased top margin */
+  padding: 0;
+
+  .season-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      transition: transform 0.2s ease; /* Animation effect */
+      cursor: pointer; /* Cursor changes to a pointer on hover */
+
+    
+      &:focus {
+          outline: none;
+      }
+
+      &:active {
+          transform: scale(0.95); /* Slightly scale down when clicked */
+          cursor: grab; /* Optional: change cursor on click */
+      }
+
+      &.disabled {
+          pointer-events: none;
+      }
+
+      img {
+          width: 50px; // Adjust as needed
+          height: auto;
+          display: block;
+      }
+  }
+}
+
+.season-text {
+  text-align: center;
+  margin-top: 10px; // Adjust as needed
+}

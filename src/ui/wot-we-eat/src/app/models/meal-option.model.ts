@@ -7,6 +7,7 @@ export interface MealOption {
         suitableForChildren:boolean,
         vegetables: Vegetable[] | null,
         meatFishes: MeatFish[] |null,
+        seasons: string[] |null
   }
 
 export interface Vegetable {
