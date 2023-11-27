@@ -31,8 +31,14 @@
           height: auto;
           display: block;
       }
+      
   }
 }
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
 
 .season-text {
   text-align: center;

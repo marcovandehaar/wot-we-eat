@@ -22,13 +22,13 @@ export class HealthySelectorComponent implements ControlValueAccessor{
   private onChange!: Function;
   private onTouched!: Function;
 
-  getImageName(option: HealthyOption)
+  isActive(option: HealthyOption)
   {
     if(this.selectedOption!=null && this.selectedOption.id>=option.id)
     {
-      return 'apple-green.png';
+      return true;
     } else {
-      return 'apple-grey.png';
+      return false;
     }
   }
 

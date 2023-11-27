@@ -22,6 +22,25 @@ export class SeasonSelectorComponent implements ControlValueAccessor{
   private onTouched!: Function;
   
   
+  isActive(season: string)
+  {
+    // Find the corresponding 'value' for the given 'option'
+    const seasonItem = seasons.find(s => s.value === season);
+      // Ensure seasonItem is defined and get the 'value'
+    const seasonValue = seasonItem ? seasonItem.value : null;
+    if (seasonValue) {
+      // Initialize selectedSeasons as an empty array if it's null
+      const selectedSeasons = this.selectedSeasons || [];
+        // Check if the season 'value' is in the selectedSeasons array
+      const isSelected = selectedSeasons.includes(seasonValue);
+        // Convert the 'value' to lowercase for the image name
+      return isSelected;
+    }
+      // Return a default image or handle the case where no season is found
+      console.warn('Invalid season:', season); // Optional: handle invalid season
+      return false; // or handle this case appropriately
+  }
+
   selectSeason(season: string): void {
     // Check if the season is a valid value
     const isValidSeason = seasons.some(s => s.value === season);
@@ -64,17 +83,14 @@ export class SeasonSelectorComponent implements ControlValueAccessor{
       // Ensure seasonItem is defined and get the 'value'
     const seasonValue = seasonItem ? seasonItem.value : null;
     if (seasonValue) {
-      // Initialize selectedSeasons as an empty array if it's null
-      const selectedSeasons = this.selectedSeasons || [];
-        // Check if the season 'value' is in the selectedSeasons array
-      const isSelected = selectedSeasons.includes(seasonValue);
         // Convert the 'value' to lowercase for the image name
       const imageName = seasonValue.toLowerCase();
         // Return the image path based on the selected state
-      return `${imageName}${isSelected ? '' : '-disabled'}.png`;
+      return `${imageName}.png`;
     }
       // Return a default image or handle the case where no season is found
-    return 'default-image.png'; // or handle this case appropriately
+      console.warn('Invalid season:', option); // Optional: handle invalid season
+      return 'default-image.png'; // or handle this case appropriately
   }
   
   getSelectedSeasonTitles(): string {

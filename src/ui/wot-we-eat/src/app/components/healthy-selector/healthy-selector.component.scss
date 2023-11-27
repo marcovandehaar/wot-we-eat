@@ -8,7 +8,13 @@ ul {
 img {
     cursor: pointer;
     width: 50px;
+
+    
 }
+
+.grayscale {
+    filter: grayscale(100%);
+  }
 
 div {
     text-align: center;

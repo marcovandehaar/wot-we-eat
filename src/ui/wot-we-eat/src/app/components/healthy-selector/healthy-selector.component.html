@@ -1,6 +1,6 @@
 <ul>
     <li *ngFor="let option of healthyOptions">        
-        <img [src]="'/assets/images/health/' + getImageName(option)" (click)="optionSelected(option)" />
+        <img src="/assets/images/health/apple-green.png" (click)="optionSelected(option)" [class.grayscale]="!isActive(option)" />
     </li>
 </ul>
 <div>{{selectedOption?.title}}</div>
