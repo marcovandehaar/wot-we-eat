@@ -78,6 +78,8 @@
   display: block;
   border-bottom: 0.3rem solid transparent;
   transition: all 0.3s;
+  resize: none;    /* Disable manual resizing */
+  overflow: auto; 
 }
 
 .meal-description-input:placeholder-shown+.meal-description-label {
