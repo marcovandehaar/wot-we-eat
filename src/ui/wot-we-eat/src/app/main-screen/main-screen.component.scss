@@ -3,8 +3,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; // This ensures the container takes up the full viewport height
-  position: relative; // To make sure the absolute positioning of child elements is relative to this container
+  min-height: 100vh; /* Changed from height to min-height */
+  position: relative;
+  overflow: auto; /* Allows for scrolling when content overflows */
 }
 
 .logo-container {
