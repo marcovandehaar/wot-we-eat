@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WotWeEat.DataAccess.EFCore.Model;
+using WotWeEat.DataAccess.EFCore.Seed;
 
 namespace WotWeEat.DataAccess.EFCore;
 
@@ -26,10 +27,15 @@ public class WotWeEatDbContext: DbContext
             .HasAlternateKey(a => new { a.Name });
         modelBuilder.Entity<Vegetable>()
             .HasAlternateKey(a => new { a.Name });
+
+        modelBuilder.SeedVegetables();
+        modelBuilder.SeedMeatFishes();
     }
 
     public void SetEntityState<TEntity>(TEntity entity, EntityState state) where TEntity : class
     {
         Entry(entity).State = state;
     }
+
+    
 }

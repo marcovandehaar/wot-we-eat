@@ -5,7 +5,10 @@ Generate initial create:
  dotnet ef migrations add InitialCreate -s ..\WotWeEat.Api\WotWeEat.Api.csproj
 Generate new Migration:
  dotnet ef migrations add NewMigrationName -s ..\WotWeEat.Api\WotWeEat.Api.csproj
-Update Databse:
+ Regenersate SEED
+    first remove SEED migration, then adjust Seeding extendions, then run comand:
+    dotnet ef migrations add Seed -s ..\WotWeEat.Api\WotWeEat.Api.csproj
+Update Database:
  dotnet ef database update -s ..\WotWeEat.Api\WotWeEat.Api.csproj
 
 # queries 
