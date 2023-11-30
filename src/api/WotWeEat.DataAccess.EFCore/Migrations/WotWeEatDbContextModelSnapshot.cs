@@ -27,12 +27,12 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<Guid>("MealOptionsMealOptionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MeatFishesMeatFishId")
+                    b.Property<Guid>("PossibleMeatFishesMeatFishId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MealOptionsMealOptionId", "MeatFishesMeatFishId");
+                    b.HasKey("MealOptionsMealOptionId", "PossibleMeatFishesMeatFishId");
 
-                    b.HasIndex("MeatFishesMeatFishId");
+                    b.HasIndex("PossibleMeatFishesMeatFishId");
 
                     b.ToTable("MealOptionMeatFish");
                 });
@@ -88,7 +88,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AmountOfWork")
+                    b.Property<int?>("AmountOfWork")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -139,6 +139,9 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("MealId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -149,6 +152,8 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.HasKey("MeatFishId");
 
                     b.HasAlternateKey("Name");
+
+                    b.HasIndex("MealId");
 
                     b.ToTable("MeatFish");
 
@@ -229,7 +234,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
                     b.HasOne("WotWeEat.DataAccess.EFCore.Model.MeatFish", null)
                         .WithMany()
-                        .HasForeignKey("MeatFishesMeatFishId")
+                        .HasForeignKey("PossibleMeatFishesMeatFishId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -273,6 +278,18 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .HasForeignKey("MealOptionId");
 
                     b.Navigation("MealOption");
+                });
+
+            modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.MeatFish", b =>
+                {
+                    b.HasOne("WotWeEat.DataAccess.EFCore.Model.Meal", null)
+                        .WithMany("MeatFishes")
+                        .HasForeignKey("MealId");
+                });
+
+            modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.Meal", b =>
+                {
+                    b.Navigation("MeatFishes");
                 });
 
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.MealOption", b =>

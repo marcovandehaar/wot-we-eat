@@ -22,7 +22,7 @@ namespace WotWeEat.DataAccess.EFCore
             // Use Entity Framework to retrieve the MealOption by MealOptionId
             var efMealOption = await _context.MealOption
                 .Include(mo => mo.PossibleVariations) // Include related PossibleVariations
-                .Include(mo => mo.MeatFishes) // Include related PossibleVariations
+                .Include(mo => mo.PossibleMeatFishes) // Include related PossibleVariations
                 .Include(mo => mo.Vegetables) // Include related PossibleVariations
                 .FirstOrDefaultAsync(mo => mo.MealOptionId == mealOptionId);
             return efMealOption;
@@ -32,12 +32,13 @@ namespace WotWeEat.DataAccess.EFCore
         {
             // Use Entity Framework to retrieve the MealOption by MealOptionId
             var efMeal = _context.Meal
+                .Include(m => m.MeatFishes)
                 .Include(m => m.MealOption)         // Load the MealOption
-                    .ThenInclude(mo => mo.MeatFishes)  // Load the Vegetables of the MealOption
+                    .ThenInclude(mo => mo.PossibleMeatFishes)  // Load the Vegetables of the MealOption
                 .Include(m => m.MealOption)         // Load the MealOption    
-                    .ThenInclude(mo => mo.Vegetables)  // Load the MeatFishes of the MealOption
+                    .ThenInclude(mo => mo.Vegetables)  // Load the PossibleMeatFishes of the MealOption
                 .Include(m => m.MealOption)         // Load the MealOption    
-                    .ThenInclude(mo => mo.PossibleVariations)  // Load the MeatFishes of the MealOption
+                    .ThenInclude(mo => mo.PossibleVariations)  // Load the PossibleMeatFishes of the MealOption
                 .Include(m => m.Variation)            // Load the Variation of the Meal
                 .FirstOrDefault(m => m.MealId == meal);
             return efMeal;
@@ -47,7 +48,7 @@ namespace WotWeEat.DataAccess.EFCore
         {
             return await _context.MealOption
                 .Include(mo => mo.PossibleVariations)
-                .Include(mo => mo.MeatFishes)
+                .Include(mo => mo.PossibleMeatFishes)
                 .Include(mo => mo.Vegetables)
                 .ToListAsync();
         }
@@ -74,7 +75,7 @@ namespace WotWeEat.DataAccess.EFCore
                 }
             }
 
-            foreach (var meatFish in mealOption.MeatFishes)
+            foreach (var meatFish in mealOption.PossibleMeatFishes)
             {
                 if (meatFish.MeatFishId == Guid.Empty)
                 {
@@ -123,10 +124,17 @@ namespace WotWeEat.DataAccess.EFCore
 
         public async Task<Meal> SaveMeal(Meal meal)
         {
-            
-            
-            await SaveMealOptionWithoutSave(meal.MealOption);
-            
+
+
+            if (meal.MealOption != null && meal.MealOption.MealOptionId == Guid.Empty)
+            {
+                await SaveMealOption(meal.MealOption);
+            }
+            else
+            {
+                await SaveMealOptionWithoutSave(meal.MealOption);
+            }
+
             if (meal.Variation != null && meal.Variation.MealVariationId == Guid.Empty)
             {
                 await SaveMealVariation(meal.Variation);

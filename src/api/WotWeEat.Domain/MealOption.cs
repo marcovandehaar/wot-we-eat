@@ -7,7 +7,7 @@ public class MealOption
     public MealOption()
     {
         Vegetables = new List<Vegetable>();
-        MeatFishes = new List<MeatFish>();
+        PossibleMeatFishes = new List<MeatFish>();
         PossibleVariations = new List<MealVariation>();
         InSeasons = new List<Season>();
     }
@@ -16,11 +16,11 @@ public class MealOption
     public string? Description { get; set; }
     public MealBase? MealBase { get; set; }
     public bool SuitableForChildren { get; set; }
-    public AmountOfWork? AmountOfWork { get; set; }
+    public int? AmountOfWork { get; set; }
     public Healthy? Healthy { get; set; }
 
     public List<Vegetable> Vegetables { get; set; }
-    public List<MeatFish> MeatFishes { get; set; }
+    public List<MeatFish> PossibleMeatFishes { get; set; }
     public List<MealVariation> PossibleVariations { get; set; }
     public List<Season> InSeasons { get; set; }
 }

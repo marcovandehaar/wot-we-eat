@@ -28,12 +28,18 @@ namespace WotWeEat.DataAccess.EFCore.Test
             {
                 context.Database.EnsureCreated();
             }
-
+            var seededVegetables = 0;
+            var seededMeatFishes = 0;
             var automapper = AutomapperTestHelper.GetAutomapper();
             Guid mealMealId = Guid.Empty; ;
             using (var context = new WotWeEatDbContext(options))
             {
                 var repository = new WotWeEatRepository(context, automapper);
+
+                var mf = await repository.GetAllMeatFish();
+                var v = await repository.GetAllVegetables();
+                seededMeatFishes = mf.Count;
+                seededVegetables = v.Count;
 
 
                 var newMeal = GetNewMeal();
@@ -55,8 +61,8 @@ namespace WotWeEat.DataAccess.EFCore.Test
                     Assert.NotNull(mealFromDb.Variation);
                     Assert.Equal(1, context.Meal.Count());
                     Assert.Equal(1, context.MealOption.Count());
-                    Assert.Equal(1, context.Vegetable.Count());
-                    Assert.Equal(1, context.MeatFish.Count());
+                    Assert.Equal(seededVegetables+1, context.Vegetable.Count());
+                    Assert.Equal(seededMeatFishes+1, context.MeatFish.Count());
                     Assert.Equal(1, context.MealVariation.Count());
 
                 });
@@ -80,6 +86,8 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 context.Database.EnsureCreated();
             }
 
+            var seededVegetables = 0;
+            var seededMeatFishes = 0;
             var automapper = AutomapperTestHelper.GetAutomapper();
             Guid newMealId = Guid.Empty; ;
             Guid mealOptionId = Guid.Empty; ;
@@ -89,11 +97,16 @@ namespace WotWeEat.DataAccess.EFCore.Test
             {
                 var repository = new WotWeEatRepository(context, automapper);
 
+                var mf = await repository.GetAllMeatFish();
+                var v = await repository.GetAllVegetables();
+                seededMeatFishes = mf.Count;
+                seededVegetables = v.Count;
+
                 var mealOption = GetMealOption();
                 await repository.SaveMealOption(mealOption);
                 mealOptionId = mealOption.MealOptionId;
                 vegetableId = mealOption.Vegetables.First().VegetableId;
-                meatFishId = mealOption.MeatFishes.First().MeatFishId;
+                meatFishId = mealOption.PossibleMeatFishes.First().MeatFishId;
 
 
             }
@@ -103,7 +116,7 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 var repository = new WotWeEatRepository(context, automapper);
 
                 var mealOption = GetMealOption(mealOptionId);
-                mealOption.MeatFishes.First().MeatFishId = meatFishId;
+                mealOption.PossibleMeatFishes.First().MeatFishId = meatFishId;
                 mealOption.Vegetables.First().VegetableId= vegetableId;
                 var newMeal = GetNewMeal(null, mealOptionId);
                 newMeal.MealOption = mealOption;
@@ -124,8 +137,8 @@ namespace WotWeEat.DataAccess.EFCore.Test
                     Assert.NotNull(mealFromDb.MealOption);
                     Assert.Equal(1, context.Meal.Count());
                     Assert.Equal(1, context.MealOption.Count());
-                    Assert.Equal(1, context.Vegetable.Count());
-                    Assert.Equal(1, context.MeatFish.Count());
+                    Assert.Equal(seededVegetables+1, context.Vegetable.Count());
+                    Assert.Equal(seededMeatFishes+1, context.MeatFish.Count());
                     Assert.Equal(2, context.MealVariation.Count());
 
                 });
@@ -172,11 +185,11 @@ namespace WotWeEat.DataAccess.EFCore.Test
             var mealOption = new MealOption()
             {
                 Description = "Meatlovers Pizza",
-                AmountOfWork = AmountOfWork.LotOfWork,
+                AmountOfWork = 10,
                 Healthy = Healthy.Unhealthy,
                 MealBase = MealBase.Dough,
                 MealOptionId = mealOptionId?? Guid.Empty,
-                MeatFishes = new List<MeatFish>()
+                PossibleMeatFishes = new List<MeatFish>()
                 {
                     new MeatFish()
                     {

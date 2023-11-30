@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 using WotWeEat.DataAccess.EFCore.Model;
 using Xunit;
 
@@ -24,11 +25,13 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 context.Database.EnsureCreated();
             }
 
+            int count = 0;
             var automapper = AutomapperTestHelper.GetAutomapper();
             using (var context = new WotWeEatDbContext(options))
             {
                 var repository = new WotWeEatRepository(context,automapper);
-
+                var seeded = await repository.GetAllVegetables();
+                count = seeded.Count();
                 await repository.SaveVegetable(GetVegetable());
 
                 context.SaveChanges();
@@ -43,7 +46,7 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 Assert.Multiple(() =>
                 {
                     Assert.NotNull(vegi);
-                    Assert.Equal(1, context.Vegetable.Count());
+                    Assert.Equal(count+1, context.Vegetable.Count());
                     Assert.NotEqual(Guid.NewGuid(), vegi.VegetableId);
                     Assert.Equal(NewVegetableName, vegi.Name);
                 });
@@ -63,12 +66,13 @@ namespace WotWeEat.DataAccess.EFCore.Test
             {
                 context.Database.EnsureCreated();
             }
-
+            var count = 0;
             var automapper = AutomapperTestHelper.GetAutomapper();
             using (var context = new WotWeEatDbContext(options))
             {
                 var repository = new WotWeEatRepository(context, automapper);
-
+                var seeded = await repository.GetAllMeatFish();
+                count = seeded.Count;
                 await repository.SaveMeatFish(GetMeatFish());
 
                 context.SaveChanges();
@@ -83,7 +87,7 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 Assert.Multiple(() =>
                 {
                     Assert.NotNull(meatFish);
-                    Assert.Equal(1, context.MeatFish.Count());
+                    Assert.Equal(count+1, context.MeatFish.Count());//5 present in Seed, 1 added
                     Assert.NotEqual(Guid.NewGuid(), meatFish.MeatFishId);
                     Assert.Equal(NewMeatFishName, meatFish.Name);
                 });

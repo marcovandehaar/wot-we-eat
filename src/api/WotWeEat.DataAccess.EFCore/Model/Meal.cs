@@ -16,6 +16,8 @@ public class Meal
     // Relationships
     public Guid MealOptionId { get; set; }
     public MealOption? MealOption { get; set; }
+    public ICollection<MeatFish> MeatFishes { get; set; }
+
     public Guid? MealVariationId { get; set; }
     public MealVariation? Variation { get; set; }
 

@@ -10,7 +10,7 @@ public class MealOption
     {
         Vegetables = new List<Vegetable>();
         PossibleVariations = new List<MealVariation>();
-        MeatFishes = new List<MeatFish>();
+        PossibleMeatFishes = new List<MeatFish>();
     }
 
     [Key]
@@ -19,12 +19,12 @@ public class MealOption
     public string? Description { get; set; }
     public MealBase MealBase { get; set; }
     public bool SuitableForChildren { get; set; }
-    public AmountOfWork AmountOfWork { get; set; }
+    public int? AmountOfWork { get; set; }
     public Healthy Healthy { get; set; }
     [ForeignKey(nameof(MealVariation.MealOptionId))]
     public ICollection<MealVariation> PossibleVariations { get; set; }
     public ICollection<Vegetable> Vegetables { get; set; }
-    public ICollection<MeatFish> MeatFishes { get; set; }
+    public ICollection<MeatFish> PossibleMeatFishes { get; set; }
     public Season? InSeasons { get; set; }
 
 }

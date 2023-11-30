@@ -4,6 +4,10 @@ namespace WotWeEat.Domain;
 
 public class Meal
 {
+    public Meal()
+    {
+        MeatFishes = new List<MeatFish>();
+    }
 
     public Guid MealId { get; set; }
     public DateTime Date { get; set; }
@@ -13,4 +17,6 @@ public class Meal
     // Relationships
     public MealOption? MealOption { get; set; }
     public MealVariation? Variation { get; set; }
+    public ICollection<MeatFish> MeatFishes { get; set; }
+
 }

@@ -36,10 +36,10 @@ public class AutomapperTest
                 Assert.Equal(efModel.Healthy, domainModel.Healthy); 
                 Assert.Equal(efModel.MealBase, domainModel.MealBase); 
                 Assert.Equal(efModel.MealOptionId, domainModel.MealOptionId); 
-                Assert.Equal(efModel.MeatFishes.Count, domainModel.MeatFishes.Count); 
-                Assert.Equal(efModel.MeatFishes.First().Name, domainModel.MeatFishes.First().Name); 
-                Assert.Equal(efModel.MeatFishes.First().MeatFishId, domainModel.MeatFishes.First().MeatFishId); 
-                Assert.Equal(efModel.MeatFishes.First().Type, domainModel.MeatFishes.First().Type);
+                Assert.Equal(efModel.PossibleMeatFishes.Count, domainModel.PossibleMeatFishes.Count); 
+                Assert.Equal(efModel.PossibleMeatFishes.First().Name, domainModel.PossibleMeatFishes.First().Name); 
+                Assert.Equal(efModel.PossibleMeatFishes.First().MeatFishId, domainModel.PossibleMeatFishes.First().MeatFishId); 
+                Assert.Equal(efModel.PossibleMeatFishes.First().Type, domainModel.PossibleMeatFishes.First().Type);
                 Assert.Equal(efModel.SuitableForChildren, domainModel.SuitableForChildren);
                 Assert.Equal(efModel.PossibleVariations.Count, domainModel.PossibleVariations.Count);
                 Assert.Equal(efModel.PossibleVariations.First().Description, domainModel.PossibleVariations.First().Description);
@@ -60,13 +60,13 @@ public class AutomapperTest
     {
         var domainModel = new Domain.MealOption
         {
-            AmountOfWork = AmountOfWork.LotOfWork,
+            AmountOfWork = 8,
             Description = "Zelfgemaakte Pizza",
             Healthy = Healthy.Unhealthy,
             MealBase = MealBase.Dough,
             MealOptionId = Guid.NewGuid(),
             InSeasons = new List<Season>(){Season.Autumn, Season.Spring,Season.Summer,  Season.Winter},
-            MeatFishes = new List<Domain.MeatFish>()
+            PossibleMeatFishes = new List<Domain.MeatFish>()
             {
                 new Domain.MeatFish()
                 {
