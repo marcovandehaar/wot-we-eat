@@ -21,7 +21,7 @@ public class WotWeEatQueryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("vegetables/all")]
+    [Route("vegetable")]
     public async Task<ActionResult<List<Vegetable>>> GetAllVegetables()
     {
         var vegetables = await _dataService.GetVegetables();
@@ -33,7 +33,7 @@ public class WotWeEatQueryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("meatfish/all")]
+    [Route("meat-fish")]
     public async Task<ActionResult<List<MeatFish>>> GetAllMeatFish()
     {
         var meatFish = await _dataService.GetMeatFish();
@@ -45,7 +45,7 @@ public class WotWeEatQueryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("vegetables/{name}")]
+    [Route("vegetable/{name}")]
     public async Task<ActionResult<Vegetable>> GetVegetableByName(string name)
     {
         var vegetable = await _dataService.GetVegetableByName(name);
@@ -73,7 +73,7 @@ public class WotWeEatQueryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("meal-option/all")]
+    [Route("meal-option")]
     [ActionName(nameof(GetMealOption))]
     public async Task<ActionResult<List<MealOption>>> GetMealOptions()
     {

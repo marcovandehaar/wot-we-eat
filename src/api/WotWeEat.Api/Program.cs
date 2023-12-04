@@ -33,6 +33,18 @@ builder.Services.AddDbContext<WotWeEatDbContext>(options =>
 builder.Services.AddScoped<IWotWeEatRepository, WotWeEatRepository>();
 builder.Services.AddScoped<IWotWeEatDataService, WotWeEatDataService>();
 
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200") // Replace with your Angular app's URL
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,5 +59,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("MyAllowSpecificOrigins");
 
 app.Run();

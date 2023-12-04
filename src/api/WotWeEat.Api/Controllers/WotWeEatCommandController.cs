@@ -20,7 +20,7 @@ namespace WotWeEat.Api.Controllers
             _dataService = dataService;
         }
 
-        [HttpPost("vegetables")]
+        [HttpPost("vegetable")]
         public async Task<IActionResult> CreateVegetable([FromBody] Vegetable vegetable)
         {
             try

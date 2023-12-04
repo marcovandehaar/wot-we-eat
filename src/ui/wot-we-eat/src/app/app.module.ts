@@ -14,6 +14,7 @@ import { HealthySelectorComponent } from './components/healthy-selector/healthy-
 import { ChildrenToggleComponent } from './components/children-toggle/children-toggle.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SeasonSelectorComponent } from './components/season-selector/season-selector.component';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -32,10 +33,12 @@ import { SeasonSelectorComponent } from './components/season-selector/season-sel
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryMealApi, { delay: 200 }),   
+    environment.useInMemoryApi ? HttpClientInMemoryWebApiModule.forRoot(InMemoryMealApi, { delay: 200 }) : [],
     MultiSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+ 
+}

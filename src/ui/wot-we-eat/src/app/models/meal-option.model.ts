@@ -18,7 +18,7 @@ export interface Vegetable {
 export interface MeatFish {
       id: string ,
       name: string ,
-      meatFishType: string,
+      type: string,
 }
 
 export interface GroupedMeatFish {

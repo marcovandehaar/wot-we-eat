@@ -18,7 +18,7 @@ export class InMemoryMealApi implements InMemoryDbService {
         meatFishes: [{
           id: 'trg',
           name: 'Braadworst',
-          meatFishType: 'Meat',       
+          type: 'Meat',       
         }],
        seasons: ['Winter','Spring','Summer','Autumn'],
       },
@@ -36,7 +36,7 @@ export class InMemoryMealApi implements InMemoryDbService {
         meatFishes: [{
           id: 'rth',
           name: 'SPeklap',
-          meatFishType: 'Meat',       
+          type: 'Meat',       
         }],
         seasons: ['Winter','Spring','Summer','Autumn'],
        
@@ -58,7 +58,7 @@ export class InMemoryMealApi implements InMemoryDbService {
         meatFishes: [{
           id: 'bgf',
           name: 'Zalmfilet',
-          meatFishType: 'Fish',       
+          type: 'Fish',       
         }],
         seasons: ['Spring','Summer'],
        
@@ -82,44 +82,44 @@ export class InMemoryMealApi implements InMemoryDbService {
       {
         id: 'trg',
         name: 'Braadworst',
-        meatFishType: 'Meat',       
+        type: 'Meat',       
       },
       {
         id: 'rth',
         name: 'Slavink',
-        meatFishType: 'Meat',       
+        type: 'Meat',       
       },
       {
         id: 'tjjjg',
         name: 'Kip Cordon Bleu',
-        meatFishType: 'Meat',       
+        type: 'Meat',       
       },
       {
         id: 'bbb',
         name: 'Speklap',
-        meatFishType: 'Meat',       
+        type: 'Meat',       
       },
       {
         id: 'bgf',
         name: 'Zalmfilet',
-        meatFishType: 'Fish',       
+        type: 'Fish',       
       },
       
       {
         id: 'ere',
         name: 'Pangafilet',
-        meatFishType: 'Fish',       
+        type: 'Fish',       
       },
       {
         id: 'www',
         name: 'Fish sticks',
-        meatFishType: 'Fish',       
+        type: 'Fish',       
       },
       
       {
         id: 'uuu',
         name: 'Fish cuisine - mediteraan',
-        meatFishType: 'Fish',       
+        type: 'Fish',       
       }
     ];
     

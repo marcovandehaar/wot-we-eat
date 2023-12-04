@@ -8,8 +8,8 @@ import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal
 })
 export class MealService {
 
-  //private apiUrl = 'https://localhost:7171';
-  private apiUrl = 'api';
+  private apiUrl = 'https://localhost:7171/api/query';
+  //private apiUrl = 'api';
 
   constructor(private http: HttpClient) { }
 
@@ -42,10 +42,10 @@ export class MealService {
 
   private groupMeatFishesByType(meatFishes: MeatFish[]): GroupedMeatFish[] {
     const grouped = meatFishes.reduce((acc, meatFish) => {
-      if (!acc[meatFish.meatFishType]) {
-        acc[meatFish.meatFishType] = [];
+      if (!acc[meatFish.type]) {
+        acc[meatFish.type] = [];
       }
-      acc[meatFish.meatFishType].push(meatFish);
+      acc[meatFish.type].push(meatFish);
       return acc;
     }, {} as Record<string, MeatFish[]>);
   
