@@ -20,13 +20,14 @@ export class ChildrenToggleComponent implements ControlValueAccessor{
   private onChange!: Function;
   private onTouched!: Function;
   
-  getImageName()
+  getImageUrl()
   {
+    var path = '/assets/images/family/' ;
     if(this.suitebleForChildren)
     {
-      return 'family-color.png';
+      return path+'family-color.png';
     } else {
-      return 'family-grey.png';
+      return path+'family-grey.png';
     }
   }
   GetTitle()

@@ -8,8 +8,8 @@ import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal
 })
 export class MealService {
 
-  private apiUrl = 'https://localhost:7171/api/query';
-  //private apiUrl = 'api';
+  //private apiUrl = 'https://localhost:7171/api/query';
+  private apiUrl = 'api';
 
   constructor(private http: HttpClient) { }
 

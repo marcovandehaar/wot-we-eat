@@ -10,7 +10,20 @@ img {
     width: 50px;
     margin-left: 10px;
     margin-right: 10px;
+    transition: transform 0.2s ease; /* Animation effect */
 
+    &:focus {
+        outline: none;
+    }
+
+    &:active {
+        transform: scale(0.95); /* Slightly scale down when clicked */
+        cursor: grab; /* Optional: change cursor on click */
+    }
+
+    &.disabled {
+        pointer-events: none;
+    }
     
 }
 
