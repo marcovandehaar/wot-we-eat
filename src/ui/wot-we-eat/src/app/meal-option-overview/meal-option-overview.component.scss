@@ -20,18 +20,37 @@
     margin: 0;
     /* Additional styling for the title */
   }
-  
+
   .meal-list {
     list-style: none;
     padding: 0;
-    margin-top: 20px; /* Adjust as needed */
+    margin-top: 20px;
     overflow-y: auto;
-    max-height: 300px; /* Adjust as needed */
-  }
+    max-height: 300px; // Adjust as needed
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
   
-  .meal-list li {
-    margin-bottom: 10px;
-    /* Add additional styling as needed */
+    li {
+      background-color: #fff; // Card background color
+      border-radius: 8px; // Rounded corners for the card
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for card
+      margin-bottom: 15px; // Space between cards
+      padding: 10px 15px; // Padding inside the card
+      width: 80%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease; // Transition for hover and click effects
+      
+  
+      &:hover {
+        box-shadow: 0 4px 8px hsl(10, 95%, 53%); // Enhanced shadow on hover
+        cursor: pointer; // Change cursor to indicate it's clickable
+      }
+  
+      &:active {
+        transform: scale(0.95); // Scale down when clicked
+      }
+    }
   }
   
   .pagination {

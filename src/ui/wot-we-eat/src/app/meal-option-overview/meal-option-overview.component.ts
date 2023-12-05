@@ -11,6 +11,23 @@ export class MealOptionOverviewComponent {
   // Assuming mealOptions is an array of meal options you will retrieve
   mealOptions = [
     { description: 'This is a meal option with potatoes and...' },
+    { description: 'Another meal with another description bla bla bla' },
+    { description: 'Gekookte aardappelen, snijbonen en rundervink' },
+    { description: 'This is a meal option with potatoes and...' },
+    { description: 'Another meal with another description bla bla bla' },
+    { description: 'Gekookte aardappelen, snijbonen en rundervink' },
+    { description: 'This is a meal option with potatoes and...' },
+    { description: 'Another meal with another description bla bla bla' },
+    { description: 'Gekookte aardappelen, snijbonen en rundervink' },
+    { description: 'This is a meal option with potatoes and...' },
+    { description: 'Another meal with another description bla bla bla' },
+    { description: 'Gekookte aardappelen, snijbonen en rundervink' },
+    { description: 'This is a meal option with potatoes and...' },
+    { description: 'Another meal with another description bla bla bla' },
+    { description: 'Gekookte aardappelen, snijbonen en rundervink' },
+    { description: 'This is a meal option with potatoes and...' },
+    { description: 'Another meal with another description bla bla bla' },
+    { description: 'Gekookte aardappelen, snijbonen en rundervink' },
     // ... more dummy meal options
   ];
 
