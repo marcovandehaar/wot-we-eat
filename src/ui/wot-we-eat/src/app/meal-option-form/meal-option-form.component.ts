@@ -14,9 +14,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MealService } from '../services/meal.service'; 
 import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
 import { mealBaseValues, seasons } from '../models/enums';
-import { amountOfWorkValues } from '../models/enums';
-
-
 
 
 @Component({
@@ -27,7 +24,6 @@ import { amountOfWorkValues } from '../models/enums';
 })
 export class MealOptionFormComponent implements OnInit {
   mealBases = mealBaseValues;
-  amountOfWorkValues = amountOfWorkValues;
   mealOptionForm =  this.fb.nonNullable.group({
     id: '',
     description: '', 
@@ -93,18 +89,24 @@ export class MealOptionFormComponent implements OnInit {
     });
   }
 
-  get selectedWorkAmount(): string {
+  get selectedWorkAmountDescription(): string {
     const control = this.mealOptionForm.get('amountOfWork');
 
-    // Check if control exists and has a value
     if (control && control.value !== null && control.value !== undefined) {
-        // Ensure that control.value is treated as a number
         const valueAsNumber = Number(control.value);
 
-        // Check if the conversion to a number was successful
         if (!isNaN(valueAsNumber)) {
-            const selectedOption = this.amountOfWorkValues.find(opt => opt.index === valueAsNumber);
-            return selectedOption ? selectedOption.title : '';
+            if (valueAsNumber <= 0) {
+                return "Geen werk!";
+            } else if (valueAsNumber > 0 && valueAsNumber <= 1) {
+                return "Maar een paar minuten werk!";
+            } else if (valueAsNumber > 1 && valueAsNumber <= 3) {
+                return "Gemiddeld!";
+            } else if (valueAsNumber > 3 && valueAsNumber <= 4) {
+                return "Erg veel werk!";
+            } else if (valueAsNumber > 4) {
+                return "Donders veel werk!";
+            }
         }
     }
 
