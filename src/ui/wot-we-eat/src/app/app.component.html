@@ -3,7 +3,7 @@
         <span class="material-symbols-outlined">menu</span>
     </button>
     
-    <div class="dropdown-menu" [ngClass]="isMenuOpen()" *ngIf="menuOpen">
+    <div class="dropdown-menu" [class.open]="menuOpen"> 
         <a (click)="navigateToMain()">Start</a>       
         <a (click)="navigateToMealOptionOverview()">Maaltijdopties</a>        
         <a href="#">Menu Item 3</a>

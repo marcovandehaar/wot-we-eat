@@ -16,15 +16,17 @@ export class AppComponent {
       this.menuOpen = !this.menuOpen;
   }
 
-  isMenuOpen() {
-    return this.menuOpen ? 'open' : '';
+  closeMenu(){
+    this.menuOpen = false;
   }
 
   navigateToMealOptionOverview(): void {
     this.router.navigate(['/meal-option-overview']);
+    this.closeMenu();
   }
 
   navigateToMain(): void {
     this.router.navigate(['/main']);
+    this.closeMenu();
   }
 }

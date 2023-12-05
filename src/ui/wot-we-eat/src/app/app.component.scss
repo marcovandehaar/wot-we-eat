@@ -18,11 +18,14 @@
         z-index: 11;
         box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08); /* Adjust the shadow direction */
         transform: scaleY(0);
-        transform-origin: bottom; /* Origin of transformation */
-        transition: transform 0.5s ease-in-out;
+        transform-origin: bottom;
+        transition: transform 0.1s ease-in-out, max-height 0.1s ease-in-out; /* Quicker transition and include max-height */
+        max-height: 0; /* Initially no height */
+        overflow: hidden;
         width: 200px;
         &.open {
             transform: scaleY(1);
+            max-height: 500px; /* Set to the natural height of the content */
         }
     }
 
@@ -32,6 +35,7 @@
         padding: 10px 20px;
         display: block;
         transition: background-color 0.2s, color 0.2s;
+        cursor: pointer;
 
         &:hover {
             background-color: #f5f5f5;
