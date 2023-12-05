@@ -15,6 +15,7 @@ import { ChildrenToggleComponent } from './components/children-toggle/children-t
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SeasonSelectorComponent } from './components/season-selector/season-selector.component';
 import { environment } from 'src/environments/environment';
+import { MealOptionOverviewComponent } from './meal-option-overview/meal-option-overview.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { environment } from 'src/environments/environment';
     MealOptionFormComponent,
     HealthySelectorComponent,
     ChildrenToggleComponent,
-    SeasonSelectorComponent,    
+    SeasonSelectorComponent,
+    MealOptionOverviewComponent,    
 
   ],
   imports: [

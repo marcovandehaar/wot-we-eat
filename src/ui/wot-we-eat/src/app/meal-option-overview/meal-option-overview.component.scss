@@ -1,0 +1,42 @@
+.meal-options-container {
+    position: relative;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust as needed */
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    /* Add additional styling as needed */
+  }
+  
+  h1 {
+    margin: 0;
+    /* Additional styling for the title */
+  }
+  
+  .meal-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px; /* Adjust as needed */
+    overflow-y: auto;
+    max-height: 300px; /* Adjust as needed */
+  }
+  
+  .meal-list li {
+    margin-bottom: 10px;
+    /* Add additional styling as needed */
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Adjust as needed */
+  }
+  
