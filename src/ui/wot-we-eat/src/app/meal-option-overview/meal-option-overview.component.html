@@ -8,14 +8,23 @@
         <h1 class="playful-title">Maaltijdopties</h1>
     </div>
     <ul class="meal-list">
-        <li *ngFor="let mealOption of mealOptions">
+        <li *ngFor="let mealOption of paginatedMealOptions">
             {{ mealOption.description }}
         </li>
     </ul>
     <div class="pagination">
-      <span>first</span>
-      <span>1,2,3..</span>
-      <span>last</span>
-    </div>
-  </div>
-  
+        <span (click)="previousPage()" [class.disabled]="currentPage === 1">Vorige</span>
+        <span *ngIf="paginationWindowStart > 1" (click)="updatePaginationWindow('previous')">&lt;</span>
+        
+        <span *ngFor="let page of getDisplayedPages()" (click)="goToPage(page)" [class.active]="page === currentPage">
+          {{ page }}
+        </span>
+        
+        <span *ngIf="paginationWindowEnd < totalPages" (click)="updatePaginationWindow('next')">&gt;</span>
+        <span (click)="nextPage()" [class.disabled]="currentPage === totalPages">Volgende</span>
+      </div>
+    
+      
+      
+    
+</div>

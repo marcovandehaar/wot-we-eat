@@ -55,7 +55,46 @@
   
   .pagination {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px; /* Adjust as needed */
+    justify-content: center;
+    align-items: center;
+    gap: 10px; // Space between pagination items
+    margin-top: 20px;
+  
+    span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px; // Space between pagination items
+      margin-top: 20px;
+      min-width: 40px; // Minimum width for touch-friendly design
+      height: 40px; // Height for touch-friendly design
+      padding: 5px 10px;
+      border-radius: 5px; // Rounded corners for button-like appearance
+      background-color: #f0f0f0; // Light background for the buttons
+      color: #333; // Text color
+      font-weight: bold;
+      cursor: pointer; // Change cursor to pointer to indicate it's clickable
+      user-select: none; // Prevent text selection
+  
+      &:hover {
+        background-color: #e0e0e0; // Slightly darker background on hover
+      }
+  
+      &:active {
+        background-color: #d0d0d0; // Even darker background when active/clicked
+      }
+  
+      &.active {
+        background-color: #007bff; // Different background for the active page
+        color: white;
+      }
+
+      &.disabled {
+        background-color: #e0e0e0; // Disabled background color
+        color: #a0a0a0; // Disabled text color
+        cursor: default; // Default cursor for disabled state
+        pointer-events: none; // Disable click events
+      }
+    }
   }
   
