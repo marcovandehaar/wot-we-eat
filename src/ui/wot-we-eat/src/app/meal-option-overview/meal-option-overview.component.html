@@ -13,14 +13,10 @@
         </li>
     </ul>
     <div class="pagination">
-        <span (click)="previousPage()" [class.disabled]="currentPage === 1">Vorige</span>
-        <span *ngIf="paginationWindowStart > 1" (click)="updatePaginationWindow('previous')">&lt;</span>
-        
+        <span (click)="previousPage()" [class.disabled]="currentPage === 1">Vorige</span>       
         <span *ngFor="let page of getDisplayedPages()" (click)="goToPage(page)" [class.active]="page === currentPage">
           {{ page }}
-        </span>
-        
-        <span *ngIf="paginationWindowEnd < totalPages" (click)="updatePaginationWindow('next')">&gt;</span>
+        </span>           
         <span (click)="nextPage()" [class.disabled]="currentPage === totalPages">Volgende</span>
       </div>
     

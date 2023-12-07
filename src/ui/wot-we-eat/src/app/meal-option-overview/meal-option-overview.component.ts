@@ -71,23 +71,32 @@ export class MealOptionOverviewComponent {
   }
 
   getDisplayedPages() {
-    // Ensure we don't exceed the total number of pages
-    const endPage = Math.min(this.paginationWindowEnd, this.totalPages);
-    // Adjust the start page if necessary
-    const startPage = Math.max(endPage - (this.paginationWindowEnd - this.paginationWindowStart), 1);
+    let startPage: number, endPage: number;
   
-    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
-  }
-  
-  updatePaginationWindow(direction: 'next' | 'previous') {
-    const step = this.paginationWindowEnd - this.paginationWindowStart;
-    if (direction === 'next' && this.paginationWindowEnd < this.totalPages) {
-      this.paginationWindowStart = Math.min(this.paginationWindowStart + step, this.totalPages - step);
-      this.paginationWindowEnd = Math.min(this.paginationWindowEnd + step, this.totalPages);
-    } else if (direction === 'previous' && this.paginationWindowStart > 1) {
-      this.paginationWindowStart = Math.max(this.paginationWindowStart - step, 1);
-      this.paginationWindowEnd = Math.max(this.paginationWindowEnd - step, step + 1);
+    if (this.totalPages <= this.paginationWindowEnd) {
+      // If total pages are 3 or less, show all pages
+      startPage = 1;
+      endPage = this.totalPages;
+    } else {
+      // For more than 3 pages, calculate window around current page
+      if (this.currentPage === 1) {
+        // If on the first page
+        startPage = 1;
+        endPage = this.paginationWindowEnd;
+      } else if (this.currentPage === this.totalPages) {
+        // If on the last page
+        startPage = this.totalPages - 2;
+        endPage = this.totalPages;
+      } else {
+        // For all other cases
+        startPage = this.currentPage - 1;
+        endPage = this.currentPage + 1;
+      }
     }
+  
+    return Array.from({ length: (endPage + 1) - startPage }, (_, i) => startPage + i);
   }
+  
+  
   
 }
