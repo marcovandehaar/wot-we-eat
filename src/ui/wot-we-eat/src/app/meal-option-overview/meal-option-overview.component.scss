@@ -75,17 +75,18 @@
       font-weight: bold;
       cursor: pointer; // Change cursor to pointer to indicate it's clickable
       user-select: none; // Prevent text selection
+      transition: background-color 0.2s;
   
       &:hover {
-        background-color: #e0e0e0; // Slightly darker background on hover
+        background-color: hsl(24, 96%, 80%);; // Slightly darker background on hover
       }
   
       &:active {
-        background-color: #d0d0d0; // Even darker background when active/clicked
+        background-color: hsl(24, 96%, 80%); // Even darker background when active/clicked
       }
   
       &.active {
-        background-color: #007bff; // Different background for the active page
+        background-color: hsl(24, 100%, 55%); // Different background for the active page
         color: white;
       }
 
