@@ -24,20 +24,22 @@ h1 {
 
 .meal-list {
   list-style: none;
-  padding: 0;
   margin-top: 20px;
   overflow-y: auto;
-  max-height: 300px; // Adjust as needed
   display: flex;
   flex-direction: column;
   align-items: center;
 
 
   li {
-    width: 80%; // Set the width of the li elements
+    width: 80%;
+    overflow: hidden; // Add this to ensure smooth transition
+    transition: max-height 0.3s ease-in-out; 
+    padding: 10px 15px; // Padding inside the card
+
 
     .meal-content {
-      width: 100%; // Full width of the parent li
+      width: 95%; // Full width of the parent li
       background-color: #fff; // Card background color
       border-radius: 8px; // Rounded corners for the card
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for card
@@ -55,9 +57,29 @@ h1 {
     }
 
     .additional-content {
-      width: 100%; // Full width of the parent li
-      margin-top: 10px; // Space above the additional content
-      // Additional styles for the additional content
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      transform: scaleY(0);
+      transform-origin: top;
+  
+      &.active {
+        transform: scaleY(1);
+      }
+      .panel-button {
+        // Styles for the buttons
+        margin: 10px;
+        // Include styles similar to your pagination buttons
+      }
+
+      .edit-button {
+        // Styles specifically for the edit button
+      }
+
+      .toggle-button {
+        // Styles specifically for the toggle button
+      }
     }
   }
 }

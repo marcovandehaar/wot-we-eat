@@ -8,12 +8,18 @@
         <h1 class="playful-title">Maaltijdopties</h1>
     </div>
     <ul class="meal-list">
-        <li *ngFor="let mealOption of paginatedMealOptions">
-            <div class="meal-content">
+        <li *ngFor="let mealOption of paginatedMealOptions; let i = index">
+            <div class="meal-content" (click)="togglePanel(i)">
                 {{ mealOption.description }}
             </div>
-            <div class="additional-content">
-                <!-- Your additional content here -->
+            <div class="additional-content" *ngIf="selectedMealOption === i" [class.active]="selectedMealOption === i">
+                <!-- Sliding panel content -->
+                <button class="panel-button edit-button">
+                    <span class="material-symbols-outlined">edit</span> Edit
+                </button>
+                <button class="panel-button toggle-button">
+                    <!-- Active/Inactive toggle logic and display here -->
+                </button>
             </div>
         </li>
     </ul>

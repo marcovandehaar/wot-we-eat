@@ -34,6 +34,7 @@ export class MealOptionOverviewComponent {
   itemsPerPage = 4; // This can be changed to test different resolutions
   paginationWindowStart = 1;
   paginationWindowEnd = 3;
+  selectedMealOption: number | null = null;
 
   constructor(private location: Location) {}
 
@@ -96,7 +97,9 @@ export class MealOptionOverviewComponent {
   
     return Array.from({ length: (endPage + 1) - startPage }, (_, i) => startPage + i);
   }
-  
-  
+
+  togglePanel(index: number): void {
+    this.selectedMealOption = this.selectedMealOption === index ? null : index;
+  }
   
 }
