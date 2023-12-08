@@ -55,6 +55,7 @@ export class MealOptionOverviewComponent {
   }
 
   goToPage(page: number): void {
+    this.selectedMealOption = null;
     this.currentPage = page;
   }
 

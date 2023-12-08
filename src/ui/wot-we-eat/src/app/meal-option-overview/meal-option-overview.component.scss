@@ -56,29 +56,34 @@ h1 {
       }
     }
 
-    .additional-content {
+    .button-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: hidden;
-      transform: scaleY(0);
-      transform-origin: top;
+      justify-content: center;
+      gap: 10px;
   
-      &.active {
-        transform: scaleY(1);
-      }
       .panel-button {
-        // Styles for the buttons
-        margin: 10px;
-        // Include styles similar to your pagination buttons
+        display: flex;
+        flex-direction: column; // Stack the image and text
+        align-items: center; // Center the content
+        justify-content: center;
+        border-radius: 10px; // Smaller rounded edges
+        margin-top: 10px;
+        width: 100px; // Set a fixed width for consistency
+        text-align: center; // Align the text in the center
+  
+        img {
+          width: 40px; // Adjust image size as needed
+          height: auto; // Maintain aspect ratio
+          margin-bottom: 5px; // Space between image and text
+        }
       }
-
+  
       .edit-button {
-        // Styles specifically for the edit button
+        
       }
-
+  
       .toggle-button {
-        // Styles specifically for the toggle button
+        
       }
     }
   }

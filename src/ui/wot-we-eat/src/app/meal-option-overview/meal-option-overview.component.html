@@ -13,13 +13,16 @@
                 {{ mealOption.description }}
             </div>
             <div class="additional-content" *ngIf="selectedMealOption === i" [class.active]="selectedMealOption === i">
-                <!-- Sliding panel content -->
-                <button class="panel-button edit-button">
-                    <span class="material-symbols-outlined">edit</span> Edit
-                </button>
-                <button class="panel-button toggle-button">
-                    <!-- Active/Inactive toggle logic and display here -->
-                </button>
+                <div class="button-container">
+                    <button class="panel-button edit-button">
+                      <img src="assets/images/pencil.png" alt="Edit">
+                      Aanpassen
+                    </button>
+                    <button class="panel-button toggle-button">
+                      <img src="assets/images/check.png" alt="Toggle">
+                      Actief
+                    </button>
+                  </div>
             </div>
         </li>
     </ul>
