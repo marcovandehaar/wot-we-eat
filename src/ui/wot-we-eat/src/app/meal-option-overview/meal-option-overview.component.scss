@@ -1,101 +1,110 @@
 .meal-options-container {
-    position: relative;
-    padding: 20px;
-  }
-  
-  .header {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Adjust as needed */
-  }
-  
-  .back-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    /* Add additional styling as needed */
-  }
-  
-  h1 {
-    margin: 0;
-    /* Additional styling for the title */
-  }
+  position: relative;
+  padding: 20px;
+}
 
-  .meal-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-    overflow-y: auto;
-    max-height: 300px; // Adjust as needed
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-  
-    li {
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Adjust as needed */
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  /* Add additional styling as needed */
+}
+
+h1 {
+  margin: 0;
+  /* Additional styling for the title */
+}
+
+.meal-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  overflow-y: auto;
+  max-height: 300px; // Adjust as needed
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+  li {
+    width: 80%; // Set the width of the li elements
+
+    .meal-content {
+      width: 100%; // Full width of the parent li
       background-color: #fff; // Card background color
       border-radius: 8px; // Rounded corners for the card
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for card
-      margin-bottom: 15px; // Space between cards
       padding: 10px 15px; // Padding inside the card
-      width: 80%;
       transition: transform 0.2s ease, box-shadow 0.2s ease; // Transition for hover and click effects
-      
-  
+
       &:hover {
         box-shadow: 0 4px 8px hsl(10, 95%, 53%); // Enhanced shadow on hover
         cursor: pointer; // Change cursor to indicate it's clickable
       }
-  
+
       &:active {
         transform: scale(0.95); // Scale down when clicked
       }
     }
+
+    .additional-content {
+      width: 100%; // Full width of the parent li
+      margin-top: 10px; // Space above the additional content
+      // Additional styles for the additional content
+    }
   }
-  
-  .pagination {
-    display: flex;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; // Space between pagination items
+  margin-top: 20px;
+
+  span {
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     gap: 10px; // Space between pagination items
     margin-top: 20px;
-  
-    span {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px; // Space between pagination items
-      margin-top: 20px;
-      min-width: 40px; // Minimum width for touch-friendly design
-      height: 40px; // Height for touch-friendly design
-      padding: 5px 10px;
-      border-radius: 5px; // Rounded corners for button-like appearance
-      background-color: #f0f0f0; // Light background for the buttons
-      color: #333; // Text color
-      font-weight: bold;
-      cursor: pointer; // Change cursor to pointer to indicate it's clickable
-      user-select: none; // Prevent text selection
-      transition: background-color 0.2s;
-  
-      &:hover {
-        background-color: hsl(24, 96%, 80%);; // Slightly darker background on hover
-      }
-  
-      &:active {
-        background-color: hsl(24, 96%, 80%); // Even darker background when active/clicked
-      }
-  
-      &.active {
-        background-color: hsl(24, 100%, 55%); // Different background for the active page
-        color: white;
-      }
+    min-width: 40px; // Minimum width for touch-friendly design
+    height: 40px; // Height for touch-friendly design
+    padding: 5px 10px;
+    border-radius: 5px; // Rounded corners for button-like appearance
+    background-color: #f0f0f0; // Light background for the buttons
+    color: #333; // Text color
+    font-weight: bold;
+    cursor: pointer; // Change cursor to pointer to indicate it's clickable
+    user-select: none; // Prevent text selection
+    transition: background-color 0.2s;
 
-      &.disabled {
-        background-color: #e0e0e0; // Disabled background color
-        color: #a0a0a0; // Disabled text color
-        cursor: default; // Default cursor for disabled state
-        pointer-events: none; // Disable click events
-      }
+    &:hover {
+      background-color: hsl(24, 96%, 80%);
+      ; // Slightly darker background on hover
+    }
+
+    &:active {
+      background-color: hsl(24, 96%, 80%); // Even darker background when active/clicked
+    }
+
+    &.active {
+      background-color: hsl(24, 100%, 55%); // Different background for the active page
+      color: white;
+    }
+
+    &.disabled {
+      background-color: #e0e0e0; // Disabled background color
+      color: #a0a0a0; // Disabled text color
+      cursor: default; // Default cursor for disabled state
+      pointer-events: none; // Disable click events
     }
   }
-  
+}

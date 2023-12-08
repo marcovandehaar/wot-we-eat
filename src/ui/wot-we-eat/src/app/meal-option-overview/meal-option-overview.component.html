@@ -9,18 +9,19 @@
     </div>
     <ul class="meal-list">
         <li *ngFor="let mealOption of paginatedMealOptions">
-            {{ mealOption.description }}
+            <div class="meal-content">
+                {{ mealOption.description }}
+            </div>
+            <div class="additional-content">
+                <!-- Your additional content here -->
+            </div>
         </li>
     </ul>
     <div class="pagination">
-        <span (click)="previousPage()" [class.disabled]="currentPage === 1">Vorige</span>       
+        <span (click)="previousPage()" [class.disabled]="currentPage === 1">Vorige</span>
         <span *ngFor="let page of getDisplayedPages()" (click)="goToPage(page)" [class.active]="page === currentPage">
-          {{ page }}
-        </span>           
+            {{ page }}
+        </span>
         <span (click)="nextPage()" [class.disabled]="currentPage === totalPages">Volgende</span>
-      </div>
-    
-      
-      
-    
+    </div>
 </div>
