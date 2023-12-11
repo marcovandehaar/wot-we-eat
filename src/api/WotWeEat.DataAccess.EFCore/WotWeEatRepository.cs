@@ -71,7 +71,14 @@ namespace WotWeEat.DataAccess.EFCore
                 }
                 else
                 {
-                    _context.SetEntityState(vegetable, EntityState.Unchanged);
+                    
+                    var loopVegetable = vegetable;
+                    var existingEntity = _context.Set<Vegetable>().Local.FirstOrDefault(e => e.Name == vegetable.Name);
+                    if (existingEntity != null)
+                    {
+                        loopVegetable = existingEntity;
+                    }
+                    _context.SetEntityState(loopVegetable, EntityState.Unchanged);
                 }
             }
 
@@ -83,7 +90,13 @@ namespace WotWeEat.DataAccess.EFCore
                 }
                 else
                 {
-                    _context.SetEntityState(meatFish, EntityState.Unchanged);
+                    var loopMeatFish = meatFish;
+                    var existingEntity = _context.Set<MeatFish>().Local.FirstOrDefault(e => e.Name == meatFish.Name);
+                    if (existingEntity != null)
+                    {
+                        loopMeatFish = existingEntity;
+                    }
+                    _context.SetEntityState(loopMeatFish, EntityState.Unchanged);
                 }
             }
 

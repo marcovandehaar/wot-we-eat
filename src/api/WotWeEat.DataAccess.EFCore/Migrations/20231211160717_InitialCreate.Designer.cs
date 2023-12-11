@@ -12,7 +12,7 @@ using WotWeEat.DataAccess.EFCore;
 namespace WotWeEat.DataAccess.EFCore.Migrations
 {
     [DbContext(typeof(WotWeEatDbContext))]
-    [Migration("20231130191855_InitialCreate")]
+    [Migration("20231211160717_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -90,6 +90,9 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<Guid>("MealOptionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("AmountOfWork")
                         .HasColumnType("int");

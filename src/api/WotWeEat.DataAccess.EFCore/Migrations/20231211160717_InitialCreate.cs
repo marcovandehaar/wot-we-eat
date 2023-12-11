@@ -23,7 +23,8 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     SuitableForChildren = table.Column<bool>(type: "bit", nullable: false),
                     AmountOfWork = table.Column<int>(type: "int", nullable: true),
                     Healthy = table.Column<int>(type: "int", nullable: false),
-                    InSeasons = table.Column<int>(type: "int", nullable: true)
+                    InSeasons = table.Column<int>(type: "int", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

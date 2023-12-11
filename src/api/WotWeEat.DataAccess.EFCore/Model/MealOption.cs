@@ -26,5 +26,6 @@ public class MealOption
     public ICollection<Vegetable> Vegetables { get; set; }
     public ICollection<MeatFish> PossibleMeatFishes { get; set; }
     public Season? InSeasons { get; set; }
+    public bool Active { get; set; }
 
 }

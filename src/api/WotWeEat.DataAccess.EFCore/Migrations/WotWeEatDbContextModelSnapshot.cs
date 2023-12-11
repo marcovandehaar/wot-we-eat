@@ -88,6 +88,9 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("AmountOfWork")
                         .HasColumnType("int");
 

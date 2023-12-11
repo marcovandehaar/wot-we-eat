@@ -28,7 +28,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"description\": \"Pizza\",\r\n  \"mealBase\": \"Dough\",\r\n  \"suitableForChildren\": true,\r\n  \"amountOfWork\": \"Average\",\r\n  \"healthy\": \"Unhealthy\",\r\n  \"vegetables\": [\r\n    {\r\n      \"name\": \"Tomato\"\r\n    }\r\n  ],\r\n  \"meatFishes\": [\r\n    {\r\n      \"name\": \"Salami\",\r\n      \"type\": \"Meat\"\r\n    }\r\n  ],\r\n  \"possibleVariations\": [\r\n    {\r\n      \"description\": \"From the BBQ\",\r\n      \"makeSuitableForKids\": true\r\n    }\r\n  ],\r\n  \"inSeasons\": [\"Winter\", \"Summer\"]\r\n}",
+							"raw": "{\r\n  \"description\": \"Pizza\",\r\n  \"mealBase\": \"Dough\",\r\n  \"active\": true,\r\n  \"suitableForChildren\": true,\r\n  \"amountOfWork\": 5,\r\n  \"healthy\": \"Unhealthy\",\r\n  \"vegetables\": [\r\n    {\r\n      \"name\": \"Tomato\"\r\n    }\r\n  ],\r\n  \"meatFishes\": [\r\n    {\r\n      \"name\": \"Salami\",\r\n      \"type\": \"Meat\"\r\n    }\r\n  ],\r\n  \"possibleVariations\": [\r\n    {\r\n      \"description\": \"From the BBQ\",\r\n      \"makeSuitableForKids\": true\r\n    }\r\n  ],\r\n  \"inSeasons\": [\"Winter\", \"Summer\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -36,14 +36,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/command/mealoption",
+							"raw": "{{baseUrl}}/api/command/meal-option",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"command",
-								"mealoption"
+								"meal-option"
 							]
 						}
 					},
@@ -168,6 +168,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "true",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/command/meal-option/{{mealOptionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"command",
+								"meal-option",
+								"{{mealOptionId}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -229,6 +258,25 @@
 								"query",
 								"vegetables",
 								"{{vegetableName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vegetables",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/query/vegetable",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"query",
+								"vegetable"
 							]
 						}
 					},
