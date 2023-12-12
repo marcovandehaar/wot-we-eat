@@ -18,10 +18,10 @@
                       <img src="assets/images/pencil.png" alt="Edit">
                       Aanpassen
                     </button>
-                    <button class="panel-button toggle-button">
-                      <img src="assets/images/check.png" alt="Toggle">
-                      Actief
-                    </button>
+                    <button class="panel-button toggle-button" (click)="toggleMealOptionActiveStatus(mealOption.id, mealOption.active)">
+                        <img src="assets/images/check.png" alt="Toggle" [class.inactive]="!mealOption.active">
+                        {{ mealOption.active ? 'Actief' : 'Inactief' }}
+                      </button>
                   </div>
             </div>
         </li>

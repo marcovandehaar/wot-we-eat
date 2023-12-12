@@ -1,34 +1,18 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { MealService } from '../services/meal.service';
+import { MealOption } from '../models/meal-option.model';
 
 @Component({
   selector: 'app-meal-option-overview',
   templateUrl: './meal-option-overview.component.html',
   styleUrls: ['./meal-option-overview.component.scss']
 })
+
+
 export class MealOptionOverviewComponent {
   // Assuming mealOptions is an array of meal options you will retrieve
-  mealOptions = [
-    {id:"1", description: '1This is a meal option with potatoes and...' },
-    {id:"2", description: '2Another meal with another description bla bla bla' },
-    {id:"3", description: '3Gekookte aardappelen, snijbonen en rundervink' },
-    {id:"4", description: '4This is a meal option with potatoes and...' },
-    {id:"5", description: '5Another meal with another description bla bla bla' },
-    {id:"6", description: '6Gekookte aardappelen, snijbonen en rundervink' },
-    {id:"7", description: '7This is a meal option with potatoes and...' },
-    {id:"8", description: '8Another meal with another description bla bla bla' },
-    {id:"9", description: '9Gekookte aardappelen, snijbonen en rundervink' },
-    {id:"11", description: '10This is a meal option with potatoes and...' },
-    {id:"12", description: '11Another meal with another description bla bla bla' },
-    {id:"13", description: '12Gekookte aardappelen, snijbonen en rundervink' },
-    {id:"14", description: '13This is a meal option with potatoes and...' },
-    {id:"15", description: '14Another meal with another description bla bla bla' },
-    {id:"16", description: '15Gekookte aardappelen, snijbonen en rundervink' },
-    {id:"17", description: '16This is a meal option with potatoes and...' },
-    {id:"18", description: '17Another meal with another description bla bla bla' },
-    {id:"19", description: '18Gekookte aardappelen, snijbonen en rundervink' },
-    // ... more dummy meal options
-  ];
+  mealOptions: MealOption[] = [];
 
   currentPage = 1;
   itemsPerPage = 4; // This can be changed to test different resolutions
@@ -36,7 +20,53 @@ export class MealOptionOverviewComponent {
   paginationWindowEnd = 3;
   selectedMealOption: number | null = null;
 
-  constructor(private location: Location) {}
+  constructor(private location: Location,
+    private mealService: MealService,) {}
+
+  mealOptionsStatus: Record<string, boolean> = {
+    // Assuming default statuses are set here
+    "1": true, 
+    "0": false,
+    // ... for all meal options
+  };
+
+  ngOnInit(): void {
+    this.refreshMealOptions();
+  }
+
+  private refreshMealOptions() {
+    this.mealService.getAllMealOptions().subscribe({
+      next: (data: MealOption[]) => {
+        this.mealOptions = data;
+      },
+      error: (error) => {
+        console.error('Error fetching meal options', error);
+      }
+    });
+  }
+
+  toggleMealOptionActiveStatus(mealOptionId: string, currentlyActive: boolean): void {
+    const newActiveStatus = !currentlyActive;
+       
+    this.mealService.updateMealOptionActiveStatus(mealOptionId, newActiveStatus).subscribe({
+        next: () => {
+            console.log('mealOptionid:' + mealOptionId);
+            const mealOption = this.mealOptions.find(option => option.id === mealOptionId);
+            if (mealOption) {
+              //nex tdoes not work for in mem....
+              mealOption.active = newActiveStatus;
+            }
+            
+        },
+        error: (err) => {
+            console.error('Error updating meal option status', err);
+        },
+        complete: () => console.log('Request completed')
+    });
+    this.refreshMealOptions();
+    //debug
+    //console.log(this.mealOptions);
+}
 
   goBack(): void {
     this.location.back();
@@ -44,9 +74,11 @@ export class MealOptionOverviewComponent {
 
   get paginatedMealOptions() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    console.log('currrentpage: ' + this.currentPage);
-    console.log('startindex: ' + startIndex + ' items per page: ' + this.itemsPerPage);
-    console.log(this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage));
+    
+    //debug
+    //console.log('currrentpage: ' + this.currentPage);
+    //console.log('startindex: ' + startIndex + ' items per page: ' + this.itemsPerPage);
+    //console.log(this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage));
     return this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
@@ -60,7 +92,8 @@ export class MealOptionOverviewComponent {
   }
 
   nextPage(): void {
-    console.log(this.currentPage + ' - ' + this.totalPages);
+    //console.log(this.currentPage + ' - ' + this.totalPages);
+    this.selectedMealOption = null;
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
     }

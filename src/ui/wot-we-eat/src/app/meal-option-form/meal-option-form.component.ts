@@ -34,6 +34,7 @@ export class MealOptionFormComponent implements OnInit {
     vegetables:<Vegetable[]|null>null,
     meatFishes:<MeatFish[]|null>null,
     seasons:  new FormControl(seasons.map(season => season.value)),
+    active:false,
   });
   vegetables: Vegetable[] = [];
   groupedMeatFishes: GroupedMeatFish[] = [];

@@ -40,6 +40,10 @@ export class MealService {
     );
   }
 
+  updateMealOptionActiveStatus(mealOptionId: string, active: boolean): Observable<any> {
+    return this.http.put(`${this.apiUrl}/meal-option/${mealOptionId}`, { active });
+  }
+
   private groupMeatFishesByType(meatFishes: MeatFish[]): GroupedMeatFish[] {
     const grouped = meatFishes.reduce((acc, meatFish) => {
       if (!acc[meatFish.type]) {
