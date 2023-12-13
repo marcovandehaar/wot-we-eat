@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MealService } from '../services/meal.service'; 
 import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
 import { mealBaseValues, seasons } from '../models/enums';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -43,7 +44,8 @@ export class MealOptionFormComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router, 
     private mealService: MealService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private location: Location,) { }
     
 
     ngOnInit() {
@@ -55,9 +57,10 @@ export class MealOptionFormComponent implements OnInit {
         this.groupedMeatFishes = groupedMeatFishes;
       });
 
-      const mealOptionId = this.route.snapshot.params['id'];
-      if (!mealOptionId) return          
-      this.mealService.getMealOption(mealOptionId).subscribe((mealOption)=>
+      this.route.paramMap.subscribe(params => {
+        const id = params.get('id');
+        if (id) {
+          this.mealService.getMealOption(id).subscribe((mealOption)=>
         {
           if(!mealOption)
           return;
@@ -69,6 +72,10 @@ export class MealOptionFormComponent implements OnInit {
           this.mealOptionForm.setValue(mealOption);
         }
       );
+        } else {
+          // Initialize form for creating a new meal option
+        }
+      });
     }
 
   
@@ -118,6 +125,6 @@ export class MealOptionFormComponent implements OnInit {
   
 
   goBack(): void {
-    this.router.navigate(['/main']);
+    this.location.back();
   }
 }

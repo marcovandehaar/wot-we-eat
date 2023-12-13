@@ -14,7 +14,7 @@
             </div>
             <div class="additional-content" *ngIf="selectedMealOption === i" [class.active]="selectedMealOption === i">
                 <div class="button-container">
-                    <button class="panel-button edit-button">
+                    <button class="panel-button edit-button" (click)="editMealOption(mealOption.id)">
                       <img src="assets/images/pencil.png" alt="Edit">
                       Aanpassen
                     </button>

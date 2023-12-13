@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainScreenComponent },
   { path: 'meal-option/edit', component: MealOptionFormComponent },
+  { path: 'meal-option-form/:id', component: MealOptionFormComponent },
   { path: 'meal-option-overview', component: MealOptionOverviewComponent },
 ];
 

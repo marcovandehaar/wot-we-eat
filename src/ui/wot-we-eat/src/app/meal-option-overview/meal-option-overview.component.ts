@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { MealService } from '../services/meal.service';
 import { MealOption } from '../models/meal-option.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-meal-option-overview',
@@ -21,6 +22,7 @@ export class MealOptionOverviewComponent {
   selectedMealOption: number | null = null;
 
   constructor(private location: Location,
+    private router: Router,
     private mealService: MealService,) {}
 
   mealOptionsStatus: Record<string, boolean> = {
@@ -134,6 +136,10 @@ export class MealOptionOverviewComponent {
 
   togglePanel(index: number): void {
     this.selectedMealOption = this.selectedMealOption === index ? null : index;
+  }
+
+  editMealOption(mealOptionId: string): void {
+    this.router.navigate(['/meal-option-form', mealOptionId]);
   }
   
 }
