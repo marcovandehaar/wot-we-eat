@@ -8,10 +8,10 @@ export class InMemoryMealApi implements InMemoryDbService {
       {
         id: '5CehW',
         active:true,
-        description: 'Dit is een fijne maaltijd',
+        description: 'Gekookte aardappelen, witte bonen met worst',
         mealBase:'Potato',
-        amountOfWork: 'Average',
-        healthy:'Uhealthy',
+        amountOfWork: 3,
+        healthy:'Unhealthy',
         suitableForChildren:false,
         vegetables: [{
           id: 'jmfgu',
@@ -22,35 +22,35 @@ export class InMemoryMealApi implements InMemoryDbService {
           name: 'Braadworst',
           type: 'Meat',       
         }],
-       seasons: ['Winter','Spring','Summer','Autumn'],
+       seasons: ['winter','spring','summer','autumn'],
       },
       {
         id: 'sfdg',
         active:true,
-        description: 'Dit is een fijne maaltijd',
+        description: 'Snijbonen, aardappelbolletjes en rundervink',
         mealBase:'Potato',
-        amountOfWork: 'Average',
+        amountOfWork: 3,
         healthy:'Healthy',
         suitableForChildren:false,
         vegetables: [{
-          id: 'jmfgu',
-          name: 'Witte bonen',       
+          id: 'gujmy',
+          name: 'Snijbonen',       
         }],
         meatFishes: [{
-          id: 'rth',
-          name: 'SPeklap',
+          id: 'gtgt',
+          name: 'Rundervink',
           type: 'Meat',       
         }],
-        seasons: ['Winter','Spring','Summer','Autumn'],
+        seasons: ['winter','spring','summer','autumn'],
        
       },
       {
         id: '5CejtyhW',
         active:true,
-        description: 'Dit is een fijne maaltijd',
+        description: 'Snijbonen, witte bonen, aardappeltjes en kabeljouwburger',
         mealBase:'Potato',
-        amountOfWork: 'Average',
-        healthy:'Sverage',
+        amountOfWork: 5,
+        healthy:'Healthy',
         suitableForChildren:true,
         vegetables: [{
           id: 'jmfgu',
@@ -60,39 +60,45 @@ export class InMemoryMealApi implements InMemoryDbService {
           name: 'Snijbonen',       
         }],
         meatFishes: [{
-          id: 'bgf',
-          name: 'Zalmfilet',
+          id: 'hdhd',
+          name: 'Kabeljouwburger',
           type: 'Fish',       
         }],
-        seasons: ['Spring','Summer'],
+        seasons: ['spring','summer'],
        
       },
       {
         id: '5CehWfg',
         active:true,
-        description: '3Dit is een fijne maaltijd',
-        mealBase:'Potato',
-        amountOfWork: 'Average',
-        healthy:'Uhealthy',
-        suitableForChildren:false,
+        description: 'Rijst, broccoli, fish cuisine mediteraan en fish sticks',
+        mealBase:'Rice',
+        amountOfWork: 3,
+        healthy:'Healthy',
+        suitableForChildren:true,
         vegetables: [{
-          id: 'jmfgu',
-          name: 'Witte bonen',       
+          id: 'ased',
+          name: 'Broccoli',       
         }],
         meatFishes: [{
-          id: 'trg',
-          name: 'Braadworst',
-          type: 'Meat',       
-        }],
-       seasons: ['Winter','Spring','Summer','Autumn'],
+          id: 'uuu',
+          name: 'Fish cuisine - mediteraan',
+          type: 'Fish',       
+        },
+        {
+          id: 'www',
+          name: 'Fish sticks',
+          type: 'Fish',       
+        }
+      ],
+       seasons: ['winter','spring','summer','autumn'],
       },
       {
         id: '5CehWsder',
         active:true,
         description: '4Dit is een fijne maaltijd',
         mealBase:'Potato',
-        amountOfWork: 'Average',
-        healthy:'Uhealthy',
+        amountOfWork: 3,
+        healthy:'Unhealthy',
         suitableForChildren:false,
         vegetables: [{
           id: 'jmfgu',
@@ -103,15 +109,15 @@ export class InMemoryMealApi implements InMemoryDbService {
           name: 'Braadworst',
           type: 'Meat',       
         }],
-       seasons: ['Winter','Spring','Summer','Autumn'],
+       seasons: ['winter','spring','summer','autumn'],
       },
       {
         id: '5CehsrtehW',
         active:true,
         description: '5Dit is een fijne maaltijd',
         mealBase:'Potato',
-        amountOfWork: 'Average',
-        healthy:'Uhealthy',
+        amountOfWork: 3,
+        healthy:'Unhealthy',
         suitableForChildren:false,
         vegetables: [{
           id: 'jmfgu',
@@ -122,7 +128,7 @@ export class InMemoryMealApi implements InMemoryDbService {
           name: 'Braadworst',
           type: 'Meat',       
         }],
-       seasons: ['Winter','Spring','Summer','Autumn'],
+       seasons: ['winter','spring','summer','autumn'],
       }
     ];
     let vegetables: Vegetable[] = [
@@ -148,6 +154,11 @@ export class InMemoryMealApi implements InMemoryDbService {
       {
         id: 'rth',
         name: 'Slavink',
+        type: 'Meat',       
+      },
+      {
+        id: 'gtgt',
+        name: 'Rundervink',
         type: 'Meat',       
       },
       {
@@ -180,6 +191,11 @@ export class InMemoryMealApi implements InMemoryDbService {
       {
         id: 'uuu',
         name: 'Fish cuisine - mediteraan',
+        type: 'Fish',       
+      },
+      {
+        id: 'hdhd',
+        name: 'Kabeljouwburger',
         type: 'Fish',       
       }
     ];

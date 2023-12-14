@@ -29,7 +29,7 @@ export class MealOptionFormComponent implements OnInit {
     id: '',
     description: '', 
     mealBase: '',
-    amountOfWork: '1',
+    amountOfWork: 1,
     healthy:'',
     suitableForChildren:true,
     vegetables:<Vegetable[]|null>null,
@@ -80,7 +80,8 @@ export class MealOptionFormComponent implements OnInit {
 
   
   saveMealOption(): void {
-    console.log('saveMealOption called');
+    console.log('Saving mealOption:', this.mealOptionForm.getRawValue());
+
     
     this.mealService.saveMealOption(this.mealOptionForm.getRawValue()).subscribe({
       next: (response) => {
