@@ -3,11 +3,40 @@ import { Location } from '@angular/common';
 import { MealService } from '../services/meal.service';
 import { MealOption } from '../models/meal-option.model';
 import { Router } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 
 @Component({
   selector: 'app-meal-option-overview',
   templateUrl: './meal-option-overview.component.html',
-  styleUrls: ['./meal-option-overview.component.scss']
+  styleUrls: ['./meal-option-overview.component.scss'],
+  animations: [
+    trigger('slide', [
+      state('closed', style({
+        height: '0px',
+        opacity: 0,
+        overflow: 'hidden'
+      })),
+      state('open', style({
+        height: '*',
+        opacity: 1
+      })),
+      transition('closed <=> open', animate('0.3s ease-in-out'))
+    ]),
+    trigger('simpleFade', [
+      state('in', style({ opacity: 1 })),
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(600)
+      ]),
+      transition(':leave', animate(600, style({ opacity: 0 })))
+    ]),
+    trigger('simpleSlide', [
+      state('closed', style({ height: '0px' })),
+      state('open', style({ height: '*' })),
+      transition('closed <=> open', animate('0.3s ease-in-out'))
+    ])
+  ]
 })
 
 
