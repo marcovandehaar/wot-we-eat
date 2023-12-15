@@ -170,5 +170,11 @@ export class MealOptionOverviewComponent {
   editMealOption(mealOptionId: string): void {
     this.router.navigate(['/meal-option-form', mealOptionId]);
   }
+
+  addMealOption(): void {
+    // Logic to add a new meal option
+    // For example, navigate to a form
+    this.router.navigate(['/meal-option-form', 'new']);
+  }
   
 }

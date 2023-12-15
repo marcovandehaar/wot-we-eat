@@ -26,6 +26,9 @@
             </div>
         </li>
     </ul>
+    <button class="meal-add-button" (click)="addMealOption()">
+        Maaltijdoptie toevoegen...
+    </button>
     <div class="pagination">
         <span (click)="previousPage()" [class.disabled]="currentPage === 1">Vorige</span>
         <span *ngFor="let page of getDisplayedPages()" (click)="goToPage(page)" [class.active]="page === currentPage">

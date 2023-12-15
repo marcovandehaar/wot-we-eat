@@ -7,19 +7,16 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  /* Adjust as needed */
 }
 
 .back-button {
   background: none;
   border: none;
   cursor: pointer;
-  /* Add additional styling as needed */
 }
 
 h1 {
   margin: 0;
-  /* Additional styling for the title */
 }
 
 .meal-list {
@@ -33,7 +30,7 @@ h1 {
 
   li {
     width: 80%;
-    overflow: hidden; // Add this to ensure smooth transition
+    overflow: hidden; 
     padding: 10px 15px; // Padding inside the card
 
 
@@ -118,6 +115,26 @@ h1 {
     }
 
     
+  }
+}
+
+.meal-add-button {
+  width: 18rem; // Similar width to the meal options
+  margin: 10px auto; // Center the button with margin
+  background-color: #fff; // White background like meal options
+  border-radius: 8px; // Rounded corners
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Shadow like meal options
+  padding: 10px 15px; // Padding inside
+  text-align: center; // Center the text
+  cursor: pointer; // Cursor to pointer to indicate it's clickable
+  transition: transform 0.2s ease, box-shadow 0.2s ease; // Transition for hover and click effects
+
+  &:hover {
+      box-shadow: 0 4px 8px hsl(13, 5%, 33%); // Enhanced shadow on hover
+  }
+
+  &:active {
+      transform: scale(0.95); // Scale down when clicked
   }
 }
 
