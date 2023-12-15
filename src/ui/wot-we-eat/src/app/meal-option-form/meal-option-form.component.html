@@ -9,13 +9,18 @@
         <h1 class="playful-title">Voeg een maaltijd toe!</h1>
     </div>
 
-    <form [formGroup]="mealOptionForm" (ngSubmit)="saveMealOption()">
+    <form [formGroup]="mealOptionForm" (ngSubmit)="saveMealOption()" [class.submitted]="formSubmitted">
 
         <!-- Description Textbox -->
         <div class="form-group">
-            <textarea name="Text1" formControlName="description" cols="40" rows="2"
-                class="meal-description-input" id="maaltijd" placeholder="Maaltijd beschrijving" required=""></textarea>
-        </div>
+            <textarea name="Text1" formControlName="description" cols="40" rows="2" 
+                      class="meal-description-input"
+                      id="maaltijd" placeholder="Maaltijd beschrijving"></textarea>
+            <div *ngIf="(formSubmitted || mealOptionForm.controls.description.touched) && mealOptionForm.controls.description.invalid"
+                 class="error">
+              Vul een omschrijving in!
+            </div>
+          </div>
 
         <div class="form-group">
             <select placeholder="Maaltijdbasis" formControlName="mealBase" class="meal-description-input">
@@ -28,19 +33,20 @@
         <!-- Amount of Work Slider -->
         <div class="form-group work-slider">
             <!-- ... placeholder slider here ... -->
-            <input type="range" formControlName="amountOfWork" min="0" max="5" placeholder="Amount of work"/><!--NEED TO TRANSFORM VALUE TO AMOUNT OF WORK< OR DO clickable images-->
+            <input type="range" formControlName="amountOfWork" min="0" max="5"
+                placeholder="Amount of work" /><!--NEED TO TRANSFORM VALUE TO AMOUNT OF WORK< OR DO clickable images-->
             <div class="rangeLabel">{{ selectedWorkAmountDescription }}</div>
         </div>
 
         <!-- Healthy Rating Selector -->
         <div class="form-group">
             <!-- ... placeholder apples here ... -->
-            <app-healthy-selector formControlName="healthy"/>
+            <app-healthy-selector formControlName="healthy" />
         </div>
 
         <!-- Suitable for Children Toggle -->
         <div class="form-group">
-            <app-children-toggle formControlName="suitableForChildren"/>
+            <app-children-toggle formControlName="suitableForChildren" />
             <!-- ... placeholder toggle here ... -->
         </div>
 
@@ -50,24 +56,27 @@
 
         <!-- Vegetables -->
         <div class="form-group">
-            
-                <img src="./assets/images/brocoli.png" class="vegetables-img"/>
-                <p-multiSelect [options]="vegetables" display="chip" formControlName="vegetables" optionLabel="name" placeholder="Kies groentes"></p-multiSelect>
-            
+
+            <img src="./assets/images/brocoli.png" class="vegetables-img" />
+            <p-multiSelect [options]="vegetables" display="chip" formControlName="vegetables" optionLabel="name"
+                placeholder="Kies groentes"></p-multiSelect>
+
         </div>
 
         <!-- meat /fish -->
         <div class="form-group">
-            
-            <img src="./assets/images/meatfish.png" class="vegetables-img"/>
+
+            <img src="./assets/images/meatfish.png" class="vegetables-img" />
             <!--
             <p-multiSelect [options]="meatFishes" [group]="true" display="chip" formControlName="meatFishes" optionLabel="name" placeholder="Kies vlees of vis"></p-multiSelect>
             -->
 
-            <p-multiSelect [options]="groupedMeatFishes" [group]="true" formControlName="meatFishes" optionLabel="name" placeholder="Kies vis of vlees" scrollHeight="250px" display="chip">
+            <p-multiSelect [options]="groupedMeatFishes" [group]="true" formControlName="meatFishes" optionLabel="name"
+                placeholder="Kies vis of vlees" scrollHeight="250px" display="chip">
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center group">
-                        <img [src]="'./assets/images/' + group.image" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <img [src]="'./assets/images/' + group.image" [class]="'mr-2 flag flag-' + group.value"
+                            style="width: 20px" />
                         <span class="group-title">{{ group.label }}</span>
                     </div>
                 </ng-template>
@@ -77,12 +86,11 @@
         <div class="form-group">
             <app-season-selector formControlName="seasons"></app-season-selector>
         </div>
-        <button (click)="isSaving = !isSaving" type="button">Toggle isSaving</button>
         <!-- Primary Save Button -->
         <div class="form-group">
             <button class="button-primary" [ngClass]="{'disabled': isSaving}" type="submit">
                 Opslaan{{ isSaving ? dots : '!' }}
-              </button>
+            </button>
         </div>
 
     </form>

@@ -15,6 +15,7 @@ import { MealService } from '../services/meal.service';
 import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
 import { mealBaseValues, seasons } from '../models/enums';
 import { Location } from '@angular/common';
+import { Validators } from '@angular/forms';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class MealOptionFormComponent implements OnInit {
   mealBases = mealBaseValues;
   mealOptionForm =  this.fb.nonNullable.group({
     id: '',
-    description: '', 
+    description: ['', Validators.required],
     mealBase: '',
     amountOfWork: 1,
     healthy:'',
@@ -47,6 +48,7 @@ export class MealOptionFormComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,) { }
     isSaving = false;
+    formSubmitted = false;
     dots = '';
     
 
@@ -82,26 +84,32 @@ export class MealOptionFormComponent implements OnInit {
 
   
   saveMealOption(): void {
-    this.startSaving();
-    console.log('Saving mealOption:', this.mealOptionForm.getRawValue());
+    this.formSubmitted = true;
+    if (this.mealOptionForm.valid) {
+      this.startSaving();
+      console.log('Saving mealOption:', this.mealOptionForm.getRawValue());
 
-    
-    this.mealService.saveMealOption(this.mealOptionForm.getRawValue()).subscribe({
-      next: (response) => {
-        console.log('MealOption saved:', response);
-        // Handle success, maybe navigate the user or show a success message.
-        this.doneSaving();
-      },
-      error: (error) => {
-        console.error('Error saving MealOption:', error);
-        // Handle error, show an error message to the user.
-        this.doneSaving();
-      },
-      complete: () => {
-        // Handle completion if needed.
-        this.doneSaving();
-      }
-    });
+      
+      this.mealService.saveMealOption(this.mealOptionForm.getRawValue()).subscribe({
+        next: (response) => {
+          console.log('MealOption saved:', response);
+          // Handle success, maybe navigate the user or show a success message.
+          this.doneSaving();
+        },
+        error: (error) => {
+          console.error('Error saving MealOption:', error);
+          // Handle error, show an error message to the user.
+          this.doneSaving();
+        },
+        complete: () => {
+          // Handle completion if needed.
+          this.doneSaving();
+        }
+      }); 
+    } else {
+      // Optionally, handle the invalid form case (e.g., show an error message)
+      console.error('The form is invalid');
+    }
   }
 
   private startSaving(){
