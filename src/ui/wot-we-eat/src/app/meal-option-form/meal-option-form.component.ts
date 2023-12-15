@@ -21,7 +21,7 @@ import { Location } from '@angular/common';
   selector: 'meal-option-form',
   templateUrl: './meal-option-form.component.html',
   styleUrls: ['./meal-option-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MealOptionFormComponent implements OnInit {
   mealBases = mealBaseValues;
@@ -46,6 +46,8 @@ export class MealOptionFormComponent implements OnInit {
     private mealService: MealService,
     private fb: FormBuilder,
     private location: Location,) { }
+    isSaving = false;
+    dots = '';
     
 
     ngOnInit() {
@@ -80,6 +82,7 @@ export class MealOptionFormComponent implements OnInit {
 
   
   saveMealOption(): void {
+    this.startSaving();
     console.log('Saving mealOption:', this.mealOptionForm.getRawValue());
 
     
@@ -87,15 +90,39 @@ export class MealOptionFormComponent implements OnInit {
       next: (response) => {
         console.log('MealOption saved:', response);
         // Handle success, maybe navigate the user or show a success message.
+        this.doneSaving();
       },
       error: (error) => {
         console.error('Error saving MealOption:', error);
         // Handle error, show an error message to the user.
+        this.doneSaving();
       },
       complete: () => {
         // Handle completion if needed.
+        this.doneSaving();
       }
     });
+  }
+
+  private startSaving(){
+    this.isSaving = true;    
+    this.animateDots();
+  }
+
+  private doneSaving(){    
+    this.isSaving = false;
+    this.dots = '';    
+  }
+
+  private animateDots() {
+    let dotCount = 0;
+    const interval = setInterval(() => {
+      dotCount = (dotCount + 1) % 4; // Cycle through 0 to 3
+      this.dots = '.'.repeat(dotCount);
+      if (!this.isSaving) {
+        clearInterval(interval);
+      }
+    }, 500); // Change the speed of animation as needed
   }
 
   get selectedWorkAmountDescription(): string {

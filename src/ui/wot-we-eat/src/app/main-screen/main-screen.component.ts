@@ -9,15 +9,7 @@ export class MainScreenComponent {
   menuOpen: boolean = false;  
 
   
-  suggestMeal() {
-    console.log('Suggest Meal clicked');
-    // Implement your logic here
-  }
 
-  enterMeal() {
-    console.log('Enter Meal clicked');
-    // Implement your logic here
-  }
 
 
 }

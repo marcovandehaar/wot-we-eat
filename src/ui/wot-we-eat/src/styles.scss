@@ -84,6 +84,12 @@ body {
   top: 4px;
   transition: all 100ms ease-out;
   z-index: -1;
+  &[disabled] {
+    content: "";
+    animation: dotAnimation 1.5s infinite;
+    display: inline-block; // Make sure this is inline-block or block
+    margin-left: 5px; // Spacing after the button text
+  }
 }
 
 .button-primary:hover:not(:disabled):after {
@@ -106,9 +112,10 @@ body {
   top: 4px;
 }
 
-.button-primary:disabled {
+.button-primary.disabled {
   cursor: default;
   opacity: .24;
+  pointer-events: none; // Prevent clicks
 }
 
 .icon-button {

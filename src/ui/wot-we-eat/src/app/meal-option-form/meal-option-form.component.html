@@ -77,10 +77,12 @@
         <div class="form-group">
             <app-season-selector formControlName="seasons"></app-season-selector>
         </div>
-
+        <button (click)="isSaving = !isSaving" type="button">Toggle isSaving</button>
         <!-- Primary Save Button -->
         <div class="form-group">
-            <button class="button-primary" type="submit">Opslaan!</button>
+            <button class="button-primary" [ngClass]="{'disabled': isSaving}" type="submit">
+                Opslaan{{ isSaving ? dots : '!' }}
+              </button>
         </div>
 
     </form>
