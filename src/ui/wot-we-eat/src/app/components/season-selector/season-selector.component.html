@@ -1,15 +1,15 @@
 <div class="seasons-toggle">
-    <button class="season-btn" id="btn-winter" type="button" (click)="selectSeason('winter')">
-      <img [src]="'/assets/images/seasons/' + getImageName('winter')" alt="Winter" [class.grayscale]="!isActive('winter')">
+    <button class="season-btn" id="btn-winter" type="button" (click)="selectSeason('Winter')">
+      <img [src]="'/assets/images/seasons/' + getImageName('Winter')" alt="Winter" [class.grayscale]="!isActive('Winter')">
     </button>
-    <button class="season-btn" id="btn-spring" type="button" (click)="selectSeason('spring')">
-      <img [src]="'/assets/images/seasons/' + getImageName('spring')" alt="Spring" [class.grayscale]="!isActive('spring')">
+    <button class="season-btn" id="btn-spring" type="button" (click)="selectSeason('Spring')">
+      <img [src]="'/assets/images/seasons/' + getImageName('Spring')" alt="Spring" [class.grayscale]="!isActive('Spring')">
     </button>
-    <button class="season-btn" id="btn-summer" type="button" (click)="selectSeason('summer')">
-      <img [src]="'/assets/images/seasons/' + getImageName('summer')"  alt="Summer" [class.grayscale]="!isActive('summer')">
+    <button class="season-btn" id="btn-summer" type="button" (click)="selectSeason('Summer')">
+      <img [src]="'/assets/images/seasons/' + getImageName('Summer')"  alt="Summer" [class.grayscale]="!isActive('Summer')">
     </button>
-    <button class="season-btn" id="btn-autumn" type="button" (click)="selectSeason('autumn')">
-      <img [src]="'/assets/images/seasons/' + getImageName('autumn')" alt="Autumn" [class.grayscale]="!isActive('autumn')">
+    <button class="season-btn" id="btn-autumn" type="button" (click)="selectSeason('Autumn')">
+      <img [src]="'/assets/images/seasons/' + getImageName('Autumn')" alt="Autumn" [class.grayscale]="!isActive('Autumn')">
     </button>
   </div>
   <p class="season-text">Een maaltijd voor in de  <span id="season-name">{{ getSelectedSeasonTitles() }}</span></p>

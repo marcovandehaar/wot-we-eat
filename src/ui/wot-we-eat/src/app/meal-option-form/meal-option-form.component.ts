@@ -16,6 +16,7 @@ import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal
 import { mealBaseValues, seasons } from '../models/enums';
 import { Location } from '@angular/common';
 import { Validators } from '@angular/forms';
+import { healtyOptions } from '../components/healthy-options';
 
 
 @Component({
@@ -27,16 +28,16 @@ import { Validators } from '@angular/forms';
 export class MealOptionFormComponent implements OnInit {
   mealBases = mealBaseValues;
   mealOptionForm =  this.fb.nonNullable.group({
-    id: '',
+    mealOptionId: '00000000-0000-0000-0000-000000000000',
     description: ['', Validators.required],
-    mealBase: '',
+    mealBase: ['', Validators.required],
     amountOfWork: 1,
-    healthy:'',
+    healthy:healtyOptions[0].value,
     suitableForChildren:true,
     vegetables:<Vegetable[]|null>null,
-    meatFishes:<MeatFish[]|null>null,
-    seasons:  new FormControl(seasons.map(season => season.value)),
-    active:false,
+    possibleMeatFishes:<MeatFish[]|null>null,
+    inSeasons:  new FormControl(seasons.map(season => season.value)),
+    active:true,
   });
   vegetables: Vegetable[] = [];
   groupedMeatFishes: GroupedMeatFish[] = [];
@@ -57,7 +58,6 @@ export class MealOptionFormComponent implements OnInit {
         this.vegetables = vegetables;
       });
       this.mealService.getGroupedMeatFishes().subscribe(groupedMeatFishes => {
-        console.log('Meatfishes:', groupedMeatFishes);
         this.groupedMeatFishes = groupedMeatFishes;
       });
 
@@ -72,7 +72,8 @@ export class MealOptionFormComponent implements OnInit {
           //when you want to start the form only partially filled with values, patch!
           //const names = {firstName: contact.firstName, lastName: contact.lastName}
           //this.contactForm.patchValue(names);
-          
+          console.log('Setting value:');
+          console.log(mealOption);
           this.mealOptionForm.setValue(mealOption);
         }
       );

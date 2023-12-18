@@ -108,22 +108,19 @@ namespace WotWeEat.Api.Controllers
         }
 
         [HttpPut("meal-option/{mealOptionId}")]
-        public async Task<IActionResult> UpdateMealOptionActiveStatus(Guid mealOptionId, [FromBody] bool isActive)
+        public async Task<IActionResult> UpdateMealOptionActiveStatus(Guid mealOptionId, [FromBody] MealOptionUpdateDto updateDto)
         {
             try
             {
-                // Find the MealOption by Id
                 var mealOptionToUpdate = await _dataService.GetMealOption(mealOptionId);
                 if (mealOptionToUpdate == null)
                 {
                     return NotFound($"No MealOption found with ID {mealOptionId}.");
                 }
 
-                // Update the Active status of the MealOption
-                mealOptionToUpdate.Active = isActive;
+                mealOptionToUpdate.Active = updateDto.IsActive;
                 var response = await _dataService.SaveMealOption(mealOptionToUpdate);
 
-                // Return a success response
                 return Ok(response);
             }
             catch (Exception ex)
@@ -132,6 +129,7 @@ namespace WotWeEat.Api.Controllers
                 return StatusCode(500, "An error occurred while updating the MealOption.");
             }
         }
+
 
 
         [HttpPost("meal")]

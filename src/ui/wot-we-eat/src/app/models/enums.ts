@@ -12,8 +12,8 @@ export const mealBaseValues = [
 ]
 
 export const seasons = [
-  { title: 'Winter', value: 'winter' },
-  { title: 'Lente', value: 'spring' },
-  { title: 'Zomer', value: 'summer' },
-  { title: 'Herfst', value: 'autumn' },
+  { title: 'Winter', value: 'Winter' },
+  { title: 'Lente', value: 'Spring' },
+  { title: 'Zomer', value: 'Summer' },
+  { title: 'Herfst', value: 'Autumn' },
 ]

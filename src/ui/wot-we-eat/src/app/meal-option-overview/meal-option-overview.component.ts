@@ -78,11 +78,15 @@ export class MealOptionOverviewComponent {
 
   toggleMealOptionActiveStatus(mealOptionId: string, currentlyActive: boolean): void {
     const newActiveStatus = !currentlyActive;
-       
+    const mealOption = this.mealOptions.find(option => option.mealOptionId === mealOptionId);
+    console.log('udpating active for mealoption:');
+    console.log(mealOption);
+    console.log(mealOptionId);
     this.mealService.updateMealOptionActiveStatus(mealOptionId, newActiveStatus).subscribe({
         next: () => {
             console.log('mealOptionid:' + mealOptionId);
-            const mealOption = this.mealOptions.find(option => option.id === mealOptionId);
+            const mealOption = this.mealOptions.find(option => option.mealOptionId === mealOptionId);
+            
             if (mealOption) {
               //nex tdoes not work for in mem....
               mealOption.active = newActiveStatus;
@@ -107,9 +111,9 @@ export class MealOptionOverviewComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     
     //debug
-    //console.log('currrentpage: ' + this.currentPage);
-    //console.log('startindex: ' + startIndex + ' items per page: ' + this.itemsPerPage);
-    //console.log(this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage));
+    console.log('currrentpage: ' + this.currentPage);
+    console.log('startindex: ' + startIndex + ' items per page: ' + this.itemsPerPage);
+    console.log(this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage));
     return this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage);
   }
 

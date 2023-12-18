@@ -34,7 +34,7 @@ export class HealthySelectorComponent implements ControlValueAccessor{
 
   optionSelected(option: HealthyOption) {
     this.selectedOption = option;
-    this.onChange(option);
+    this.onChange(option.value);
   }
 
   writeValue(optionValue: string | null): void {

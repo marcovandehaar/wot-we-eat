@@ -8,30 +8,30 @@ import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal
 })
 export class MealService {
 
-  //private apiUrl = 'https://localhost:7171/api/query';
-  private apiUrl = 'api';
+  private apiUrl = 'https://localhost:7171/api';
+  //private apiUrl = 'api';
 
   constructor(private http: HttpClient) { }
 
 
   saveMealOption(mealOption: MealOption): Observable<any> {
-    return this.http.post(`${this.apiUrl}/meal-option`, mealOption);
+    return this.http.post(`${this.apiUrl}/command/meal-option`, mealOption);
   }
 
   getMealOption(id: string): Observable<MealOption | undefined> {
-    return this.http.get<MealOption>(`${this.apiUrl}/meal-option/${id}`);
+    return this.http.get<MealOption>(`${this.apiUrl}/query/meal-option/${id}`);
   }
 
   getAllMealOptions(): Observable<MealOption[]> {
-    return this.http.get<MealOption[]>(`${this.apiUrl}/meal-option`);
+    return this.http.get<MealOption[]>(`${this.apiUrl}/query/meal-option`);
   }
 
   getAllVegetables(): Observable<Vegetable[]> {
-    return this.http.get<Vegetable[]>(`${this.apiUrl}/vegetable`);
+    return this.http.get<Vegetable[]>(`${this.apiUrl}/query/vegetable`);
   }
 
   getAllMeatFishes(): Observable<MeatFish[]> {
-    return this.http.get<MeatFish[]>(`${this.apiUrl}/meat-fish`);
+    return this.http.get<MeatFish[]>(`${this.apiUrl}/query/meat-fish`);
   }
 
   getGroupedMeatFishes(): Observable<GroupedMeatFish[]> {
@@ -41,8 +41,9 @@ export class MealService {
   }
 
   updateMealOptionActiveStatus(mealOptionId: string, active: boolean): Observable<any> {
-    return this.http.put(`${this.apiUrl}/meal-option/${mealOptionId}`, { active });
+    return this.http.put(`${this.apiUrl}/command/meal-option/${mealOptionId}`, { isActive: active });
   }
+  
 
   private groupMeatFishesByType(meatFishes: MeatFish[]): GroupedMeatFish[] {
     const grouped = meatFishes.reduce((acc, meatFish) => {

@@ -6,7 +6,7 @@ export class InMemoryMealApi implements InMemoryDbService {
   createDb() {
     let mealOptions: MealOption[] = [
       {
-        id: '5CehW',
+        mealOptionId: '5CehW',
         active:true,
         description: 'Gekookte aardappelen, witte bonen met worst',
         mealBase:'Potato',
@@ -17,15 +17,15 @@ export class InMemoryMealApi implements InMemoryDbService {
           id: 'jmfgu',
           name: 'Witte bonen',       
         }],
-        meatFishes: [{
+        possibleMeatFishes: [{
           id: 'trg',
           name: 'Braadworst',
           type: 'Meat',       
         }],
-       seasons: ['winter','spring','summer','autumn'],
+        inSeasons: ['Winter','Spring','Summer','Autumn'],
       },
       {
-        id: 'sfdg',
+        mealOptionId: 'sfdg',
         active:true,
         description: 'Snijbonen, aardappelbolletjes en rundervink',
         mealBase:'Potato',
@@ -36,16 +36,16 @@ export class InMemoryMealApi implements InMemoryDbService {
           id: 'gujmy',
           name: 'Snijbonen',       
         }],
-        meatFishes: [{
+        possibleMeatFishes: [{
           id: 'gtgt',
           name: 'Rundervink',
           type: 'Meat',       
         }],
-        seasons: ['winter','spring','summer','autumn'],
+        inSeasons: ['Winter','Spring','Summer','Autumn'],
        
       },
       {
-        id: '5CejtyhW',
+        mealOptionId: '5CejtyhW',
         active:true,
         description: 'Snijbonen, witte bonen, aardappeltjes en kabeljouwburger',
         mealBase:'Potato',
@@ -59,16 +59,16 @@ export class InMemoryMealApi implements InMemoryDbService {
           id: 'gujmy',
           name: 'Snijbonen',       
         }],
-        meatFishes: [{
+        possibleMeatFishes: [{
           id: 'hdhd',
           name: 'Kabeljouwburger',
           type: 'Fish',       
         }],
-        seasons: ['spring','summer'],
+        inSeasons: ['spring','summer'],
        
       },
       {
-        id: '5CehWfg',
+        mealOptionId: '5CehWfg',
         active:true,
         description: 'Rijst, broccoli, fish cuisine mediteraan en fish sticks',
         mealBase:'Rice',
@@ -79,7 +79,7 @@ export class InMemoryMealApi implements InMemoryDbService {
           id: 'ased',
           name: 'Broccoli',       
         }],
-        meatFishes: [{
+        possibleMeatFishes: [{
           id: 'uuu',
           name: 'Fish cuisine - mediteraan',
           type: 'Fish',       
@@ -90,10 +90,10 @@ export class InMemoryMealApi implements InMemoryDbService {
           type: 'Fish',       
         }
       ],
-       seasons: ['winter','spring','summer','autumn'],
+      inSeasons: ['Winter','Spring','Summer','Autumn'],
       },
       {
-        id: '5CehWsder',
+        mealOptionId: '5CehWsder',
         active:true,
         description: '4Dit is een fijne maaltijd',
         mealBase:'Potato',
@@ -104,15 +104,15 @@ export class InMemoryMealApi implements InMemoryDbService {
           id: 'jmfgu',
           name: 'Witte bonen',       
         }],
-        meatFishes: [{
+        possibleMeatFishes: [{
           id: 'trg',
           name: 'Braadworst',
           type: 'Meat',       
         }],
-       seasons: ['winter','spring','summer','autumn'],
+        inSeasons: ['Winter','Spring','Summer','Autumn'],
       },
       {
-        id: '5CehsrtehW',
+        mealOptionId: '5CehsrtehW',
         active:true,
         description: '5Dit is een fijne maaltijd',
         mealBase:'Potato',
@@ -123,12 +123,12 @@ export class InMemoryMealApi implements InMemoryDbService {
           id: 'jmfgu',
           name: 'Witte bonen',       
         }],
-        meatFishes: [{
+        possibleMeatFishes: [{
           id: 'trg',
           name: 'Braadworst',
           type: 'Meat',       
         }],
-       seasons: ['winter','spring','summer','autumn'],
+        inSeasons: ['Winter','Spring','Summer','Autumn'],
       }
     ];
     let vegetables: Vegetable[] = [
@@ -220,7 +220,7 @@ export class InMemoryMealApi implements InMemoryDbService {
     const id = reqInfo.id;
     const updatedMealOptionData = reqInfo.utils.getJsonBody(reqInfo.req);
     // Find the meal option by ID
-    const mealOptionIndex = collection.findIndex(m => m.id === id);
+    const mealOptionIndex = collection.findIndex(m => m.mealOptionId === id);
     if (mealOptionIndex === -1) {
       return {
         body: { error: 'Meal Option not found' },

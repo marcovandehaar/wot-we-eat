@@ -13,22 +13,28 @@
 
         <!-- Description Textbox -->
         <div class="form-group">
-            <textarea name="Text1" formControlName="description" cols="40" rows="2" 
-                      class="meal-description-input"
-                      id="maaltijd" placeholder="Maaltijd beschrijving"></textarea>
+            <textarea name="Text1" formControlName="description" cols="40" rows="2" class="meal-description-input"
+                id="maaltijd" placeholder="Maaltijd beschrijving"></textarea>
             <div *ngIf="(formSubmitted || mealOptionForm.controls.description.touched) && mealOptionForm.controls.description.invalid"
-                 class="error">
-              Vul een omschrijving in!
+                class="error">
+                Vul een omschrijving in!
             </div>
-          </div>
+        </div>
 
         <div class="form-group">
-            <select placeholder="Maaltijdbasis" formControlName="mealBase" class="meal-description-input">
+            <select placeholder="Maaltijdbasis" formControlName="mealBase"
+                [class.invalid-select]="(formSubmitted || mealOptionForm.controls.mealBase.touched) && mealOptionForm.controls.mealBase.invalid"
+                class="meal-description-input">
                 <option value="" disabled selected>Maaltijdbasis</option>
                 <option *ngFor="let mealBaseType of mealBases" [value]="mealBaseType.value">
-                    {{mealBaseType.title}}
+                    {{ mealBaseType.title }}
                 </option>
             </select>
+            <div *ngIf="(formSubmitted || mealOptionForm.controls.mealBase.touched) && mealOptionForm.controls.mealBase.invalid"
+                class="error">
+                Kies een maaltijdbasis!
+            </div>
+
         </div>
         <!-- Amount of Work Slider -->
         <div class="form-group work-slider">
@@ -50,10 +56,6 @@
             <!-- ... placeholder toggle here ... -->
         </div>
 
-        <div class="form-group">
-            <!-- ... placeholder seasons here ... -->
-        </div>
-
         <!-- Vegetables -->
         <div class="form-group">
 
@@ -71,7 +73,7 @@
             <p-multiSelect [options]="meatFishes" [group]="true" display="chip" formControlName="meatFishes" optionLabel="name" placeholder="Kies vlees of vis"></p-multiSelect>
             -->
 
-            <p-multiSelect [options]="groupedMeatFishes" [group]="true" formControlName="meatFishes" optionLabel="name"
+            <p-multiSelect [options]="groupedMeatFishes" [group]="true" formControlName="possibleMeatFishes" optionLabel="name"
                 placeholder="Kies vis of vlees" scrollHeight="250px" display="chip">
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center group">
@@ -84,7 +86,7 @@
         </div>
 
         <div class="form-group">
-            <app-season-selector formControlName="seasons"></app-season-selector>
+            <app-season-selector formControlName="inSeasons"></app-season-selector>
         </div>
         <!-- Primary Save Button -->
         <div class="form-group">

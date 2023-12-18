@@ -14,11 +14,11 @@
             </div>
             <div [@simpleSlide]="selectedMealOption === i ? 'open' : 'closed'" class="additional-content" *ngIf="selectedMealOption === i" [class.active]="selectedMealOption === i">
                 <div class="button-container">
-                    <button class="panel-button edit-button" (click)="editMealOption(mealOption.id)">
+                    <button class="panel-button edit-button" (click)="editMealOption(mealOption.mealOptionId)">
                       <img src="assets/images/pencil.png" alt="Edit">
                       Aanpassen
                     </button>
-                    <button class="panel-button toggle-button" (click)="toggleMealOptionActiveStatus(mealOption.id, mealOption.active)">
+                    <button class="panel-button toggle-button" (click)="toggleMealOptionActiveStatus(mealOption.mealOptionId, mealOption.active)">
                         <img [src]="mealOption.active ? 'assets/images/check.png' : 'assets/images/uncheck.png'" alt="Toggle" [class.inactive]="!mealOption.active">
                         {{ mealOption.active ? 'Actief' : 'Inactief' }}
                       </button>

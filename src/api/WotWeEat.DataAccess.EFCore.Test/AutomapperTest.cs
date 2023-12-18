@@ -29,9 +29,9 @@ public class AutomapperTest
                 Assert.NotNull(efModel);
                 Assert.Equal(efModel.AmountOfWork, domainModel.AmountOfWork); 
                 Assert.Equal(efModel.Description, domainModel.Description);
-                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.Spring));
-                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.Summer));
-                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.Spring));
+                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.spring));
+                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.summer));
+                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.spring));
                 Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.Winter));
                 Assert.Equal(efModel.Healthy, domainModel.Healthy); 
                 Assert.Equal(efModel.MealBase, domainModel.MealBase); 
@@ -65,7 +65,7 @@ public class AutomapperTest
             Healthy = Healthy.Unhealthy,
             MealBase = MealBase.Dough,
             MealOptionId = Guid.NewGuid(),
-            InSeasons = new List<Season>(){Season.Autumn, Season.Spring,Season.Summer,  Season.Winter},
+            InSeasons = new List<Season>(){Season.Autumn, Season.spring,Season.summer,  Season.Winter},
             PossibleMeatFishes = new List<Domain.MeatFish>()
             {
                 new Domain.MeatFish()

@@ -1,13 +1,13 @@
 export interface MealOption {    
-        id: string ,
+        mealOptionId: string ,
         description: string ,
         mealBase: string,  
         amountOfWork: number,  
         healthy:string,
         suitableForChildren:boolean,
         vegetables: Vegetable[] | null,
-        meatFishes: MeatFish[] |null,
-        seasons: string[] |null,
+        possibleMeatFishes: MeatFish[] |null,
+        inSeasons: string[] |null,
         active: boolean
   }
 
