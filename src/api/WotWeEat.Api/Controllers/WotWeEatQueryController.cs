@@ -7,7 +7,7 @@ using WotWeEat.Domain;
 namespace WotWeEat.Api.Controllers;
 
 [ApiController]
-[Route("api/query")]
+[Route("api")]
 public class WotWeEatQueryController : ControllerBase
 {
 

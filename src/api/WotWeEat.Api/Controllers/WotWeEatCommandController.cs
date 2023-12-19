@@ -8,7 +8,7 @@ using WotWeEat.Domain;
 namespace WotWeEat.Api.Controllers
 {
     [ApiController]
-    [Route("api/command")]
+    [Route("api")]
     public class WotWeEatCommandController : ControllerBase
     {
         private readonly ILogger<WotWeEatQueryController> _logger;
@@ -38,7 +38,7 @@ namespace WotWeEat.Api.Controllers
                     var response = await _dataService.SaveVegetable(vegetable);
 
                     // Return a success response or the newly created vegetable
-                    return Created($"/api/query/vegetables/{response.Name}", response);
+                    return Created($"/api//vegetables/{response.Name}", response);
 
                 }
 
@@ -70,7 +70,7 @@ namespace WotWeEat.Api.Controllers
                     var response = await _dataService.SaveMeatFish(meatFish);
 
                     // Return a success response or the newly created meatfish
-                    return Created($"/api/query/meatfish/{response.Name}", response);
+                    return Created($"/api//meatfish/{response.Name}", response);
                 }
 
                 return BadRequest(ModelState);
@@ -95,7 +95,7 @@ namespace WotWeEat.Api.Controllers
 
                     // Return a success response or the newly created meatfish
                     
-                    return Created($"/api/query/mealoption/{response.MealOptionId}", response);
+                    return Created($"/api//mealoption/{response.MealOptionId}", response);
                 }
 
                 return BadRequest(ModelState);
@@ -144,7 +144,7 @@ namespace WotWeEat.Api.Controllers
                     var response = await _dataService.SaveMeal(meal);
 
                     // Return a success response or the newly created meatfish
-                    return Created($"/api/query/meal/{response.MealId}", response);
+                    return Created($"/api//meal/{response.MealId}", response);
                 }
 
                 return BadRequest(ModelState);
