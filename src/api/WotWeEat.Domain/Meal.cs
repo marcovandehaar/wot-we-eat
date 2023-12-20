@@ -9,7 +9,7 @@ public class Meal
         MeatFishes = new List<MeatFish>();
     }
 
-    public Guid MealId { get; set; }
+    public Guid Id { get; set; }
     public DateTime Date { get; set; }
     public MealRating? Rating { get; set; }
     public bool WithChildren { get; set; }

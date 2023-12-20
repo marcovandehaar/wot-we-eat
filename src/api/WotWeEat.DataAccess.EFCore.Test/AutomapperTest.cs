@@ -29,25 +29,25 @@ public class AutomapperTest
                 Assert.NotNull(efModel);
                 Assert.Equal(efModel.AmountOfWork, domainModel.AmountOfWork); 
                 Assert.Equal(efModel.Description, domainModel.Description);
-                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.spring));
-                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.summer));
-                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.spring));
+                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.Spring));
+                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.Summer));
+                Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.Spring));
                 Assert.True(efModel.InSeasons.GetValueOrDefault().HasFlag(Season.Winter));
                 Assert.Equal(efModel.Healthy, domainModel.Healthy); 
                 Assert.Equal(efModel.MealBase, domainModel.MealBase); 
-                Assert.Equal(efModel.MealOptionId, domainModel.MealOptionId); 
+                Assert.Equal(efModel.Id, domainModel.Id); 
                 Assert.Equal(efModel.PossibleMeatFishes.Count, domainModel.PossibleMeatFishes.Count); 
                 Assert.Equal(efModel.PossibleMeatFishes.First().Name, domainModel.PossibleMeatFishes.First().Name); 
-                Assert.Equal(efModel.PossibleMeatFishes.First().MeatFishId, domainModel.PossibleMeatFishes.First().MeatFishId); 
+                Assert.Equal(efModel.PossibleMeatFishes.First().Id, domainModel.PossibleMeatFishes.First().Id); 
                 Assert.Equal(efModel.PossibleMeatFishes.First().Type, domainModel.PossibleMeatFishes.First().Type);
                 Assert.Equal(efModel.SuitableForChildren, domainModel.SuitableForChildren);
                 Assert.Equal(efModel.PossibleVariations.Count, domainModel.PossibleVariations.Count);
                 Assert.Equal(efModel.PossibleVariations.First().Description, domainModel.PossibleVariations.First().Description);
                 Assert.Equal(efModel.PossibleVariations.First().MakeSuitableForKids, domainModel.PossibleVariations.First().MakeSuitableForKids);
-                Assert.Equal(efModel.PossibleVariations.First().MealVariationId ,domainModel.PossibleVariations.First().MealVariationId);
+                Assert.Equal(efModel.PossibleVariations.First().Id ,domainModel.PossibleVariations.First().Id);
                 Assert.Equal(efModel.Vegetables.Count, domainModel.Vegetables.Count);
                 Assert.Equal(efModel.Vegetables.First().Name, domainModel.Vegetables.First().Name);
-                Assert.Equal(efModel.Vegetables.First().VegetableId, domainModel.Vegetables.First().VegetableId);
+                Assert.Equal(efModel.Vegetables.First().Id, domainModel.Vegetables.First().Id);
             }
         );
         
@@ -64,13 +64,13 @@ public class AutomapperTest
             Description = "Zelfgemaakte Pizza",
             Healthy = Healthy.Unhealthy,
             MealBase = MealBase.Dough,
-            MealOptionId = Guid.NewGuid(),
-            InSeasons = new List<Season>(){Season.Autumn, Season.spring,Season.summer,  Season.Winter},
+            Id = Guid.NewGuid(),
+            InSeasons = new List<Season>(){Season.Autumn, Season.Spring,Season.Summer,  Season.Winter},
             PossibleMeatFishes = new List<Domain.MeatFish>()
             {
                 new Domain.MeatFish()
                 {
-                    MeatFishId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = "Salami",
                     Type = MeatFishType.Meat
                 }
@@ -80,7 +80,7 @@ public class AutomapperTest
             {
                 new Domain.Vegetable()
                 {
-                    VegetableId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = "Champignons"
                 }
             },
@@ -91,7 +91,7 @@ public class AutomapperTest
                     {
                         Description = "Van de BBQ!",
                         MakeSuitableForKids = true,
-                        MealVariationId = Guid.NewGuid()
+                        Id = Guid.NewGuid()
                     }
                 }
         };

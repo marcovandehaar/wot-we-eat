@@ -6,7 +6,34 @@ export class InMemoryMealApi implements InMemoryDbService {
   createDb() {
     let mealOptions: MealOption[] = [
       {
-        mealOptionId: '5CehW',
+        id: '1406ace7-58f7-4d31-af0d-3b95ff69b8bf',
+        active:true,
+        description: 'Testmaaltijd 1',
+        mealBase:'Potato',
+        amountOfWork: 3,
+        healthy:'Average',
+        suitableForChildren:false,
+        vegetables: [
+          {
+            "id": "1406ace7-58f7-4d31-af0d-3b95ff69b8bf",
+            "name": "Sla"
+          }
+        ],
+        possibleMeatFishes:[
+          {
+            "id": "cb66e275-68fd-4b19-9f75-23a8789dcc19",
+            "name": "Rundervink",
+            "type": "Meat"
+          }
+        ],
+        inSeasons: [
+          "Spring",
+          "Summer"
+        ],
+        possibleVariations: [],
+      },
+      {
+        id: '5CehW',
         active:true,
         description: 'Gekookte aardappelen, witte bonen met worst',
         mealBase:'Potato',
@@ -23,9 +50,10 @@ export class InMemoryMealApi implements InMemoryDbService {
           type: 'Meat',       
         }],
         inSeasons: ['Winter','Spring','Summer','Autumn'],
+        possibleVariations: [],
       },
       {
-        mealOptionId: 'sfdg',
+        id: 'sfdg',
         active:true,
         description: 'Snijbonen, aardappelbolletjes en rundervink',
         mealBase:'Potato',
@@ -42,10 +70,11 @@ export class InMemoryMealApi implements InMemoryDbService {
           type: 'Meat',       
         }],
         inSeasons: ['Winter','Spring','Summer','Autumn'],
+        possibleVariations: [],
        
       },
       {
-        mealOptionId: '5CejtyhW',
+        id: '5CejtyhW',
         active:true,
         description: 'Snijbonen, witte bonen, aardappeltjes en kabeljouwburger',
         mealBase:'Potato',
@@ -64,11 +93,12 @@ export class InMemoryMealApi implements InMemoryDbService {
           name: 'Kabeljouwburger',
           type: 'Fish',       
         }],
-        inSeasons: ['spring','summer'],
+        inSeasons: ['Spring','Summer'],
+        possibleVariations: [],
        
       },
       {
-        mealOptionId: '5CehWfg',
+        id: '5CehWfg',
         active:true,
         description: 'Rijst, broccoli, fish cuisine mediteraan en fish sticks',
         mealBase:'Rice',
@@ -91,9 +121,10 @@ export class InMemoryMealApi implements InMemoryDbService {
         }
       ],
       inSeasons: ['Winter','Spring','Summer','Autumn'],
+      possibleVariations: [],
       },
       {
-        mealOptionId: '5CehWsder',
+        id: '5CehWsder',
         active:true,
         description: '4Dit is een fijne maaltijd',
         mealBase:'Potato',
@@ -110,9 +141,10 @@ export class InMemoryMealApi implements InMemoryDbService {
           type: 'Meat',       
         }],
         inSeasons: ['Winter','Spring','Summer','Autumn'],
+        possibleVariations: [],
       },
       {
-        mealOptionId: '5CehsrtehW',
+        id: '5CehsrtehW',
         active:true,
         description: '5Dit is een fijne maaltijd',
         mealBase:'Potato',
@@ -129,6 +161,7 @@ export class InMemoryMealApi implements InMemoryDbService {
           type: 'Meat',       
         }],
         inSeasons: ['Winter','Spring','Summer','Autumn'],
+        possibleVariations: [],
       }
     ];
     let vegetables: Vegetable[] = [
@@ -220,7 +253,7 @@ export class InMemoryMealApi implements InMemoryDbService {
     const id = reqInfo.id;
     const updatedMealOptionData = reqInfo.utils.getJsonBody(reqInfo.req);
     // Find the meal option by ID
-    const mealOptionIndex = collection.findIndex(m => m.mealOptionId === id);
+    const mealOptionIndex = collection.findIndex(m => m.id === id);
     if (mealOptionIndex === -1) {
       return {
         body: { error: 'Meal Option not found' },
@@ -235,5 +268,27 @@ export class InMemoryMealApi implements InMemoryDbService {
       body: mealOptionToUpdate,
       status: STATUS.OK
     });
+  }
+
+  get(reqInfo: RequestInfo) {
+    if (reqInfo.collectionName === 'meal-option' && reqInfo.id) {
+      return this.getMealOptionById(reqInfo);
+    }
+    return undefined; // Fallback to default behavior
+  }
+  
+  private getMealOptionById(reqInfo: RequestInfo) {
+    const collection = reqInfo.collection as MealOption[];
+    const mealOption = collection.find(m => m.id === reqInfo.id);
+    if (!mealOption) {
+      return reqInfo.utils.createResponse$(() => ({
+        body: { error: 'Meal Option not found' },
+        status: STATUS.NOT_FOUND
+      }));
+    }
+    return reqInfo.utils.createResponse$(() => ({
+      body: mealOption,
+      status: STATUS.OK
+    }));
   }
 }

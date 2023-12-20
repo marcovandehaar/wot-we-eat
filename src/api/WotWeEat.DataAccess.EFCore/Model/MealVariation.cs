@@ -8,7 +8,7 @@ public class MealVariation
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid MealVariationId { get; set; }
+    public Guid Id { get; set; }
     public string? Description { get; set; }
     public MealOption? MealOption { get; set; }
     public Guid? MealOptionId { get; set; }

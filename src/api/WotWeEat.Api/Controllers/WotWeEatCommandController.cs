@@ -95,7 +95,7 @@ namespace WotWeEat.Api.Controllers
 
                     // Return a success response or the newly created meatfish
                     
-                    return Created($"/api//mealoption/{response.MealOptionId}", response);
+                    return Created($"/api//mealoption/{response.Id}", response);
                 }
 
                 return BadRequest(ModelState);
@@ -144,7 +144,7 @@ namespace WotWeEat.Api.Controllers
                     var response = await _dataService.SaveMeal(meal);
 
                     // Return a success response or the newly created meatfish
-                    return Created($"/api//meal/{response.MealId}", response);
+                    return Created($"/api//meal/{response.Id}", response);
                 }
 
                 return BadRequest(ModelState);

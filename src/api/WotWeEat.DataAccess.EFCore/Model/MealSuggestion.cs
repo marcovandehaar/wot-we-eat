@@ -9,7 +9,7 @@ public class MealSuggestion
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid MealSuggestionId { get; set; }
+    public Guid Id { get; set; }
     public MealOption? Option { get; set; }
     public Meal? ResultedInMeal { get; set; }
     public DateTime DateSuggested { get; set; }

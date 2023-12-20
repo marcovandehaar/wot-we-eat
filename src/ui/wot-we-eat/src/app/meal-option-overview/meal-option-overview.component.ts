@@ -78,14 +78,14 @@ export class MealOptionOverviewComponent {
 
   toggleMealOptionActiveStatus(mealOptionId: string, currentlyActive: boolean): void {
     const newActiveStatus = !currentlyActive;
-    const mealOption = this.mealOptions.find(option => option.mealOptionId === mealOptionId);
+    const mealOption = this.mealOptions.find(option => option.id === mealOptionId);
     console.log('udpating active for mealoption:');
     console.log(mealOption);
     console.log(mealOptionId);
     this.mealService.updateMealOptionActiveStatus(mealOptionId, newActiveStatus).subscribe({
         next: () => {
             console.log('mealOptionid:' + mealOptionId);
-            const mealOption = this.mealOptions.find(option => option.mealOptionId === mealOptionId);
+            const mealOption = this.mealOptions.find(option => option.id === mealOptionId);
             
             if (mealOption) {
               //nex tdoes not work for in mem....

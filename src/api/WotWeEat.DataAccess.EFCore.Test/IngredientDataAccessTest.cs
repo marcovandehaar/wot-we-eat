@@ -47,7 +47,7 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 {
                     Assert.NotNull(vegi);
                     Assert.Equal(count+1, context.Vegetable.Count());
-                    Assert.NotEqual(Guid.NewGuid(), vegi.VegetableId);
+                    Assert.NotEqual(Guid.NewGuid(), vegi.Id);
                     Assert.Equal(NewVegetableName, vegi.Name);
                 });
                 
@@ -88,7 +88,7 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 {
                     Assert.NotNull(meatFish);
                     Assert.Equal(count+1, context.MeatFish.Count());//5 present in Seed, 1 added
-                    Assert.NotEqual(Guid.NewGuid(), meatFish.MeatFishId);
+                    Assert.NotEqual(Guid.NewGuid(), meatFish.Id);
                     Assert.Equal(NewMeatFishName, meatFish.Name);
                 });
 

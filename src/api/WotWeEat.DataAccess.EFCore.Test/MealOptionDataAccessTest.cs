@@ -47,7 +47,7 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 await repository.SaveMealOption(newMealOption);
 
                 context.SaveChanges();
-                newMealOptionId = newMealOption.MealOptionId;
+                newMealOptionId = newMealOption.Id;
             }
 
             
@@ -101,9 +101,9 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 await repository.SaveMealOption(newMealOption);
 
                 context.SaveChanges();
-                newMealOptionId1 = newMealOption.MealOptionId;
-                newVegetableId = newMealOption.Vegetables.First().VegetableId;
-                newMeatFishId = newMealOption.PossibleMeatFishes.First().MeatFishId;
+                newMealOptionId1 = newMealOption.Id;
+                newVegetableId = newMealOption.Vegetables.First().Id;
+                newMeatFishId = newMealOption.PossibleMeatFishes.First().Id;
                 
             }
 
@@ -112,8 +112,8 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 var repository = new WotWeEatRepository(context, automapper);
 
                 var newMealOption2 = GetNewMealOption();
-                newMealOption2.Vegetables.First().VegetableId = newVegetableId;
-                newMealOption2.PossibleMeatFishes.First().MeatFishId = newMeatFishId;
+                newMealOption2.Vegetables.First().Id = newVegetableId;
+                newMealOption2.PossibleMeatFishes.First().Id = newMeatFishId;
                 await repository.SaveMealOption(newMealOption2);
 
                 context.SaveChanges();
@@ -163,10 +163,10 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 await repository.SaveMealOption(newMealOption);
 
                 context.SaveChanges();
-                newMealOptionId1 = newMealOption.MealOptionId;
-                newVegetableId = newMealOption.Vegetables.First().VegetableId;
-                newMeatFishId = newMealOption.PossibleMeatFishes.First().MeatFishId;
-                newVariationId = newMealOption.PossibleVariations.First().MealVariationId;
+                newMealOptionId1 = newMealOption.Id;
+                newVegetableId = newMealOption.Vegetables.First().Id;
+                newMeatFishId = newMealOption.PossibleMeatFishes.First().Id;
+                newVariationId = newMealOption.PossibleVariations.First().Id;
 
             }
 
@@ -175,10 +175,10 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 var repository = new WotWeEatRepository(context, automapper);
 
                 var existingMealOption = GetNewMealOption();
-                existingMealOption.MealOptionId = newMealOptionId1;
-                existingMealOption.Vegetables.First().VegetableId = newVegetableId;
-                existingMealOption.PossibleMeatFishes.First().MeatFishId = newMeatFishId;
-                existingMealOption.PossibleVariations.First().MealVariationId = newVariationId;
+                existingMealOption.Id = newMealOptionId1;
+                existingMealOption.Vegetables.First().Id = newVegetableId;
+                existingMealOption.PossibleMeatFishes.First().Id = newMeatFishId;
+                existingMealOption.PossibleVariations.First().Id = newVariationId;
                 await repository.SaveMealOption(existingMealOption);
 
                 context.SaveChanges();
@@ -227,10 +227,10 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 await repository.SaveMealOption(newMealOption);
 
                 context.SaveChanges();
-                newMealOptionId1 = newMealOption.MealOptionId;
-                newVegetableId = newMealOption.Vegetables.First().VegetableId;
-                newMeatFishId = newMealOption.PossibleMeatFishes.First().MeatFishId;
-                newVariationId = newMealOption.PossibleVariations.First().MealVariationId;
+                newMealOptionId1 = newMealOption.Id;
+                newVegetableId = newMealOption.Vegetables.First().Id;
+                newMeatFishId = newMealOption.PossibleMeatFishes.First().Id;
+                newVariationId = newMealOption.PossibleVariations.First().Id;
             }
 
             using (var context = new WotWeEatDbContext(options))
@@ -238,7 +238,7 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 var repository = new WotWeEatRepository(context, automapper);
 
                 var existingMealOption = GetNewMealOption(newVegetableId, newMeatFishId, newVariationId);
-                existingMealOption.MealOptionId = newMealOptionId1;
+                existingMealOption.Id = newMealOptionId1;
                 var newVegetable = GetVegetable();
                 newVegetable.Name = "Paprika";
                 var newMeatFish = GetMeatFish();
@@ -298,14 +298,14 @@ namespace WotWeEat.DataAccess.EFCore.Test
                     {
                         Name = "Salami",
                         Type = MeatFishType.Meat,
-                        MeatFishId = meatFishId ?? Guid.Empty
+                        Id = meatFishId ?? Guid.Empty
                     }
                 },
                 PossibleVariations = new List<MealVariation>()
                 {
                     new MealVariation()
                     {
-                        MealVariationId = newVariationId ?? Guid.Empty,
+                        Id = newVariationId ?? Guid.Empty,
                         Description = "Uber meat",
                         MakeSuitableForKids = false
                     }
@@ -315,7 +315,7 @@ namespace WotWeEat.DataAccess.EFCore.Test
                     new Vegetable()
                     {
                         Name = "Tomato",
-                        VegetableId = vegetableId ?? Guid.Empty
+                        Id = vegetableId ?? Guid.Empty
                     }
                 },
                 SuitableForChildren = true

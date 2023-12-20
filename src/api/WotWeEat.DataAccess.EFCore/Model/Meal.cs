@@ -8,7 +8,7 @@ public class Meal
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid MealId { get; set; }
+    public Guid Id { get; set; }
     public DateTime Date { get; set; }
     public MealRating? Rating { get; set; }
     public bool WithChildren { get; set; }

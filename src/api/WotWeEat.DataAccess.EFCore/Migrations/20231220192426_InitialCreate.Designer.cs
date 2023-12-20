@@ -12,7 +12,7 @@ using WotWeEat.DataAccess.EFCore;
 namespace WotWeEat.DataAccess.EFCore.Migrations
 {
     [DbContext(typeof(WotWeEatDbContext))]
-    [Migration("20231211160717_InitialCreate")]
+    [Migration("20231220192426_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,37 +27,37 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
             modelBuilder.Entity("MealOptionMeatFish", b =>
                 {
-                    b.Property<Guid>("MealOptionsMealOptionId")
+                    b.Property<Guid>("MealOptionsId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("PossibleMeatFishesMeatFishId")
+                    b.Property<Guid>("PossibleMeatFishesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MealOptionsMealOptionId", "PossibleMeatFishesMeatFishId");
+                    b.HasKey("MealOptionsId", "PossibleMeatFishesId");
 
-                    b.HasIndex("PossibleMeatFishesMeatFishId");
+                    b.HasIndex("PossibleMeatFishesId");
 
                     b.ToTable("MealOptionMeatFish");
                 });
 
             modelBuilder.Entity("MealOptionVegetable", b =>
                 {
-                    b.Property<Guid>("MealOptionsMealOptionId")
+                    b.Property<Guid>("MealOptionsId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("VegetablesVegetableId")
+                    b.Property<Guid>("VegetablesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MealOptionsMealOptionId", "VegetablesVegetableId");
+                    b.HasKey("MealOptionsId", "VegetablesId");
 
-                    b.HasIndex("VegetablesVegetableId");
+                    b.HasIndex("VegetablesId");
 
                     b.ToTable("MealOptionVegetable");
                 });
 
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.Meal", b =>
                 {
-                    b.Property<Guid>("MealId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -76,7 +76,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<bool>("WithChildren")
                         .HasColumnType("bit");
 
-                    b.HasKey("MealId");
+                    b.HasKey("Id");
 
                     b.HasIndex("MealOptionId");
 
@@ -87,7 +87,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.MealOption", b =>
                 {
-                    b.Property<Guid>("MealOptionId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -112,14 +112,14 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<bool>("SuitableForChildren")
                         .HasColumnType("bit");
 
-                    b.HasKey("MealOptionId");
+                    b.HasKey("Id");
 
                     b.ToTable("MealOption");
                 });
 
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.MealVariation", b =>
                 {
-                    b.Property<Guid>("MealVariationId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -132,7 +132,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<Guid?>("MealOptionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MealVariationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("MealOptionId");
 
@@ -141,7 +141,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.MeatFish", b =>
                 {
-                    b.Property<Guid>("MeatFishId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -155,7 +155,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("MeatFishId");
+                    b.HasKey("Id");
 
                     b.HasAlternateKey("Name");
 
@@ -166,31 +166,31 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            MeatFishId = new Guid("cb66e275-68fd-4b19-9f75-23a8789dcc19"),
+                            Id = new Guid("cb66e275-68fd-4b19-9f75-23a8789dcc19"),
                             Name = "Rundervink",
                             Type = 0
                         },
                         new
                         {
-                            MeatFishId = new Guid("ba2de199-3aa8-4b88-b505-8d263f49e014"),
+                            Id = new Guid("ba2de199-3aa8-4b88-b505-8d263f49e014"),
                             Name = "Gehakt",
                             Type = 0
                         },
                         new
                         {
-                            MeatFishId = new Guid("32537ee6-b328-43c8-a1d2-346ffb7fd689"),
+                            Id = new Guid("32537ee6-b328-43c8-a1d2-346ffb7fd689"),
                             Name = "Speklap",
                             Type = 0
                         },
                         new
                         {
-                            MeatFishId = new Guid("6549a061-b071-46ce-bdfa-136e6fa94726"),
+                            Id = new Guid("6549a061-b071-46ce-bdfa-136e6fa94726"),
                             Name = "Zalm",
                             Type = 1
                         },
                         new
                         {
-                            MeatFishId = new Guid("5ef7836e-12cf-480c-aaa5-3d77cb26a3cd"),
+                            Id = new Guid("5ef7836e-12cf-480c-aaa5-3d77cb26a3cd"),
                             Name = "Fishsticks",
                             Type = 1
                         });
@@ -198,7 +198,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
 
             modelBuilder.Entity("WotWeEat.DataAccess.EFCore.Model.Vegetable", b =>
                 {
-                    b.Property<Guid>("VegetableId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -206,7 +206,7 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("VegetableId");
+                    b.HasKey("Id");
 
                     b.HasAlternateKey("Name");
 
@@ -215,17 +215,17 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            VegetableId = new Guid("1406ace7-58f7-4d31-af0d-3b95ff69b8bf"),
+                            Id = new Guid("1406ace7-58f7-4d31-af0d-3b95ff69b8bf"),
                             Name = "Sla"
                         },
                         new
                         {
-                            VegetableId = new Guid("066434c6-3b89-48ae-831c-a046b25678bc"),
+                            Id = new Guid("066434c6-3b89-48ae-831c-a046b25678bc"),
                             Name = "Rauwe groentes"
                         },
                         new
                         {
-                            VegetableId = new Guid("e6a854d8-1655-43a7-bd8a-1d5cb9cfecd7"),
+                            Id = new Guid("e6a854d8-1655-43a7-bd8a-1d5cb9cfecd7"),
                             Name = "Boerenkool"
                         });
                 });
@@ -234,13 +234,13 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 {
                     b.HasOne("WotWeEat.DataAccess.EFCore.Model.MealOption", null)
                         .WithMany()
-                        .HasForeignKey("MealOptionsMealOptionId")
+                        .HasForeignKey("MealOptionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WotWeEat.DataAccess.EFCore.Model.MeatFish", null)
                         .WithMany()
-                        .HasForeignKey("PossibleMeatFishesMeatFishId")
+                        .HasForeignKey("PossibleMeatFishesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -249,13 +249,13 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                 {
                     b.HasOne("WotWeEat.DataAccess.EFCore.Model.MealOption", null)
                         .WithMany()
-                        .HasForeignKey("MealOptionsMealOptionId")
+                        .HasForeignKey("MealOptionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WotWeEat.DataAccess.EFCore.Model.Vegetable", null)
                         .WithMany()
-                        .HasForeignKey("VegetablesVegetableId")
+                        .HasForeignKey("VegetablesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

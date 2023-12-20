@@ -24,7 +24,7 @@ namespace WotWeEat.DataAccess.EFCore
                 .Include(mo => mo.PossibleVariations) // Include related PossibleVariations
                 .Include(mo => mo.PossibleMeatFishes) // Include related PossibleVariations
                 .Include(mo => mo.Vegetables) // Include related PossibleVariations
-                .FirstOrDefaultAsync(mo => mo.MealOptionId == mealOptionId);
+                .FirstOrDefaultAsync(mo => mo.Id == mealOptionId);
             return efMealOption;
         }
 
@@ -40,7 +40,7 @@ namespace WotWeEat.DataAccess.EFCore
                 .Include(m => m.MealOption)         // Load the MealOption    
                     .ThenInclude(mo => mo.PossibleVariations)  // Load the PossibleMeatFishes of the MealOption
                 .Include(m => m.Variation)            // Load the Variation of the Meal
-                .FirstOrDefault(m => m.MealId == meal);
+                .FirstOrDefault(m => m.Id == meal);
             return efMeal;
         }
 
@@ -65,7 +65,7 @@ namespace WotWeEat.DataAccess.EFCore
         {
             foreach (var vegetable in mealOption.Vegetables)
             {
-                if (vegetable.VegetableId == Guid.Empty)
+                if (vegetable.Id == Guid.Empty)
                 {
                     await SaveVegetableWithoutSave(vegetable);
                 }
@@ -84,7 +84,7 @@ namespace WotWeEat.DataAccess.EFCore
 
             foreach (var meatFish in mealOption.PossibleMeatFishes)
             {
-                if (meatFish.MeatFishId == Guid.Empty)
+                if (meatFish.Id == Guid.Empty)
                 {
                     await SaveMeatFishWithoutSave(meatFish);
                 }
@@ -100,14 +100,14 @@ namespace WotWeEat.DataAccess.EFCore
                 }
             }
 
-            if (mealOption.MealOptionId == Guid.Empty)
+            if (mealOption.Id == Guid.Empty)
             {
                 _context.MealOption.Add(mealOption);
             }
             else
             {
                 // It's an existing MealOption, so update it
-                var existingMealOption = await GetMealOption(mealOption.MealOptionId);
+                var existingMealOption = await GetMealOption(mealOption.Id);
 
                 if (existingMealOption != null)
                 {
@@ -116,7 +116,7 @@ namespace WotWeEat.DataAccess.EFCore
 
                     foreach (var existingVariation in existingMealOption.PossibleVariations.ToList())
                     {
-                        if (!mealOption.PossibleVariations.Any(mv => mv.MealVariationId == existingVariation.MealVariationId))
+                        if (!mealOption.PossibleVariations.Any(mv => mv.Id == existingVariation.Id))
                         {
                             // Remove the MealVariation from existingMealOption
                             _context.Remove(existingVariation);
@@ -126,7 +126,7 @@ namespace WotWeEat.DataAccess.EFCore
                     foreach (var newVariation in mealOption.PossibleVariations)
                     {
                         if (!existingMealOption.PossibleVariations.Any(v =>
-                                v.MealVariationId == newVariation.MealVariationId))
+                                v.Id == newVariation.Id))
                         {
                             existingMealOption.PossibleVariations.Add(newVariation);
                         }
@@ -139,7 +139,7 @@ namespace WotWeEat.DataAccess.EFCore
         {
 
 
-            if (meal.MealOption != null && meal.MealOption.MealOptionId == Guid.Empty)
+            if (meal.MealOption != null && meal.MealOption.Id == Guid.Empty)
             {
                 await SaveMealOption(meal.MealOption);
             }
@@ -148,15 +148,15 @@ namespace WotWeEat.DataAccess.EFCore
                 await SaveMealOptionWithoutSave(meal.MealOption);
             }
 
-            if (meal.Variation != null && meal.Variation.MealVariationId == Guid.Empty)
+            if (meal.Variation != null && meal.Variation.Id == Guid.Empty)
             {
                 await SaveMealVariation(meal.Variation);
             }
-            if (meal.MealId == Guid.Empty)
+            if (meal.Id == Guid.Empty)
             {
                 
                 // It's a new Meal, so add it
-                meal.MealOptionId = meal.MealOption.MealOptionId;
+                meal.MealOptionId = meal.MealOption.Id;
                 meal.MealOption = null;
                 _context.Add(meal);
                 Console.WriteLine($"state: {_context.Entry(meal).State} ");
@@ -164,7 +164,7 @@ namespace WotWeEat.DataAccess.EFCore
             else
             {
                 // It's an existing Meal, so update it
-                var existingMeal = await GetMeal(meal.MealId);
+                var existingMeal = await GetMeal(meal.Id);
 
                 if (existingMeal != null)
                 {
@@ -172,20 +172,20 @@ namespace WotWeEat.DataAccess.EFCore
                 }
                 else
                 {
-                    throw new ArgumentException($"Meal with id {meal.MealId} not found!");
+                    throw new ArgumentException($"Meal with id {meal.Id} not found!");
                 }
             }
             Console.WriteLine($"state: {_context.Entry(meal).State} ");
 
             var mealVariant = meal.Variation;
-            if (mealVariant != null && mealVariant.MealVariationId == Guid.Empty)
+            if (mealVariant != null && mealVariant.Id == Guid.Empty)
             {
                 
                 await SaveMealVariation(mealVariant);
             }
             Console.WriteLine($"state: {_context.Entry(meal).State} ");
 
-            if (meal.Variation != null && meal.Variation.MealVariationId != Guid.Empty)
+            if (meal.Variation != null && meal.Variation.Id != Guid.Empty)
             {
                 _context.SetEntityState(meal.Variation, EntityState.Unchanged);
             }
@@ -215,7 +215,7 @@ namespace WotWeEat.DataAccess.EFCore
 
         private async Task SaveMeatFishWithoutSave(MeatFish meatFish)
         {
-            if (meatFish.MeatFishId == Guid.Empty)
+            if (meatFish.Id == Guid.Empty)
             {
                 // It's a new MeatFish, so add it
                 _context.MeatFish.Add(meatFish);
@@ -224,7 +224,7 @@ namespace WotWeEat.DataAccess.EFCore
             {
                 // It's an existing MeatFish, so update it
                 var existingMeatFish = await _context.MeatFish
-                    .FirstOrDefaultAsync(mf => mf.MeatFishId == meatFish.MeatFishId);
+                    .FirstOrDefaultAsync(mf => mf.Id == meatFish.Id);
 
                 if (existingMeatFish != null)
                 {
@@ -249,12 +249,12 @@ namespace WotWeEat.DataAccess.EFCore
                 throw new ArgumentException("MealVariation should always have a linked option!");
             }
 
-            if (mealVariation.MealVariationId == Guid.Empty)
+            if (mealVariation.Id == Guid.Empty)
             {
                 // It's a new MealVariation, so link it and add it
-                if (mealVariation.MealOption.MealOptionId != Guid.Empty)
+                if (mealVariation.MealOption.Id != Guid.Empty)
                 {
-                    mealVariation.MealOptionId = mealVariation.MealOption.MealOptionId;
+                    mealVariation.MealOptionId = mealVariation.MealOption.Id;
                     mealVariation.MealOption = null;
                 }
                 
@@ -264,7 +264,7 @@ namespace WotWeEat.DataAccess.EFCore
             {
                 // It's an existing MealVariation, so update it
                 var existingMealVariation = await _context.MealVariation
-                    .FirstOrDefaultAsync(mf => mf.MealVariationId == mealVariation.MealVariationId);
+                    .FirstOrDefaultAsync(mf => mf.Id == mealVariation.Id);
 
                 if (existingMealVariation != null)
                 {
@@ -284,17 +284,17 @@ namespace WotWeEat.DataAccess.EFCore
 
         private async Task SaveVegetableWithoutSave(Vegetable vegetable)
         {
-            if (vegetable.VegetableId == Guid.Empty)
+            if (vegetable.Id == Guid.Empty)
             {
                 // It's a new Vegetable, so add it
-                vegetable.VegetableId = Guid.NewGuid();
+                vegetable.Id = Guid.NewGuid();
                 _context.Vegetable.Add(vegetable);
             }
             else
             {
                 // It's an existing Vegetable, so update it
                 var existingVegetable = await _context.Vegetable
-                    .FirstOrDefaultAsync(v => v.VegetableId == vegetable.VegetableId);
+                    .FirstOrDefaultAsync(v => v.Id == vegetable.Id);
 
                 if (existingVegetable != null)
                 {

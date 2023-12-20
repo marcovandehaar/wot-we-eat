@@ -16,17 +16,17 @@ namespace WotWeEat.DataAccess.EFCore.Seed
             {
                 new()
                 {
-                    VegetableId = new Guid("1406ace7-58f7-4d31-af0d-3b95ff69b8bf"),
+                    Id = new Guid("1406ace7-58f7-4d31-af0d-3b95ff69b8bf"),
                     Name = "Sla"
                 },
                 new()
                 {
-                    VegetableId = new Guid("066434c6-3b89-48ae-831c-a046b25678bc"),
+                    Id = new Guid("066434c6-3b89-48ae-831c-a046b25678bc"),
                     Name = "Rauwe groentes"
                 },
                 new()
                 {
-                    VegetableId = new Guid("e6a854d8-1655-43a7-bd8a-1d5cb9cfecd7"),
+                    Id = new Guid("e6a854d8-1655-43a7-bd8a-1d5cb9cfecd7"),
                     Name = "Boerenkool"
                 },
 

@@ -15,7 +15,7 @@ public class MealOption
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid MealOptionId { get; set; }
+    public Guid Id { get; set; }
     public string? Description { get; set; }
     public MealBase MealBase { get; set; }
     public bool SuitableForChildren { get; set; }

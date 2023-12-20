@@ -4,7 +4,7 @@ namespace WotWeEat.Domain;
 
 public class MeatFish
 {
-    public Guid MeatFishId { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public MeatFishType Type { get; set; }
 }

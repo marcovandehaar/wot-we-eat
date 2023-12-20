@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MealService } from '../services/meal.service'; 
-import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
+import { GroupedMeatFish, MealOption, MealVariation, MeatFish, Vegetable } from '../models/meal-option.model';
 import { mealBaseValues, seasons } from '../models/enums';
 import { Location } from '@angular/common';
 import { Validators } from '@angular/forms';
@@ -28,7 +28,7 @@ import { healtyOptions } from '../components/healthy-options';
 export class MealOptionFormComponent implements OnInit {
   mealBases = mealBaseValues;
   mealOptionForm =  this.fb.nonNullable.group({
-    mealOptionId: '00000000-0000-0000-0000-000000000000',
+    id: '00000000-0000-0000-0000-000000000000',
     description: ['', Validators.required],
     mealBase: ['', Validators.required],
     amountOfWork: 1,
@@ -38,6 +38,7 @@ export class MealOptionFormComponent implements OnInit {
     possibleMeatFishes:<MeatFish[]|null>null,
     inSeasons:  new FormControl(seasons.map(season => season.value)),
     active:true,
+    possibleVariations: <MealVariation[]|null>null,
   });
   vegetables: Vegetable[] = [];
   groupedMeatFishes: GroupedMeatFish[] = [];
@@ -91,7 +92,11 @@ export class MealOptionFormComponent implements OnInit {
       console.log('Saving mealOption:', this.mealOptionForm.getRawValue());
 
       
-      this.mealService.saveMealOption(this.mealOptionForm.getRawValue()).subscribe({
+      const mealOptionToSave: MealOption = {
+        ...this.mealOptionForm.getRawValue(),
+        possibleVariations: [] // Add an empty array for PossibleVariations
+      };
+      this.mealService.saveMealOption(mealOptionToSave).subscribe({
         next: (response) => {
           console.log('MealOption saved:', response);
           // Handle success, maybe navigate the user or show a success message.
