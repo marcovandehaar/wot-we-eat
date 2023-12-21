@@ -35,7 +35,7 @@ import { MealOptionOverviewComponent } from './meal-option-overview/meal-option-
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    environment.useInMemoryApi ? HttpClientInMemoryWebApiModule.forRoot(InMemoryMealApi, { delay: 200 }) : [],
+    environment.useInMemoryApi ? HttpClientInMemoryWebApiModule.forRoot(InMemoryMealApi, { delay: 1000 }) : [],
     MultiSelectModule,
   ],
   providers: [],

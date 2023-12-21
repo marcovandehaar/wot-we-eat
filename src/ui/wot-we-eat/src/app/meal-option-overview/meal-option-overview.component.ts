@@ -49,6 +49,7 @@ export class MealOptionOverviewComponent {
   paginationWindowStart = 1;
   paginationWindowEnd = 3;
   selectedMealOption: number | null = null;
+  isLoading = false;
 
   constructor(private location: Location,
     private router: Router,
@@ -62,6 +63,7 @@ export class MealOptionOverviewComponent {
   };
 
   ngOnInit(): void {
+    this.isLoading = true; 
     this.refreshMealOptions();
   }
 
@@ -69,9 +71,11 @@ export class MealOptionOverviewComponent {
     this.mealService.getAllMealOptions().subscribe({
       next: (data: MealOption[]) => {
         this.mealOptions = data;
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error fetching meal options', error);
+        this.isLoading = false;
       }
     });
   }
@@ -79,12 +83,12 @@ export class MealOptionOverviewComponent {
   toggleMealOptionActiveStatus(mealOptionId: string, currentlyActive: boolean): void {
     const newActiveStatus = !currentlyActive;
     const mealOption = this.mealOptions.find(option => option.id === mealOptionId);
-    console.log('udpating active for mealoption:');
-    console.log(mealOption);
-    console.log(mealOptionId);
+    //console.log('udpating active for mealoption:');
+    //console.log(mealOption);
+    //console.log(mealOptionId);
     this.mealService.updateMealOptionActiveStatus(mealOptionId, newActiveStatus).subscribe({
         next: () => {
-            console.log('mealOptionid:' + mealOptionId);
+            //console.log('mealOptionid:' + mealOptionId);
             const mealOption = this.mealOptions.find(option => option.id === mealOptionId);
             
             if (mealOption) {
@@ -111,9 +115,9 @@ export class MealOptionOverviewComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     
     //debug
-    console.log('currrentpage: ' + this.currentPage);
-    console.log('startindex: ' + startIndex + ' items per page: ' + this.itemsPerPage);
-    console.log(this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage));
+    //console.log('currrentpage: ' + this.currentPage);
+    //console.log('startindex: ' + startIndex + ' items per page: ' + this.itemsPerPage);
+    //console.log(this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage));
     return this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage);
   }
 

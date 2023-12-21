@@ -5,8 +5,9 @@
                 arrow_back_ios
             </span>
         </button>
-        <h1 class="playful-title">Maaltijdopties</h1>
+        <h1 class="playful-title">Maaltijdopties</h1>          
     </div>
+    <div class="loading-bar" *ngIf="isLoading"></div>
     <ul class="meal-list">
         <li *ngFor="let mealOption of paginatedMealOptions; let i = index">
             <div class="meal-content" (click)="togglePanel(i)">
@@ -14,7 +15,7 @@
             </div>
             <div [@simpleSlide]="selectedMealOption === i ? 'open' : 'closed'" class="additional-content" *ngIf="selectedMealOption === i" [class.active]="selectedMealOption === i">
                 <div class="button-container">
-                    <button class="panel-button edit-button" (click)="editMealOption(mealOption.id)">
+                    <button class="panel-button edit-button" (click)="editMealOption(mealOption.id)" [disabled]="isLoading">
                       <img src="assets/images/pencil.png" alt="Edit">
                       Aanpassen
                     </button>
@@ -26,14 +27,14 @@
             </div>
         </li>
     </ul>
-    <button class="meal-add-button" (click)="addMealOption()">
+    <button class="meal-add-button" (click)="addMealOption()" [disabled]="isLoading" >
         Maaltijdoptie toevoegen...
     </button>
     <div class="pagination">
-        <span (click)="previousPage()" [class.disabled]="currentPage === 1">Vorige</span>
+        <span (click)="previousPage()" [class.disabled]="isLoading || currentPage === 1">Vorige</span>
         <span *ngFor="let page of getDisplayedPages()" (click)="goToPage(page)" [class.active]="page === currentPage">
             {{ page }}
         </span>
-        <span (click)="nextPage()" [class.disabled]="currentPage === totalPages">Volgende</span>
+        <span (click)="nextPage()" [class.disabled]="isLoading || currentPage === totalPages">Volgende</span>
     </div>
 </div>
