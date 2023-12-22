@@ -136,6 +136,10 @@ h1 {
   &:active {
       transform: scale(0.95); // Scale down when clicked
   }
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .pagination {
@@ -185,15 +189,4 @@ h1 {
   }
 }
 
-.loading-bar {
-  width: 18rem;
-  height: 4px; /* Adjust height as needed */
-  background: linear-gradient(to right, hsl(24, 96%, 80%) 50%, hsl(24, 100%, 55%) 50%);
-  background-size: 200% 100%;
-  animation: shift 1s linear infinite;
-}
 
-@keyframes shift {
-  0% { background-position: 100% 0; }
-  100% { background-position: 0 0; }
-}

@@ -42,6 +42,7 @@ export class MealOptionFormComponent implements OnInit {
   });
   vegetables: Vegetable[] = [];
   groupedMeatFishes: GroupedMeatFish[] = [];
+  isLoading = false;
 
   constructor(
     private route: ActivatedRoute, 
@@ -55,6 +56,7 @@ export class MealOptionFormComponent implements OnInit {
     
 
     ngOnInit() {
+      this.isLoading = true; 
       this.mealService.getAllVegetables().subscribe(vegetables => {
         this.vegetables = vegetables;
       });
@@ -76,9 +78,11 @@ export class MealOptionFormComponent implements OnInit {
           console.log('Setting value:');
           console.log(mealOption);
           this.mealOptionForm.setValue(mealOption);
+          this.isLoading = false;
         }
       );
         } else {
+          this.isLoading = false;
           // Initialize form for creating a new meal option
         }
       });
@@ -86,6 +90,7 @@ export class MealOptionFormComponent implements OnInit {
 
   
   saveMealOption(): void {
+    
     this.formSubmitted = true;
     if (this.mealOptionForm.valid) {
       this.startSaving();
@@ -105,7 +110,7 @@ export class MealOptionFormComponent implements OnInit {
         error: (error) => {
           console.error('Error saving MealOption:', error);
           // Handle error, show an error message to the user.
-          this.doneSaving();
+          this.doneSaving();          
         },
         complete: () => {
           // Handle completion if needed.
@@ -115,10 +120,12 @@ export class MealOptionFormComponent implements OnInit {
     } else {
       // Optionally, handle the invalid form case (e.g., show an error message)
       console.error('The form is invalid');
+      this.isLoading = false;
     }
   }
 
   private startSaving(){
+    this.isLoading = true;
     this.isSaving = true;    
     this.animateDots();
   }
@@ -126,6 +133,8 @@ export class MealOptionFormComponent implements OnInit {
   private doneSaving(){    
     this.isSaving = false;
     this.dots = '';    
+    this.isLoading = false;
+    this.router.navigate(['/meal-option-overview']); 
   }
 
   private animateDots() {

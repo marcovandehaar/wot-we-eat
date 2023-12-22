@@ -7,9 +7,10 @@
             </span>
         </button>
         <h1 class="playful-title">Voeg een maaltijd toe!</h1>
+        
     </div>
-
-    <form [formGroup]="mealOptionForm" (ngSubmit)="saveMealOption()" [class.submitted]="formSubmitted">
+    <div class="loading-bar" *ngIf="isLoading"></div>
+    <form [formGroup]="mealOptionForm" (ngSubmit)="saveMealOption()" [class.submitted]="formSubmitted" *ngIf="!isLoading">
 
         <!-- Description Textbox -->
         <div class="form-group">
