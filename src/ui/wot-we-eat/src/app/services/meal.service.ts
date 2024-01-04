@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable,map } from 'rxjs';
 import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
 import { environment } from 'src/environments/environment';
+import { Meal } from '../models/meal';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ export class MealService {
 
   updateMealOptionActiveStatus(mealOptionId: string, active: boolean): Observable<any> {
     return this.http.put(`${this.apiUrl}/meal-option/${mealOptionId}`, { isActive: active });
+  }
+
+  addMeal(meal: Meal): Observable<Meal> {
+    return this.http.post<Meal>(`${this.apiUrl}/meals`, meal);
   }
   
 

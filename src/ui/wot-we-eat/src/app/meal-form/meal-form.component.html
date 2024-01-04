@@ -1,0 +1,57 @@
+<!-- meal-form.component.html -->
+<div class="screen-container">
+    <div class="header">
+        <button (click)="goBack()" class="icon-button large-icon">
+            <span class="material-symbols-outlined">
+                arrow_back_ios
+            </span>
+        </button>
+        <h1 class="playful-title">Maaltijd!</h1>
+
+    </div>
+    <div class="loading-bar" *ngIf="isLoading"></div>
+    <form [formGroup]="mealForm" (ngSubmit)="saveMeal()" class="form" [class.submitted]="formSubmitted" *ngIf="!isLoading">
+        <!-- Meal Option Dropdown -->
+        <div class="form-group">
+            <label for="mealOption">Maaltijdoptie</label>
+            <select formControlName="mealOption" id="mealOption" >
+                <option *ngFor="let option of mealOptions" [value]="option.id">
+                    {{ option.description }}
+                </option>
+            </select>
+        </div>
+
+        <!-- Date Field -->
+        <div class="form-group">
+            <label for="date">Datum</label>
+            <input type="date" formControlName="date" id="date">
+        </div>
+
+        <!-- Meat/Fish Multi-select -->
+        <div class="form-group">
+
+            <img src="./assets/images/meatfish.png" class="vegetables-img" />
+            <!--
+            <p-multiSelect [options]="meatFishes" [group]="true" display="chip" formControlName="meatFishes" optionLabel="name" placeholder="Kies vlees of vis"></p-multiSelect>
+            -->
+
+            <p-multiSelect [options]="groupedMeatFishes" [group]="true" formControlName="selectedMeatFishes" optionLabel="name"
+                placeholder="Kies vis of vlees" scrollHeight="250px" display="chip">
+                <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center group">
+                        <img [src]="'./assets/images/' + group.image" [class]="'mr-2 flag flag-' + group.value"
+                            style="width: 20px" />
+                        <span class="group-title">{{ group.label }}</span>
+                    </div>
+                </ng-template>
+            </p-multiSelect>
+        </div>
+
+        <!-- Save Button -->
+        <div class="form-group">
+            <button class="button-primary" [ngClass]="{'disabled': isSaving}" type="submit">
+                Opslaan{{ isSaving ? dots : '!' }}
+            </button>
+        </div>
+    </form>
+</div>

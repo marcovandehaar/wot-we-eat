@@ -39,10 +39,14 @@ export class MealOptionFormComponent implements OnInit {
     inSeasons:  new FormControl(seasons.map(season => season.value)),
     active:true,
     possibleVariations: <MealVariation[]|null>null,
+    
   });
   vegetables: Vegetable[] = [];
   groupedMeatFishes: GroupedMeatFish[] = [];
   isLoading = false;
+  isSaving = false;
+  formSubmitted = false;
+  dots = '';
 
   constructor(
     private route: ActivatedRoute, 
@@ -50,9 +54,7 @@ export class MealOptionFormComponent implements OnInit {
     private mealService: MealService,
     private fb: FormBuilder,
     private location: Location,) { }
-    isSaving = false;
-    formSubmitted = false;
-    dots = '';
+    
     
 
     ngOnInit() {

@@ -29,4 +29,5 @@ export class AppComponent {
     this.router.navigate(['/main']);
     this.closeMenu();
   }
+  
 }

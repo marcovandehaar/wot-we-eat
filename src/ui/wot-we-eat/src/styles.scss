@@ -217,6 +217,74 @@ body {
   100% { background-position: 0 0; }
 }
 
+.form-group {
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  width: 80%;
+  /* Make sure the form groups take full width */
+  box-sizing: border-box;
+  /* This ensures padding is included in width */
+}
+
+.form-group label,
+.form-group input,
+.form-group select,
+.form-group textarea {
+  margin: 0 auto;
+  display: block;
+  /* Make these elements block level so they stack */
+  width: 100%;
+  /* Full width for stacking */
+  margin-bottom: 10px;
+  /* Add some margin at the bottom */
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  /* Basic border styling */
+  border-radius: 4px;
+  /* Rounded corners */
+}
+
+.form-group .button-primary {
+  display: block;
+  /* Make the button a block-level element */
+  margin: 0 auto;
+  /* Center the button within the form-group */
+  /* Add other styling as necessary, but it seems you want to keep the button's original styles */
+}
+
+.work-slider input[type="range"] {
+  width: 80%;
+}
+
+.vegetables-img {  
+  width: 2.5rem;
+  display: inline-flex;
+  position: relative;
+  vertical-align: bottom;
+}
+
+:host ::ng-deep .p-multiselect {
+  min-width: 15rem;
+  width: 20rem;
+}
+
+.group {
+  display: flex;
+  align-items: center; /* This aligns children vertically in the middle */
+}
+.group-title {
+  margin-left: 1rem;;
+}
+
+.invalid-select {
+  border: 1px solid red;
+}
+
 
 
 

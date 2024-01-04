@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { MealOptionFormComponent } from './meal-option-form/meal-option-form.component';
 import { MealOptionOverviewComponent } from './meal-option-overview/meal-option-overview.component';
+import { MealFormComponent } from './meal-form/meal-form.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,9 @@ const routes: Routes = [
   { 
     path: 'meal-option-overview', 
     component: MealOptionOverviewComponent },
+    { 
+      path: 'meal-form/new', 
+      component: MealFormComponent },
 ];
 
 @NgModule({
