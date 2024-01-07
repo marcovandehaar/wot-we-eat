@@ -219,8 +219,7 @@ body {
 
 .form-group {
   margin: 0 auto;
-  padding: 0.5rem 1rem;
-  width: 80%;
+  padding: 0.5rem 1rem;  
   /* Make sure the form groups take full width */
   box-sizing: border-box;
   /* This ensures padding is included in width */
@@ -268,10 +267,7 @@ body {
   vertical-align: bottom;
 }
 
-:host ::ng-deep .p-multiselect {
-  min-width: 15rem;
-  width: 20rem;
-}
+
 
 .group {
   display: flex;
@@ -283,6 +279,32 @@ body {
 
 .invalid-select {
   border: 1px solid red;
+}
+
+.form-container {
+  width: 25rem;
+}
+
+.meal-input {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+
+  border-radius: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+  resize: none;    /* Disable manual resizing */
+  overflow: auto; 
+}
+
+.meal-input:placeholder-shown+.meal-input-label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(-3rem);
+  transform: translateY(-3rem);
 }
 
 

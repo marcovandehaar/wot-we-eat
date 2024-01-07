@@ -1,6 +1,6 @@
 import { InMemoryDbService, RequestInfo, ResponseOptions, STATUS } from 'angular-in-memory-web-api';
 import { MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 export class InMemoryMealApi implements InMemoryDbService {
   createDb() {
@@ -270,11 +270,21 @@ export class InMemoryMealApi implements InMemoryDbService {
     });
   }
 
-  get(reqInfo: RequestInfo) {
-    if (reqInfo.collectionName === 'meal-option' && reqInfo.id) {
-      return this.getMealOptionById(reqInfo);
+  get(reqInfo: RequestInfo): Observable<any> | null {
+    if (reqInfo.collectionName === 'meal-option') {
+      if (reqInfo.id) {
+        // Get a specific meal option by ID
+        return this.getMealOptionById(reqInfo);
+      } else {
+        // Get all meal options or filter by 'active' query parameter
+        const activeParam = reqInfo.query.get('active');
+        if (activeParam && activeParam.length > 0) {
+          const isActive = activeParam[0].toLowerCase() === 'true';
+          return this.getMealOptionsFilteredByActive(isActive, reqInfo);
+        }
+      }
     }
-    return undefined; // Fallback to default behavior
+    return null; // Fallback to default behavior
   }
   
   private getMealOptionById(reqInfo: RequestInfo) {
@@ -289,6 +299,17 @@ export class InMemoryMealApi implements InMemoryDbService {
     return reqInfo.utils.createResponse$(() => ({
       body: mealOption,
       status: STATUS.OK
+    }));
+  }
+
+  private getMealOptionsFilteredByActive(isActive: boolean, reqInfo: RequestInfo): Observable<any> {
+    // Filter the meal options based on the 'active' parameter
+    const filteredMealOptions = reqInfo.collection.filter(
+      (mealOption: MealOption) => mealOption.active === isActive
+    );
+    return reqInfo.utils.createResponse$(() => ({
+      body: filteredMealOptions,
+      status: 200
     }));
   }
 }

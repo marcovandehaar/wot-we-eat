@@ -19,7 +19,7 @@ export class MealFormComponent implements OnInit {
     id: '00000000-0000-0000-0000-000000000000',
     mealOption: [null, Validators.required],
     date: [new Date(), Validators.required],
-    selectedMeatFishes: <MeatFish[]|null>null,
+    selectedMeatFishes: <MeatFish[] | null>null,
   });
   mealOptions: MealOption[] = []; // Populate this with actual data
   meatFishes: MeatFish[] = []; // Populate this with actual data
@@ -33,28 +33,51 @@ export class MealFormComponent implements OnInit {
     private fb: FormBuilder,
     private mealService: MealService,
     private location: Location,
-    private router: Router, 
-    
+    private router: Router,
+
   ) { }
 
   ngOnInit(): void {
-   
+    this.isLoading = true;
 
-    // Fetch MealOptions and MeatFishes here, then update mealOptions and meatFishes
+    this.mealService.getAllMealOptions(true) // Pass true to get only active meal options
+      .subscribe({
+        next: (mealOptions: MealOption[]) => {
+          this.mealOptions = mealOptions;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Error fetching active meal options', error);
+          this.isLoading = false;
+        }
+      });
+
+    const mealOptionControl = this.mealForm.get('mealOption');
+    if (mealOptionControl) {
+      mealOptionControl.valueChanges.subscribe(mealOptionId => {
+        this.onMealOptionChange(mealOptionId);
+      });
+    }
   }
+
 
   saveMeal(): void {
     if (this.mealForm.valid) {
       // Call service to save the meal
       const meal: Meal = this.mealForm.getRawValue();
-      this.mealService.addMeal(meal).subscribe({
+      this.mealService.saveMeal(meal).subscribe({
         next: (savedMeal) => {
           // Handle success
           console.log('Meal saved successfully', savedMeal);
+          this.doneSaving();
         },
         error: (error) => {
           // Handle error
           console.error('Error saving meal', error);
+        },
+        complete: () => {
+          // Handle completion if needed.
+          this.doneSaving();
         }
       });
     } else {
@@ -67,17 +90,17 @@ export class MealFormComponent implements OnInit {
     this.location.back();
   }
 
-  private startSaving(){
+  private startSaving() {
     this.isLoading = true;
-    this.isSaving = true;    
+    this.isSaving = true;
     this.animateDots();
   }
 
-  private doneSaving(){    
+  private doneSaving() {
     this.isSaving = false;
-    this.dots = '';    
+    this.dots = '';
     this.isLoading = false;
-    this.router.navigate(['/meal-option-overview']); 
+    this.router.navigate(['/meal-option-overview']);
   }
 
   private animateDots() {
@@ -90,4 +113,25 @@ export class MealFormComponent implements OnInit {
       }
     }, 500); // Change the speed of animation as needed
   }
+
+  private onMealOptionChange(mealOption: MealOption | null): void {
+    console.log('Changed mealoption: ');
+    console.log(mealOption);
+    if (mealOption) {
+
+
+      if (mealOption && mealOption.possibleMeatFishes) {
+        // Group the meat fishes by type
+        this.groupedMeatFishes = this.mealService.groupMeatFishesByType(mealOption.possibleMeatFishes);
+      } else {
+        // Reset groupedMeatFishes if no valid selection
+        this.groupedMeatFishes = [];
+      }
+    }
+    else {
+      this.groupedMeatFishes = [];
+
+    }
+  }
 }
+

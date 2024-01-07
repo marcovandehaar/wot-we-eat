@@ -11,7 +11,7 @@ public interface IWotWeEatRepository
 {
     Task<MealOption?> GetMealOption(Guid mealOptionId);
     Task<Meal?> GetMeal(Guid meal);
-    Task<List<MealOption>> GetAllMealOptions();
+    Task<List<MealOption>> GetAllMealOptions(bool? isActive = null);
     Task<MealOption> SaveMealOption(MealOption mealOption);
     Task<Meal> SaveMeal(Meal meal);
     Task<List<Vegetable>> GetAllVegetables();

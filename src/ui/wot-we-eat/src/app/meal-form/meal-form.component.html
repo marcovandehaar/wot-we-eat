@@ -10,21 +10,15 @@
 
     </div>
     <div class="loading-bar" *ngIf="isLoading"></div>
-    <form [formGroup]="mealForm" (ngSubmit)="saveMeal()" class="form" [class.submitted]="formSubmitted" *ngIf="!isLoading">
+    <form [formGroup]="mealForm" (ngSubmit)="saveMeal()" class="form-container" [class.submitted]="formSubmitted" *ngIf="!isLoading">
         <!-- Meal Option Dropdown -->
         <div class="form-group">
-            <label for="mealOption">Maaltijdoptie</label>
-            <select formControlName="mealOption" id="mealOption" >
-                <option *ngFor="let option of mealOptions" [value]="option.id">
-                    {{ option.description }}
-                </option>
-            </select>
+              <p-dropdown [options]="mealOptions" formControlName="mealOption" optionLabel="description" [showClear]="true" placeholder="Kies een maaltijd!"></p-dropdown>
         </div>
 
         <!-- Date Field -->
         <div class="form-group">
-            <label for="date">Datum</label>
-            <input type="date" formControlName="date" id="date">
+            <p-calendar formControlName="date" placeholder="Wanneer?"></p-calendar>
         </div>
 
         <!-- Meat/Fish Multi-select -->

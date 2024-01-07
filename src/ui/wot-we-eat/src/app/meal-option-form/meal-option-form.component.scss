@@ -1,6 +1,6 @@
 
 
-.meal-description-label {
+.meal-input-label {
   font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
   color: #333;
@@ -11,30 +11,15 @@
   transform: translateY(0rem);
 }
 
-.meal-description-input {
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-  font-size: 1.2rem;
-
-  border-radius: 0.5rem;
-  background-color: rgb(255, 255, 255);
-  border: none;
-  display: block;
-  border-bottom: 0.3rem solid transparent;
-  transition: all 0.3s;
-  resize: none;    /* Disable manual resizing */
-  overflow: auto; 
+:host ::ng-deep .p-multiselect {
+  min-width: 15rem;
+  width: 20rem;
 }
 
-.meal-description-input:placeholder-shown+.meal-description-label {
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transform: translateY(-3rem);
-  transform: translateY(-3rem);
-}
+
 
 /* Add this to your component's SCSS file */
-.submitted .meal-description-input.ng-invalid {
+.submitted .meal-input.ng-invalid {
   border: 1px solid red;
 }
 

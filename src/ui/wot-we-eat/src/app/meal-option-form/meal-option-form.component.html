@@ -10,11 +10,11 @@
         
     </div>
     <div class="loading-bar" *ngIf="isLoading"></div>
-    <form [formGroup]="mealOptionForm" (ngSubmit)="saveMealOption()" [class.submitted]="formSubmitted" *ngIf="!isLoading">
+    <form [formGroup]="mealOptionForm" (ngSubmit)="saveMealOption()" class="form-container" [class.submitted]="formSubmitted" *ngIf="!isLoading">
 
         <!-- Description Textbox -->
         <div class="form-group">
-            <textarea name="Text1" formControlName="description" cols="40" rows="2" class="meal-description-input"
+            <textarea name="Text1" formControlName="description" cols="40" rows="2" class="meal-input"
                 id="maaltijd" placeholder="Maaltijd beschrijving"></textarea>
             <div *ngIf="(formSubmitted || mealOptionForm.controls.description.touched) && mealOptionForm.controls.description.invalid"
                 class="error">
@@ -25,7 +25,7 @@
         <div class="form-group">
             <select placeholder="Maaltijdbasis" formControlName="mealBase"
                 [class.invalid-select]="(formSubmitted || mealOptionForm.controls.mealBase.touched) && mealOptionForm.controls.mealBase.invalid"
-                class="meal-description-input">
+                class="meal-input">
                 <option value="" disabled selected>Maaltijdbasis</option>
                 <option *ngFor="let mealBaseType of mealBases" [value]="mealBaseType.value">
                     {{ mealBaseType.title }}

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,map } from 'rxjs';
 import { GroupedMeatFish, MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
@@ -24,9 +24,15 @@ export class MealService {
     return this.http.get<MealOption>(`${this.apiUrl}/meal-option/${id}`);
   }
 
-  getAllMealOptions(): Observable<MealOption[]> {
-    return this.http.get<MealOption[]>(`${this.apiUrl}/meal-option`);
+  getAllMealOptions(active?: boolean): Observable<MealOption[]> {
+    let params = new HttpParams();
+    if (active !== undefined) {
+      // Assuming your API expects the active parameter as a query string
+      params = params.set('active', active.toString());
+    }
+    return this.http.get<MealOption[]>(`${this.apiUrl}/meal-option`, { params });
   }
+  
 
   getAllVegetables(): Observable<Vegetable[]> {
     return this.http.get<Vegetable[]>(`${this.apiUrl}/vegetable`);
@@ -46,12 +52,12 @@ export class MealService {
     return this.http.put(`${this.apiUrl}/meal-option/${mealOptionId}`, { isActive: active });
   }
 
-  addMeal(meal: Meal): Observable<Meal> {
+  saveMeal(meal: Meal): Observable<Meal> {
     return this.http.post<Meal>(`${this.apiUrl}/meals`, meal);
   }
   
 
-  private groupMeatFishesByType(meatFishes: MeatFish[]): GroupedMeatFish[] {
+  groupMeatFishesByType(meatFishes: MeatFish[]): GroupedMeatFish[] {
     const grouped = meatFishes.reduce((acc, meatFish) => {
       if (!acc[meatFish.type]) {
         acc[meatFish.type] = [];

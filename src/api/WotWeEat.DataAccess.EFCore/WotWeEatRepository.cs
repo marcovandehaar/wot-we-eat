@@ -44,14 +44,22 @@ namespace WotWeEat.DataAccess.EFCore
             return efMeal;
         }
 
-        public async Task<List<MealOption>> GetAllMealOptions()
+        public async Task<List<MealOption>> GetAllMealOptions(bool? isActive = null)
         {
-            return await _context.MealOption
+            var query = _context.MealOption.AsQueryable();
+
+            if (isActive.HasValue)
+            {
+                query = query.Where(mo => mo.Active == isActive.Value);
+            }
+
+            return await query
                 .Include(mo => mo.PossibleVariations)
                 .Include(mo => mo.PossibleMeatFishes)
                 .Include(mo => mo.Vegetables)
                 .ToListAsync();
         }
+
 
 
         public async Task<MealOption> SaveMealOption(MealOption mealOption)

@@ -75,9 +75,9 @@ public class WotWeEatQueryController : ControllerBase
     [HttpGet]
     [Route("meal-option")]
     [ActionName(nameof(GetMealOption))]
-    public async Task<ActionResult<List<MealOption>>> GetMealOptions()
+    public async Task<ActionResult<List<MealOption>>> GetMealOptions(bool? active = null)
     {
-        var mealOptions = await _dataService.GetMealOptions();
+        var mealOptions = await _dataService.GetMealOptions(active);
 
         if (mealOptions.Count == 0)
         {
@@ -86,6 +86,7 @@ public class WotWeEatQueryController : ControllerBase
 
         return mealOptions;
     }
+
 
     [HttpGet]
     [Route("meal-option/{id}")]
