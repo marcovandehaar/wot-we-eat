@@ -12,7 +12,7 @@ using WotWeEat.DataAccess.EFCore;
 namespace WotWeEat.DataAccess.EFCore.Migrations
 {
     [DbContext(typeof(WotWeEatDbContext))]
-    [Migration("20231220192426_InitialCreate")]
+    [Migration("20240110064325_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -71,6 +71,9 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuggestionStatus")
                         .HasColumnType("int");
 
                     b.Property<bool>("WithChildren")

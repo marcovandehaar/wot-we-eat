@@ -20,5 +20,6 @@ public class Meal
 
     public Guid? MealVariationId { get; set; }
     public MealVariation? Variation { get; set; }
+    public SuggestionStatus SuggestionStatus { get; set; }
 
 }

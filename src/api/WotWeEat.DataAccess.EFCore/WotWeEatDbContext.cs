@@ -28,6 +28,7 @@ public class WotWeEatDbContext: DbContext
         modelBuilder.Entity<Vegetable>()
             .HasAlternateKey(a => new { a.Name });
 
+
         modelBuilder.SeedVegetables();
         modelBuilder.SeedMeatFishes();
     }

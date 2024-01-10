@@ -21,4 +21,5 @@ public interface IWotWeEatRepository
     Task<Vegetable> SaveVegetable(Vegetable vegetable);
     Task<Vegetable?> GetVegetableByName(string name);
     Task<MeatFish?> GetMeatFishByName(string name);
+    Task<List<Meal>> GetAllMeals();
 }

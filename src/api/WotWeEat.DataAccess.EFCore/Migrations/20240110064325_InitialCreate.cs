@@ -96,7 +96,8 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     Rating = table.Column<int>(type: "int", nullable: true),
                     WithChildren = table.Column<bool>(type: "bit", nullable: false),
                     MealOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MealVariationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    MealVariationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SuggestionStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

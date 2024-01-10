@@ -13,7 +13,7 @@ namespace WotWeEat.DataAccess.Interfaces
         Task<List<MeatFish>> GetMeatFish();
         Task<MeatFish?> GetMeatFishByName(string name);
         Task<Vegetable?> GetVegetableByName(string name);
-        Task<List<MealOption>> GetMealOptions();
+        Task<List<MealOption>> GetMealOptions(bool? isActive = null);
         Task<Meal?> GetMeal(Guid id);
         Task<MealOption?> GetMealOption(Guid id);
         Task<Vegetable> SaveVegetable(Vegetable vegetable);
@@ -21,5 +21,6 @@ namespace WotWeEat.DataAccess.Interfaces
         Task<MealVariation> SaveMealVariation(MealVariation mealVariation);
         Task<MealOption> SaveMealOption(MealOption mealOption);
         Task<Meal> SaveMeal(Meal meal);
+        Task<List<Meal>> GetMeals();
     }
 }

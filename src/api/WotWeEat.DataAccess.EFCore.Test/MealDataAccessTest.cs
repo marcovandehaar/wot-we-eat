@@ -174,7 +174,8 @@ namespace WotWeEat.DataAccess.EFCore.Test
                 Rating = MealRating.Good,
                 Id = mealId ?? Guid.Empty,
                 Variation = mealOption.PossibleVariations.First(),
-                WithChildren = true
+                WithChildren = true,
+                SuggestionStatus = SuggestionStatus.Denied
             };
             return meal;
         }

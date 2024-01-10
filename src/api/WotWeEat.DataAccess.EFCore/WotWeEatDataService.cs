@@ -40,10 +40,16 @@ namespace WotWeEat.DataAccess.EFCore
             return vegetable != null ? _mapper.Map<Vegetable>(vegetable) : null;
         }
 
-        public async Task<List<MealOption>> GetMealOptions()
+        public async Task<List<MealOption>> GetMealOptions(bool? isActive = null)
         {
-            var mealOptions = await _repository.GetAllMealOptions();
+            var mealOptions = await _repository.GetAllMealOptions(isActive);
             return _mapper.Map<List<MealOption>>(mealOptions);
+        }
+
+        public async Task<List<Meal>> GetMeals()
+        {
+            var meals = await _repository.GetAllMeals();
+            return _mapper.Map<List<Meal>>(meals);
         }
 
         public async Task<Meal?> GetMeal(Guid id)

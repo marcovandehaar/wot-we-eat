@@ -87,6 +87,21 @@ public class WotWeEatQueryController : ControllerBase
         return mealOptions;
     }
 
+    [HttpGet]
+    [Route("meal")]
+    [ActionName(nameof(GetMealOption))]
+    public async Task<ActionResult<List<Meal>>> GetMeals()
+    {
+        var meals = await _dataService.GetMeals();
+
+        if (meals.Count == 0)
+        {
+            return NotFound("No MealOptions found.");
+        }
+
+        return meals;
+    }
+
 
     [HttpGet]
     [Route("meal-option/{id}")]

@@ -70,6 +70,9 @@ namespace WotWeEat.DataAccess.EFCore.Migrations
                     b.Property<int?>("Rating")
                         .HasColumnType("int");
 
+                    b.Property<int>("SuggestionStatus")
+                        .HasColumnType("int");
+
                     b.Property<bool>("WithChildren")
                         .HasColumnType("bit");
 

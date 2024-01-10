@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using WotWeEat.DataAccess.EFCore.Model;
 
@@ -57,6 +58,17 @@ namespace WotWeEat.DataAccess.EFCore
                 .Include(mo => mo.PossibleVariations)
                 .Include(mo => mo.PossibleMeatFishes)
                 .Include(mo => mo.Vegetables)
+                .ToListAsync();
+        }
+
+        public async Task<List<Meal>> GetAllMeals()
+        {
+            var query = _context.Meal.AsQueryable();
+
+            return await query
+                .Include(mo => mo.MealOption)
+                .Include(mo => mo.MeatFishes)
+                .Include(mo => mo.Variation)
                 .ToListAsync();
         }
 
@@ -146,14 +158,17 @@ namespace WotWeEat.DataAccess.EFCore
         public async Task<Meal> SaveMeal(Meal meal)
         {
 
-
-            if (meal.MealOption != null && meal.MealOption.Id == Guid.Empty)
+            if (meal.MealOption == null)
+            {
+                throw new InvalidEnumArgumentException("No MealOption in Meal!");
+            }
+            if (meal.MealOption.Id == Guid.Empty)
             {
                 await SaveMealOption(meal.MealOption);
             }
             else
             {
-                await SaveMealOptionWithoutSave(meal.MealOption);
+                meal.MealOption = await GetMealOption(meal.MealOption.Id);
             }
 
             if (meal.Variation != null && meal.Variation.Id == Guid.Empty)

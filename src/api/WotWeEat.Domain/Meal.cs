@@ -19,4 +19,6 @@ public class Meal
     public MealVariation? Variation { get; set; }
     public ICollection<MeatFish> MeatFishes { get; set; }
 
+    public SuggestionStatus SuggestionStatus { get; set; }
+
 }
