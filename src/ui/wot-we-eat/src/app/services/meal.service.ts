@@ -32,8 +32,11 @@ export class MealService {
     }
     return this.http.get<MealOption[]>(`${this.apiUrl}/meal-option`, { params });
   }
-  
 
+  getAllMeals(): Observable<Meal[]> { 
+    return this.http.get<Meal[]>(`${this.apiUrl}/meal`);
+  }
+  
   getAllVegetables(): Observable<Vegetable[]> {
     return this.http.get<Vegetable[]>(`${this.apiUrl}/vegetable`);
   }

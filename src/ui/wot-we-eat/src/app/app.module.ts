@@ -19,6 +19,7 @@ import { SeasonSelectorComponent } from './components/season-selector/season-sel
 import { environment } from 'src/environments/environment';
 import { MealOptionOverviewComponent } from './meal-option-overview/meal-option-overview.component';
 import { MealFormComponent } from './meal-form/meal-form.component';
+import { MealOverviewComponent } from './meal-overview/meal-overview.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { MealFormComponent } from './meal-form/meal-form.component';
     ChildrenToggleComponent,
     SeasonSelectorComponent,
     MealOptionOverviewComponent,
-    MealFormComponent,    
+    MealFormComponent,
+    MealOverviewComponent,    
 
   ],
   imports: [

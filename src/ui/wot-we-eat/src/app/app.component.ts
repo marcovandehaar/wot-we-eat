@@ -29,5 +29,10 @@ export class AppComponent {
     this.router.navigate(['/main']);
     this.closeMenu();
   }
+
+  navigateToMealOverview(): void {
+    this.router.navigate(['/meal-overview']);
+    this.closeMenu();
+  }
   
 }
