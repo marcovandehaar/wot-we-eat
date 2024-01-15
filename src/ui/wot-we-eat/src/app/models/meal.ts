@@ -5,4 +5,5 @@ export interface Meal {
     mealOption: MealOption|null;  // assuming you want to store the entire meal option object
     date: Date;
     selectedMeatFishes: MeatFish[]|null;
+    suggestionStatus: string;
   }

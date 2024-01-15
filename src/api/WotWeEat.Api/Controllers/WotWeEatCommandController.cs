@@ -156,6 +156,23 @@ namespace WotWeEat.Api.Controllers
             }
         }
 
-    }
+        [HttpPut("meal/{mealId}/status")]
+        public async Task<IActionResult> UpdateMealStatus(Guid mealId, [FromBody] MealStatusUpdateDto updateDto)
+        {
+            try
+            {
+                // Update the meal's status
+                await _dataService.UpdateMealSuggestionStatus(mealId, updateDto.NewStatus);
 
+                return Ok($"Meal status updated to {updateDto.NewStatus}.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating the meal status.");
+                return StatusCode(500, "An error occurred while updating the meal status.");
+            }
+        }
+
+
+    }
 }

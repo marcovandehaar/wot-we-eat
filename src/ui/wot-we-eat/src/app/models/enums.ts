@@ -17,3 +17,9 @@ export const seasons = [
   { title: 'Zomer', value: 'Summer' },
   { title: 'Herfst', value: 'Autumn' },
 ]
+
+export const suggestionStatus = [
+  { title: 'Voorgesteld', value: 'Suggested', index :0, },
+  { title: 'Afgekeurd', value: 'Denied', index:1 },
+  { title: 'Goedgekeurd', value: 'Goedgekeurd' , index:2}
+]

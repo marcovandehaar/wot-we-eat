@@ -53,7 +53,7 @@ export class MealService {
   }
 
   saveMeal(meal: Meal): Observable<Meal> {
-    return this.http.post<Meal>(`${this.apiUrl}/meals`, meal);
+    return this.http.post<Meal>(`${this.apiUrl}/meal`, meal);
   }
   
 

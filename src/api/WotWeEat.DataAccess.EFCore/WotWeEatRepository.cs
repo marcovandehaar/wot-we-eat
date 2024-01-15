@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using WotWeEat.DataAccess.EFCore.Model;
+using WotWeEat.Domain.Enum;
 
 
 namespace WotWeEat.DataAccess.EFCore
@@ -337,6 +338,22 @@ namespace WotWeEat.DataAccess.EFCore
         {
             return  await _context.MeatFish.SingleOrDefaultAsync(mf => mf.Name == name);
         }
+
+        public async Task UpdateMealSuggestionStatus(Guid mealId, SuggestionStatus newStatus)
+        {
+            var meal = await _context.Meal.FindAsync(mealId);
+            if (meal == null)
+            {
+                throw new ArgumentException($"Meal with id {mealId} not found!");
+            }
+
+            if (meal.SuggestionStatus != newStatus)
+            {
+                meal.SuggestionStatus = newStatus;
+                await _context.SaveChangesAsync();
+            }
+        }
+
 
 
     }

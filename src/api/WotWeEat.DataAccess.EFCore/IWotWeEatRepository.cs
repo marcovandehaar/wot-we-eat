@@ -1,4 +1,5 @@
 ﻿using WotWeEat.Domain;
+using WotWeEat.Domain.Enum;
 using Meal = WotWeEat.DataAccess.EFCore.Model.Meal;
 using MealOption = WotWeEat.DataAccess.EFCore.Model.MealOption;
 using MealVariation = WotWeEat.DataAccess.EFCore.Model.MealVariation;
@@ -22,4 +23,5 @@ public interface IWotWeEatRepository
     Task<Vegetable?> GetVegetableByName(string name);
     Task<MeatFish?> GetMeatFishByName(string name);
     Task<List<Meal>> GetAllMeals();
+    Task UpdateMealSuggestionStatus(Guid mealId, SuggestionStatus newStatus);
 }

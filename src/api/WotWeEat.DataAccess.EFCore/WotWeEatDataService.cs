@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using WotWeEat.DataAccess.Interfaces;
 using WotWeEat.Domain;
+using WotWeEat.Domain.Enum;
 
 
 namespace WotWeEat.DataAccess.EFCore
@@ -96,6 +97,11 @@ namespace WotWeEat.DataAccess.EFCore
             var mapped = _mapper.Map<Model.Meal>(meal);
             var created = await _repository.SaveMeal(mapped);
             return _mapper.Map<Meal>(created);
+        }
+
+        public async Task UpdateMealSuggestionStatus(Guid mealId, SuggestionStatus newStatus)
+        {
+            await _repository.UpdateMealSuggestionStatus(mealId, newStatus);
         }
 
     }

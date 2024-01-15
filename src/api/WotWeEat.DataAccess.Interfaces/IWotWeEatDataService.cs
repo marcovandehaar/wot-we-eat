@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WotWeEat.Domain;
+using WotWeEat.Domain.Enum;
 
 namespace WotWeEat.DataAccess.Interfaces
 {
@@ -22,5 +23,6 @@ namespace WotWeEat.DataAccess.Interfaces
         Task<MealOption> SaveMealOption(MealOption mealOption);
         Task<Meal> SaveMeal(Meal meal);
         Task<List<Meal>> GetMeals();
+        Task UpdateMealSuggestionStatus(Guid mealId, SuggestionStatus newStatus);
     }
 }

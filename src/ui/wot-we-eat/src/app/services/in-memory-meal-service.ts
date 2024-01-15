@@ -1,6 +1,7 @@
 import { InMemoryDbService, RequestInfo, ResponseOptions, STATUS } from 'angular-in-memory-web-api';
 import { MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
 import { Observable, of } from 'rxjs';
+import { Meal } from '../models/meal';
 
 export class InMemoryMealApi implements InMemoryDbService {
   createDb() {
@@ -232,9 +233,33 @@ export class InMemoryMealApi implements InMemoryDbService {
         type: 'Fish',       
       }
     ];
+    let meals: Meal[] = [
+      {
+        id: '52d8670e-eaaa-4f55-8af4-505f2a1d84ab',
+        mealOption: mealOptions[0],  // assuming you want to store the entire meal option object
+        date: new Date("1/1/24"),
+        selectedMeatFishes: [mealOptions[0].possibleMeatFishes![0]],
+        suggestionStatus: 'Approved'
+      },
+      {
+        id: 'bde8c235-9ecc-4885-8e0c-e7b43b17da32',
+        mealOption: mealOptions[1],  // assuming you want to store the entire meal option object
+        date: new Date("1/2/24"),
+        selectedMeatFishes: [mealOptions[1].possibleMeatFishes![0]],
+        suggestionStatus: 'Approved'
+      }
+      ,
+      {
+        id: '6d86476a-37d1-47ec-b463-8f7af061df77',
+        mealOption: mealOptions[2],  // assuming you want to store the entire meal option object
+        date: new Date("1/2/24"),
+        selectedMeatFishes: [mealOptions[2].possibleMeatFishes![0]],
+        suggestionStatus: 'Denied'
+      }
+    ];
     
 
-    return { 'meal-option': mealOptions, 'vegetable': vegetables, 'meat-fish':meatFishes }; // The key here should match the endpoint
+    return { 'meal-option': mealOptions, 'vegetable': vegetables, 'meat-fish':meatFishes, 'meal': meals }; // The key here should match the endpoint
   }
 
   put(reqInfo: RequestInfo) {
@@ -243,6 +268,9 @@ export class InMemoryMealApi implements InMemoryDbService {
      const collectionName = reqInfo.collectionName;
     if (collectionName === 'meal-option') {
       return this.updateMealOption(reqInfo);
+    }
+    if (collectionName === 'meal') {
+      return this.updateMeal(reqInfo);
     }
     // Default behavior for other collections
     return undefined; // let the default PUT handler work
@@ -269,6 +297,33 @@ export class InMemoryMealApi implements InMemoryDbService {
       status: STATUS.OK
     });
   }
+
+  private updateMeal(reqInfo: RequestInfo) {
+    const collection = reqInfo.collection as Meal[];
+    const id = reqInfo.id;
+    const updatedMealData = reqInfo.utils.getJsonBody(reqInfo.req);
+  
+    // Find the meal by ID
+    const mealIndex = collection.findIndex(m => m.id === id);
+    if (mealIndex === -1) {
+      return {
+        body: { error: 'Meal not found' },
+        status: STATUS.NOT_FOUND
+      };
+    }
+  
+    const mealToUpdate = collection[mealIndex];
+    // Update meal properties here
+    // For example:
+    mealToUpdate.suggestionStatus = updatedMealData.suggestionStatus;
+    // ...update other properties as needed
+  
+    return of({
+      body: mealToUpdate,
+      status: STATUS.OK
+    });
+  }
+  
 
   get(reqInfo: RequestInfo): Observable<any> | null {
     if (reqInfo.collectionName === 'meal-option') {

@@ -7,6 +7,7 @@ import { GroupedMeatFish, MealOption, MeatFish } from '../models/meal-option.mod
 import { Meal } from '../models/meal';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { suggestionStatus } from '../models/enums';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class MealFormComponent implements OnInit {
     mealOption: [null, Validators.required],
     date: [new Date(), Validators.required],
     selectedMeatFishes: <MeatFish[] | null>null,
+    suggestionStatus: 'Suggested'
   });
   mealOptions: MealOption[] = []; // Populate this with actual data
   meatFishes: MeatFish[] = []; // Populate this with actual data
@@ -100,7 +102,7 @@ export class MealFormComponent implements OnInit {
     this.isSaving = false;
     this.dots = '';
     this.isLoading = false;
-    this.router.navigate(['/meal-option-overview']);
+    this.location.back();
   }
 
   private animateDots() {
