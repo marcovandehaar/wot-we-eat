@@ -20,7 +20,7 @@
               {{ meal.mealOption?.description }}
             </div>
           </div>
-          <div [@simpleSlide]="selectedMeal === i ? 'open' : 'closed'" class="additional-content" *ngIf="selectedMeal === i" [class.active]="selectedMeal === i">
+          <div class="additional-content" *ngIf="selectedMeal === i" [class.active]="selectedMeal === i">
             <div class="button-container">
                 <button class="panel-button edit-button" (click)="editMealOption(meal.id)" [disabled]="isLoading">
                   <img src="assets/images/pencil.png" alt="Edit">

@@ -21,19 +21,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         opacity: 1
       })),
       transition('closed <=> open', animate('0.3s ease-in-out'))
-    ]),
-    trigger('simpleFade', [
-      state('in', style({ opacity: 1 })),
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(600)
-      ]),
-      transition(':leave', animate(600, style({ opacity: 0 })))
-    ]),
-    trigger('simpleSlide', [
-      state('closed', style({ height: '0px' })),
-      state('open', style({ height: '*' })),
-      transition('closed <=> open', animate('0.3s ease-in-out'))
     ])
   ]
 })
