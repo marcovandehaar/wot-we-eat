@@ -1,118 +1,82 @@
 @import '../../assets/styles/overview';
+.meal-date-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
-.meal-date-list li {
+  .meal-tile {
     display: flex;
-    margin-bottom: 10px; // Space between items
-
-    .meal-tile {
-        display: flex;
-        width: 100%;
-        background-color: #fff; // Change as per your color scheme
-        border-radius: 8px; // Rounded corners
-        overflow: hidden; // Ensures inner elements adhere to the tile's border radius
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Box shadow for the tile
-
-        .meal-date {
-            width: 80px; // Allocate 25% of the width to the date section
-            background-color: #f0f0f0; // Background color for the date section
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            border-right: 2px solid #ccd; // Right border to separate the date from the description
-
-            .day-name,
-            .day-number,
-            .month {
-                display: block;
-                text-align: center;
-            }
-
-            .day-name {
-                font-size: 1em; // Size for the day abbreviation
-                font-weight: bold;
-                color: hsl(21, 100%, 57%); // Example color for day name
-            }
-
-            .day-number {
-                font-size: 2.5em; // Larger size for the day of the month
-                font-weight: bold;
-                color: hsl(21, 100%, 57%); // Example color for day number
-            }
-
-            .month {
-                font-size: 1em; // Size for the month abbreviation
-                font-weight: bold;
-                color: hsl(21, 100%, 57%); // Example color for month
-            }
-        }
-
-        .meal-date-content {
-            flex-grow: 1; // Take up the remaining space
-            padding: 10px 15px;
-            // Any additional styles for content
-        }
-
-        
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff; // Card background color
+    border-radius: 8px; // Rounded corners for the card
+    
+    padding: 10px 15px; // Padding inside the card
+    transition: transform 0.2s ease, box-shadow 0.2s ease; // Transition for hover and click effects
+    
+    margin: 15px 0; // This adds 10px of space above and below each tile
+    
+    &:hover {
+      box-shadow: 0 4px 8px hsl(13, 5%, 33%); // Enhanced shadow on hover
+        cursor: pointer; // Change cursor to indicate it's clickable
     }
 
-    .additional-content {
-        background-color: #e6f4ff; // Subtle blue color
-        box-shadow: 0 -5px 10px -5px #cfd8dc; // Adjust the shadow to match the new color
-        border-radius: 0 0 8px 8px; // Only round the bottom corners
-        width: 95%;
-        z-index: 1;
-      
-        &.active {
-        }
-      
-        &:not(.active) {
-          overflow: hidden;
-        }
-      
-        .button-container {
-          display: flex;
-          justify-content: center;
-          gap: 10px;
-          
-      
-          .panel-button {
-            background-color: #e6f4ff; // Light blue background
-            color: #ff7f50; // Orange color for text
-            border: 2px solid #ff7f50; // Orange border
-            border-radius: 10px;
-            padding: 10px 20px;
+    .meal-date {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      border-radius: 8px; // Rounded corners for the card
+
+        width: 80px; // Allocate 25% of the width to the date section
+        background-color: #f0f0f0; // Background color for the date section
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        border-right: 2px solid #ccd; // Right border to separate the date from the description
+
+        .day-name,
+        .day-number,
+        .month {
+            display: block;
             text-align: center;
-            width: 100px;;
-            cursor: pointer;
-            transition: all 0.3s ease; // Smooth transition for hover effects
-            filter: grayscale(100%); // Grayscale filter for the image
-            &:hover {
-              box-shadow: 0 0 10px #ff7f50; // Orange glow effect
-              background-color: #d1e8ff; // Slightly darker blue on hover
-              color: #ffffff; // White text on hover for contrast
-              filter: grayscale(0); // Full color for the image on hover
-            }
-          
-            img {
-              
-              transition: filter 0.3s ease; // Smooth transition for hover effects
-              width: 40px; // Adjust image size as needed
-              height: auto; // Maintain aspect ratio
-              &:hover {
-                
-              }
-            }
-          }
-      
-          .edit-button {
-            
-          }
-      
-          .toggle-button {
-            
-          }
         }
-      }
+
+        .day-name {
+            font-size: 1em; // Size for the day abbreviation
+            font-weight: bold;
+            color: hsl(21, 100%, 57%); // Example color for day name
+        }
+
+        .day-number {
+            font-size: 2.5em; // Larger size for the day of the month
+            font-weight: bold;
+            color: hsl(21, 100%, 57%); // Example color for day number
+        }
+
+        .month {
+            font-size: 1em; // Size for the month abbreviation
+            font-weight: bold;
+            color: hsl(21, 100%, 57%); // Example color for month
+        }
+    }
+
+    .meal-date-content {
+      flex-grow: 1;
+      padding-left: 20px; // Adjust spacing as needed
+    }
+  }
+
+  .additional-content {
+    display: none; // Hidden by default
+    &.active {
+      display: block; // Show when active
+      padding: 10px;
+      background-color: #f9f9f9; // Example background color
+      border-top: 1px solid #eee; // Example border top
+      transition: all 0.3s ease-in-out;
+    }
+  }
 }

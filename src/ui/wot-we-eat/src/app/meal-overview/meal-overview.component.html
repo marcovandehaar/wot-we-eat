@@ -10,17 +10,17 @@
     <div class="loading-bar" *ngIf="isLoading"></div>
     <ul class="meal-date-list">
         <li *ngFor="let meal of paginatedMeals; let i = index">
-          <div class="meal-tile">
+          <div class="meal-tile" (click)="togglePanel(i)">
             <div class="meal-date">
               <span class="day-name">{{ meal.date | date:'EEE' | uppercase }}</span>
               <span class="day-number">{{ meal.date | date:'dd' }}</span>
               <span class="month">{{ meal.date | date:'MMM' | lowercase }}</span>
             </div>
-            <div class="meal-date-content" (click)="togglePanel(i)">
+            <div class="meal-date-content" >
               {{ meal.mealOption?.description }}
             </div>
           </div>
-          <div class="additional-content" *ngIf="selectedMeal === i" [class.active]="selectedMeal === i">
+          <div class="additional-content" *ngIf="selectedMeal === i" [class.active]="selectedMeal === i" [@slide]="selectedMeal === i ? 'open' : 'closed'">
             <div class="button-container">
                 <button class="panel-button edit-button" (click)="editMealOption(meal.id)" [disabled]="isLoading">
                   <img src="assets/images/pencil.png" alt="Edit">
