@@ -237,14 +237,14 @@ export class InMemoryMealApi implements InMemoryDbService {
       {
         id: '52d8670e-eaaa-4f55-8af4-505f2a1d84ab',
         mealOption: mealOptions[0],  // assuming you want to store the entire meal option object
-        date: new Date("1/1/24"),
+        date: new Date("1/14/24"),
         selectedMeatFishes: [mealOptions[0].possibleMeatFishes![0]],
         suggestionStatus: 'Approved'
       },
       {
         id: 'bde8c235-9ecc-4885-8e0c-e7b43b17da32',
         mealOption: mealOptions[1],  // assuming you want to store the entire meal option object
-        date: new Date("1/2/24"),
+        date: new Date("1/15/24"),
         selectedMeatFishes: [mealOptions[1].possibleMeatFishes![0]],
         suggestionStatus: 'Approved'
       }
@@ -252,9 +252,23 @@ export class InMemoryMealApi implements InMemoryDbService {
       {
         id: '6d86476a-37d1-47ec-b463-8f7af061df77',
         mealOption: mealOptions[2],  // assuming you want to store the entire meal option object
-        date: new Date("1/2/24"),
+        date: new Date("1/16/24"),
         selectedMeatFishes: [mealOptions[2].possibleMeatFishes![0]],
         suggestionStatus: 'Denied'
+      },
+      {
+        id: '51ff3127-5a9d-467d-8925-2a687131abd1',
+        mealOption: mealOptions[3],  // assuming you want to store the entire meal option object
+        date: new Date("1/16/24"),
+        selectedMeatFishes: [mealOptions[3].possibleMeatFishes![0]],
+        suggestionStatus: 'Approved'
+      },
+      {
+        id: '9c2ca523-1641-417b-ad9d-7a5c5903b9d1',
+        mealOption: mealOptions[4],  // assuming you want to store the entire meal option object
+        date: new Date("1/21/24"),
+        selectedMeatFishes: [mealOptions[4].possibleMeatFishes![0]],
+        suggestionStatus: 'Approved'
       }
     ];
     

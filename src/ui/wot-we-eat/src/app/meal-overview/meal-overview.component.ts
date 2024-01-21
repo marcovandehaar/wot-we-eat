@@ -26,11 +26,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class MealOverviewComponent implements OnInit {
   meals: Meal[] = [];
+  dateBasedMeals: { date: Date; meal: Meal | null }[] = [];
+  today: Date = new Date();
+  currentWeekStart: Date =  new Date();
   currentPage = 1;
   itemsPerPage = 4; // This can be changed to test different resolutions
   paginationWindowStart = 1;
   paginationWindowEnd = 3;
-  selectedMeal: number | null = null;
+  selectedMeal: string | null = null;
   isLoading = false;
 
   constructor(private location: Location,
@@ -38,14 +41,38 @@ export class MealOverviewComponent implements OnInit {
     private mealService: MealService) { }
 
   ngOnInit(): void {
-    this.isLoading = true; 
+    this.today = new Date();
+    this.currentWeekStart = this.getStartingMonday(new Date(this.today));
+    this.prepareWeekMeals(this.currentWeekStart);
     this.refreshMeals();
+  }
+
+  getStartingMonday(date: Date): Date {
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday
+    return new Date(date.setDate(diff));
+  }
+
+  prepareWeekMeals(startDate: Date) {
+    this.dateBasedMeals = [];
+    for (let i = 0; i < 7; i++) {
+      let date = new Date(startDate);
+      date.setDate(date.getDate() + i);
+      this.dateBasedMeals.push({ date: date, meal: null });
+    }
   }
 
   private refreshMeals() {
     this.mealService.getAllMeals().subscribe({
       next: (data: Meal[]) => {
-        this.meals = data;
+        // Populate meals for the date range
+        this.dateBasedMeals.forEach(dayData => {
+          const mealForDay = data.find(meal => 
+            new Date(meal.date).toDateString() === dayData.date.toDateString() &&
+            (meal.suggestionStatus === 'Approved' || meal.suggestionStatus === 'Suggested'));
+  
+          dayData.meal = mealForDay || null;
+        });
         this.isLoading = false;
       },
       error: (error) => {
@@ -55,18 +82,44 @@ export class MealOverviewComponent implements OnInit {
     });
   }
 
+  private prepareDateBasedMeals() {
+    // Reset time part to get consistent comparison
+    this.today.setHours(0, 0, 0, 0);
+  
+    const startDate = new Date(this.today);
+    startDate.setDate(this.today.getDate() - 7); // 1 week before today
+  
+    const endDate = new Date(this.today);
+    endDate.setDate(this.today.getDate() + 7); // 1 week after today
+  
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      this.dateBasedMeals.push({
+        date: new Date(d),
+        meal: null
+      });
+    }
+  }
+
   goBack(): void {
     this.location.back();
   }
 
-  addMeal(): void {
-    // Logic to add a new meal option
-    // For example, navigate to a form
-    this.router.navigate(['/meal-form', 'new']);
+  addMeal(date: Date): void {
+    // Logic to add a new meal for the specified date
+    // For example, navigate to a form with the date as a parameter
+    this.router.navigate(['/meal-form', 'new', { date: date.toISOString() }]);
+  }
+
+  suggestMeal(date: Date): void {
+    // Logic for suggesting a meal for a specific date
   }
 
   editMealOption(mealOptionId: string): void {
     this.router.navigate(['/meal-option-form', mealOptionId]);
+  }
+
+  getMeatFishesNames(meal: Meal): string {
+    return meal.selectedMeatFishes?.map(fish => fish.name).join(', ') || '';
   }
 
   get paginatedMealOptions() {
@@ -102,6 +155,22 @@ export class MealOverviewComponent implements OnInit {
     }
   }
 
+  nextWeek(): void {
+    this.currentWeekStart.setDate(this.currentWeekStart.getDate() + 7);
+    this.prepareWeekMeals(this.currentWeekStart);
+    this.refreshMeals();
+  }
+  
+  previousWeek(): void {
+    this.currentWeekStart.setDate(this.currentWeekStart.getDate() - 7);
+    this.prepareWeekMeals(this.currentWeekStart);
+    this.refreshMeals();
+  }
+
+  isCurrentWeek(): boolean {
+    return this.getStartingMonday(new Date()).getTime() === this.currentWeekStart.getTime();
+  }
+
   get paginatedMeals() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     
@@ -135,7 +204,19 @@ export class MealOverviewComponent implements OnInit {
     return Array.from({ length: (endPage + 1) - startPage }, (_, i) => startPage + i);
   }
 
-  togglePanel(index: number): void {
-    this.selectedMeal = this.selectedMeal === index ? null : index;
+  togglePanel(mealDate: Date): void {
+    const dateString = mealDate.toISOString();
+    this.selectedMeal = this.selectedMeal === dateString ? null : dateString;
   }
+
+  deleteMeal(mealId: string): void {
+    // TODO: Implement the logic to delete a meal
+
+    // This might involve calling a service method to delete the meal from the backend.
+    // For example, if you have a service method like this.mealService.deleteMeal(mealId),
+    // you can call it here and handle the response and any errors.
+
+    
+  }
+
 }

@@ -1,46 +1,66 @@
 <div class="screen-container">
-    <div class="header">
-        <button (click)="goBack()" class="icon-button large-icon">
-            <span class="material-symbols-outlined">
-                arrow_back_ios
-            </span>
-        </button>
-        <h1 class="playful-title">Maaltijden</h1>          
-    </div>
-    <div class="loading-bar" *ngIf="isLoading"></div>
-    <ul class="meal-date-list">
-        <li *ngFor="let meal of paginatedMeals; let i = index">
-          <div class="meal-tile" (click)="togglePanel(i)">
-            <div class="meal-date">
-              <span class="day-name">{{ meal.date | date:'EEE' | uppercase }}</span>
-              <span class="day-number">{{ meal.date | date:'dd' }}</span>
-              <span class="month">{{ meal.date | date:'MMM' | lowercase }}</span>
-            </div>
-            <div class="meal-date-content" >
-              {{ meal.mealOption?.description }}
-            </div>
-          </div>
-          <div class="additional-content" *ngIf="selectedMeal === i" [class.active]="selectedMeal === i" [@slide]="selectedMeal === i ? 'open' : 'closed'">
-            <div class="button-container">
-                <button class="panel-button edit-button" (click)="editMealOption(meal.id)" [disabled]="isLoading">
-                  <img src="assets/images/pencil.png" alt="Edit">
-                  Aanpassen
-                </button>
-            
-              </div>
-        </div>
-        </li>
-      </ul>
-    
-    <button class="meal-add-button" (click)="addMeal()" [disabled]="isLoading" >
-        Maaltijd toevoegen...
+  <div class="header">
+    <button (click)="goBack()" class="icon-button large-icon">
+      <span class="material-symbols-outlined">
+        arrow_back_ios
+      </span>
     </button>
-    <div class="pagination">
-        <span (click)="previousPage()" [class.disabled]="isLoading || currentPage === 1">Vorige</span>
-        <span *ngFor="let page of getDisplayedPages()" (click)="goToPage(page)" [class.active]="page === currentPage">
-            {{ page }}
-        </span>
-        <span (click)="nextPage()" [class.disabled]="isLoading || currentPage === totalPages">Volgende</span>
-    </div>
+    <h1 class="playful-title">Maaltijden</h1>
   </div>
-  
+  <div class="loading-bar" *ngIf="isLoading"></div>
+  <ul class="meal-date-list">
+    <li *ngFor="let dayData of dateBasedMeals">
+      <div class="meal-tile" [ngClass]="{'past-day': dayData.date < today}" (click)="togglePanel(dayData.date)">
+        <div class="meal-date">
+          <span class="day-name">{{ dayData.date | date:'EEE' | uppercase }}</span>
+          <span class="day-number">{{ dayData.date | date:'dd' }}</span>
+          <span class="month">{{ dayData.date | date:'MMM' | lowercase }}</span>
+        </div>
+        <div *ngIf="dayData.meal; else noMealActions">
+          <div class="meal-date-content">
+            {{ dayData.meal.mealOption?.description }}
+          </div>
+          <!-- Additional content and buttons as before -->
+
+
+          <div class="additional-content" *ngIf="selectedMeal === dayData.date.toISOString()"
+            [@slide]="selectedMeal === dayData.date.toISOString() ? 'open' : 'closed'">
+
+            <span class="meat-fishes-names">
+              {{ getMeatFishesNames(dayData.meal) }}
+            </span>
+            <div class="button-container" *ngIf="dayData.date >= today">
+              <button class="panel-button edit-button" (click)="editMealOption(dayData.meal.id)" [disabled]="isLoading">
+                <img src="assets/images/pencil.png" alt="Aanpassen" title="Aanpassen">
+              </button>
+              <button class="panel-button suggest-button" (click)="suggestMeal(dayData.date)">
+                <img src="assets/images/goodidea.png" alt="Wot We Eat?" title="Wot We Eat?">
+              </button>
+              <button class="panel-button delete-button" (click)="deleteMeal(dayData.meal.id)" [disabled]="isLoading">
+                <img src="assets/images/trashcan.png" alt="Verwijderen" title="Verwijderen">
+              </button>
+            </div>
+            
+          </div>
+
+        </div>
+        <ng-template #noMealActions>
+          <div class="additional-content">
+          <div class="button-container" *ngIf="dayData.date >= today">
+            <button class="panel-button edit-button" (click)="addMeal(dayData.date)" [disabled]="isLoading">
+              <img src="assets/images/pencil.png" alt="Nieuw" title="Nieuw">
+            </button>
+            <button class="panel-button suggest-button" (click)="suggestMeal(dayData.date)">
+              <img src="assets/images/goodidea.png" alt="Wot We Eat?" title="Wot We Eat?">
+            </button>
+          </div>
+        </div>
+        </ng-template>
+      </div>
+    </li>
+  </ul>
+  <div class="pagination">
+    <span (click)="previousWeek()" [class.disabled]="isCurrentWeek()">Previous Week</span>
+    <span (click)="nextWeek()">Next Week</span>
+  </div>
+</div>

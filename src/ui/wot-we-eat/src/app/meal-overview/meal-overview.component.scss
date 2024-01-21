@@ -21,6 +21,11 @@
         cursor: pointer; // Change cursor to indicate it's clickable
     }
 
+    &.past-day {
+      opacity: 0.5;
+      // Add more styling for past days
+    }
+
     .meal-date {
       display: flex;
       flex-direction: column;
@@ -70,13 +75,63 @@
   }
 
   .additional-content {
-    display: none; // Hidden by default
-    &.active {
-      display: block; // Show when active
-      padding: 10px;
-      background-color: #f9f9f9; // Example background color
-      border-top: 1px solid #eee; // Example border top
-      transition: all 0.3s ease-in-out;
+    background-color: #f9f9f9; // Light background color
+    border-top: 1px solid #eee; // Separator from the main content
+    transition: all 0.3s ease-in-out;
+    padding: 15px; // Internal padding
+    display: flex;
+    justify-content: space-between; // Space out the label and button container
+    align-items: center;
+  
+    .meat-fishes-names {
+      flex-grow: 1; // Allows the text to take up available space
+      margin-right: 20px; // Space between the text and buttons
+      // Additional text styling
+      font-size: 1em;
+      color: #333;
+    }
+  
+    .button-container {
+      display: flex;
+      gap: 10px; // Space between buttons
+  
+      .panel-button {
+        flex: 1; // Each button takes equal space
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s;
+  
+        &:hover {
+          background-color: #e0e0e0; // Light hover effect
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+  
+        img {
+          width: 50px; // Adjust as needed
+          height: 50px; // Adjust as needed
+          margin-right: 5px;
+        }
+      }
+  
+      .edit-button {
+        background-color: #f0f0f0; // Edit button specific color
+        // Other specific styles for edit button
+      }
+  
+      .suggest-button {
+        background-color: #d0f0d0; // Suggest button specific color
+        // Other specific styles for suggest button
+      }
+  
+      .delete-button {
+        background-color: #f0d0d0; // Delete button specific color
+        // Other specific styles for delete button
+      }
     }
   }
+  
 }
