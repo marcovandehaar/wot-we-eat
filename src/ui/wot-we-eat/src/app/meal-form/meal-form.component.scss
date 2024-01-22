@@ -12,3 +12,7 @@
   min-width: 15rem;
   width: 22rem;
 }
+
+:host ::ng-deep .p-icon-wrapper {
+  display: flex;
+}

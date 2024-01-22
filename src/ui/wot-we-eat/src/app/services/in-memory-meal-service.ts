@@ -1,7 +1,8 @@
-import { InMemoryDbService, RequestInfo, ResponseOptions, STATUS } from 'angular-in-memory-web-api';
+
 import { MealOption, MeatFish, Vegetable } from '../models/meal-option.model';
 import { Observable, of } from 'rxjs';
 import { Meal } from '../models/meal';
+import { InMemoryDbService, RequestInfo, STATUS } from 'angular-in-memory-web-api';
 
 export class InMemoryMealApi implements InMemoryDbService {
   createDb() {

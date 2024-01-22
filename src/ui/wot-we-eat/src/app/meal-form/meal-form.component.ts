@@ -160,6 +160,7 @@ export class MealFormComponent implements OnInit {
       next: (meal: Meal) => {
         if (meal) {
           console.log(meal);
+          //convert to ISO date to make calandar initial value work
           meal.date = moment(meal.date).toDate();
           // Populate the form with the fetched meal data
           this.mealForm.setValue(meal);
