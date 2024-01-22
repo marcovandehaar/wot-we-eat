@@ -16,3 +16,9 @@
 :host ::ng-deep .p-icon-wrapper {
   display: flex;
 }
+
+:host ::ng-deep .p-input-icon-right {
+  .p-icon-wrapper{
+    margin-top: -0.8rem;
+  }
+}
