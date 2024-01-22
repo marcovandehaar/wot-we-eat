@@ -36,6 +36,11 @@ export class MealService {
   getAllMeals(): Observable<Meal[]> { 
     return this.http.get<Meal[]>(`${this.apiUrl}/meal`);
   }
+
+  getMeal(mealId: string): Observable<Meal> {
+    // Replace the URL with the correct endpoint to fetch a meal by its ID
+    return this.http.get<Meal>(`${this.apiUrl}/meal/${mealId}`);
+  }
   
   getAllVegetables(): Observable<Vegetable[]> {
     return this.http.get<Vegetable[]>(`${this.apiUrl}/vegetable`);

@@ -30,7 +30,7 @@
               {{ getMeatFishesNames(dayData.meal) }}
             </span>
             <div class="button-container" *ngIf="dayData.date >= today">
-              <button class="panel-button edit-button" (click)="editMealOption(dayData.meal.id)" [disabled]="isLoading">
+              <button class="panel-button edit-button" (click)="editMeal(dayData.meal.id)" [disabled]="isLoading">
                 <img src="assets/images/pencil.png" alt="Aanpassen" title="Aanpassen">
               </button>
               <button class="panel-button suggest-button" (click)="suggestMeal(dayData.date)">
@@ -40,27 +40,27 @@
                 <img src="assets/images/trashcan.png" alt="Verwijderen" title="Verwijderen">
               </button>
             </div>
-            
+
           </div>
 
         </div>
         <ng-template #noMealActions>
           <div class="additional-content">
-          <div class="button-container" *ngIf="dayData.date >= today">
-            <button class="panel-button edit-button" (click)="addMeal(dayData.date)" [disabled]="isLoading">
-              <img src="assets/images/pencil.png" alt="Nieuw" title="Nieuw">
-            </button>
-            <button class="panel-button suggest-button" (click)="suggestMeal(dayData.date)">
-              <img src="assets/images/goodidea.png" alt="Wot We Eat?" title="Wot We Eat?">
-            </button>
+            <div class="button-container" *ngIf="dayData.date >= today && !isLoading">
+              <button class="panel-button edit-button" (click)="addMeal(dayData.date)" [disabled]="isLoading">
+                <img src="assets/images/pencil.png" alt="Nieuw" title="Nieuw">
+              </button>
+              <button class="panel-button suggest-button" (click)="suggestMeal(dayData.date)">
+                <img src="assets/images/goodidea.png" alt="Wot We Eat?" title="Wot We Eat?">
+              </button>
+            </div>
           </div>
-        </div>
         </ng-template>
       </div>
     </li>
   </ul>
   <div class="pagination">
-    <span (click)="previousWeek()" [class.disabled]="isCurrentWeek()">Previous Week</span>
-    <span (click)="nextWeek()">Next Week</span>
+    <span (click)="previousWeek()" [class.disabled]="isCurrentWeek()">Vorige Week</span>
+    <span (click)="nextWeek()">Volgende week</span>
   </div>
 </div>

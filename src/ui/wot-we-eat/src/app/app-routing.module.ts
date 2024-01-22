@@ -27,6 +27,10 @@ const routes: Routes = [
     component: MealFormComponent
   },
   {
+    path: 'meal-form/:id',
+    component: MealFormComponent
+  },
+  {
     path: 'meal-overview',
     component: MealOverviewComponent
   },

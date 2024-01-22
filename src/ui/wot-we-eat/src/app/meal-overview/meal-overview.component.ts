@@ -63,6 +63,7 @@ export class MealOverviewComponent implements OnInit {
   }
 
   private refreshMeals() {
+    this.isLoading = true;
     this.mealService.getAllMeals().subscribe({
       next: (data: Meal[]) => {
         // Populate meals for the date range
@@ -82,24 +83,6 @@ export class MealOverviewComponent implements OnInit {
     });
   }
 
-  private prepareDateBasedMeals() {
-    // Reset time part to get consistent comparison
-    this.today.setHours(0, 0, 0, 0);
-  
-    const startDate = new Date(this.today);
-    startDate.setDate(this.today.getDate() - 7); // 1 week before today
-  
-    const endDate = new Date(this.today);
-    endDate.setDate(this.today.getDate() + 7); // 1 week after today
-  
-    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-      this.dateBasedMeals.push({
-        date: new Date(d),
-        meal: null
-      });
-    }
-  }
-
   goBack(): void {
     this.location.back();
   }
@@ -107,15 +90,15 @@ export class MealOverviewComponent implements OnInit {
   addMeal(date: Date): void {
     // Logic to add a new meal for the specified date
     // For example, navigate to a form with the date as a parameter
-    this.router.navigate(['/meal-form', 'new', { date: date.toISOString() }]);
+    this.router.navigate(['/meal-form/new'], { queryParams: { date: date.toISOString() } });
   }
 
   suggestMeal(date: Date): void {
     // Logic for suggesting a meal for a specific date
   }
 
-  editMealOption(mealOptionId: string): void {
-    this.router.navigate(['/meal-option-form', mealOptionId]);
+  editMeal(mealId: string): void {
+    this.router.navigate(['/meal-form', mealId]);
   }
 
   getMeatFishesNames(meal: Meal): string {
@@ -130,29 +113,6 @@ export class MealOverviewComponent implements OnInit {
     //console.log('startindex: ' + startIndex + ' items per page: ' + this.itemsPerPage);
     //console.log(this.mealOptions.slice(startIndex, startIndex + this.itemsPerPage));
     return this.meals.slice(startIndex, startIndex + this.itemsPerPage);
-  }
-
-  get totalPages() {
-    return Math.ceil(this.meals.length / this.itemsPerPage);
-  }
-
-  goToPage(page: number): void {
-    this.selectedMeal = null;
-    this.currentPage = page;
-  }
-
-  nextPage(): void {
-    //console.log(this.currentPage + ' - ' + this.totalPages);
-    this.selectedMeal = null;
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
   }
 
   nextWeek(): void {
@@ -175,33 +135,6 @@ export class MealOverviewComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     
     return this.meals.slice(startIndex, startIndex + this.itemsPerPage);
-  }
-
-  getDisplayedPages() {
-    let startPage: number, endPage: number;
-  
-    if (this.totalPages <= this.paginationWindowEnd) {
-      // If total pages are 3 or less, show all pages
-      startPage = 1;
-      endPage = this.totalPages;
-    } else {
-      // For more than 3 pages, calculate window around current page
-      if (this.currentPage === 1) {
-        // If on the first page
-        startPage = 1;
-        endPage = this.paginationWindowEnd;
-      } else if (this.currentPage === this.totalPages) {
-        // If on the last page
-        startPage = this.totalPages - 2;
-        endPage = this.totalPages;
-      } else {
-        // For all other cases
-        startPage = this.currentPage - 1;
-        endPage = this.currentPage + 1;
-      }
-    }
-  
-    return Array.from({ length: (endPage + 1) - startPage }, (_, i) => startPage + i);
   }
 
   togglePanel(mealDate: Date): void {

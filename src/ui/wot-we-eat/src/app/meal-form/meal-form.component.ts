@@ -6,8 +6,9 @@ import { MealService } from '../services/meal.service'; // Update the path to yo
 import { GroupedMeatFish, MealOption, MeatFish } from '../models/meal-option.model'; // Update the path to your model
 import { Meal } from '../models/meal';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { suggestionStatus } from '../models/enums';
+import * as moment from 'moment';
 
 
 @Component({
@@ -18,8 +19,8 @@ import { suggestionStatus } from '../models/enums';
 export class MealFormComponent implements OnInit {
   mealForm = this.fb.nonNullable.group({
     id: '00000000-0000-0000-0000-000000000000',
-    mealOption: [null, Validators.required],
-    date: [new Date(), Validators.required],
+    mealOption: [<MealOption|null>null, Validators.required],
+    date: [<Date> moment(new Date()).toDate(), Validators.required],
     selectedMeatFishes: <MeatFish[] | null>null,
     suggestionStatus: 'Suggested'
   });
@@ -35,12 +36,20 @@ export class MealFormComponent implements OnInit {
     private fb: FormBuilder,
     private mealService: MealService,
     private location: Location,
-    private router: Router,
+    private route: ActivatedRoute
 
   ) { }
 
   ngOnInit(): void {
     this.isLoading = true;
+
+    this.route.queryParams.subscribe(params => {
+      const dateParam = params['date'];
+      console.log('Provided date: '+ dateParam);
+      if (dateParam) {
+        this.mealForm.patchValue({ date: new Date(dateParam) });
+      }
+    });
 
     this.mealService.getAllMealOptions(true) // Pass true to get only active meal options
       .subscribe({
@@ -60,10 +69,20 @@ export class MealFormComponent implements OnInit {
         this.onMealOptionChange(mealOptionId);
       });
     }
+
+    this.route.paramMap.subscribe(params => {
+      const mealId = params.get('id');
+      if (mealId) {
+        // Fetch the meal data for the given id
+        console.log('loading meal with id' + mealId);
+        this.loadMeal(mealId);
+      }
+    });
   }
 
 
   saveMeal(): void {
+    this.startSaving();
     if (this.mealForm.valid) {
       // Call service to save the meal
       const meal: Meal = this.mealForm.getRawValue();
@@ -134,6 +153,25 @@ export class MealFormComponent implements OnInit {
       this.groupedMeatFishes = [];
 
     }
+  }
+
+  loadMeal(mealId: string): void {
+    this.mealService.getMeal(mealId).subscribe({
+      next: (meal: Meal) => {
+        if (meal) {
+          console.log(meal);
+          meal.date = moment(meal.date).toDate();
+          // Populate the form with the fetched meal data
+          this.mealForm.setValue(meal);
+          // Handle any transformations or additional logic needed for the form
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching meal', error);
+        this.isLoading = false;
+      }
+    });
   }
 }
 
