@@ -41,7 +41,7 @@ import { MealOverviewComponent } from './meal-overview/meal-overview.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    environment.useInMemoryApi ? HttpClientInMemoryWebApiModule.forRoot(InMemoryMealApi, { delay: 1000 }) : [],
+    environment.useInMemoryApi ? HttpClientInMemoryWebApiModule.forRoot(InMemoryMealApi, { delay: 300 }) : [],
     MultiSelectModule,
     DropdownModule,
     CalendarModule,

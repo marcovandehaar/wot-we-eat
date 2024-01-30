@@ -5,7 +5,7 @@
 
 :host ::ng-deep .p-dropdown {
   min-width: 15rem;
-  width: 22rem;
+  width: 23rem;
 }
 
 :host ::ng-deep .p-calendar {
@@ -21,4 +21,32 @@
   .p-icon-wrapper{
     margin-top: -0.8rem;
   }
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.day-name {
+  font-size: 1.2em; /* Larger font size for day name */
+  color: #ff6600; /* Bright orange */
+  margin-right: 10px; /* Space between day name and date */
+}
+
+.day-month {
+  font-size: 2em; /* Even larger font size for day of month */
+  font-weight: bold;
+  color: #333; /* Darker color for contrast */
+  margin-right: 5px;
+}
+
+.month {
+  font-size: 1.5em;
+  color: #666; /* Medium color */
 }

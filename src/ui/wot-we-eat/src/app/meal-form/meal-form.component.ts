@@ -154,6 +154,21 @@ export class MealFormComponent implements OnInit {
 
     }
   }
+  
+  getDayName(): string {
+    const date = this.mealForm.get('date')?.value;
+    return moment(date).format('dddd'); // Day name, e.g., "Monday"
+  }
+  
+  getDayMonth(): string {
+    const date = this.mealForm.get('date')?.value;
+    return moment(date).format('D'); // Day of month, e.g., "25"
+  }
+  
+  getMonth(): string {
+    const date = this.mealForm.get('date')?.value;
+    return moment(date).format('MMMM'); // Month name, e.g., "February"
+  }
 
   loadMeal(mealId: string): void {
     this.mealService.getMeal(mealId).subscribe({

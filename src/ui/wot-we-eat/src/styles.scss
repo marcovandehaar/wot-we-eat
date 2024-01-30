@@ -119,6 +119,7 @@ body {
 }
 
 .icon-button {
+  position: relative;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -128,8 +129,28 @@ body {
       font-size: 24px; // Adjust size if necessary
   }
 
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    background-color: hsla(14, 100%, 94%, 0.766);
+    border-radius: 50%;
+    transition: opacity 0.3s, transform 0.2s;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: -1; /* Ensures the circle is behind the icon */
+}
+
+  &:hover::before {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+  }
+
   &:hover .material-symbols-outlined {
-      color: hsl(10, 95%, 53%); // Bright orange
+      color: hsl(10, 95%, 53%); /* Bright orange */
   }
 
   &:active {

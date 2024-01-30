@@ -8,7 +8,7 @@
     <h1 class="playful-title">Maaltijden</h1>
   </div>
   <div class="loading-bar" *ngIf="isLoading"></div>
-  <ul class="meal-date-list">
+  <ul class="meal-date-list" *ngIf="!isLoading">
     <li *ngFor="let dayData of dateBasedMeals">
       <div class="meal-tile" [ngClass]="{'past-day': dayData.date < today}" (click)="togglePanel(dayData.date)">
         <div class="meal-date">
