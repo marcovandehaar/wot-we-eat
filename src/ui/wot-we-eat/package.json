@@ -9,6 +9,7 @@
     "test": "ng test",
     "run": "ng serve -o",
     "build:prod": "ng build --configuration production",
+    "build:dev": "ng build --configuration development",
     "run:prod": "ng serve -o --configuration production"
   },
   "private": true,
